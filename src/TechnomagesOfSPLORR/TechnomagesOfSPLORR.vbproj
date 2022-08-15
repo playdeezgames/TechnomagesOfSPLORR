@@ -20,6 +20,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="boilerplate.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="boilerplate.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.44.0" />
   </ItemGroup>
 
