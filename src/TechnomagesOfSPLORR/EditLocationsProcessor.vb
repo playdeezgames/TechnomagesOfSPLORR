@@ -5,9 +5,8 @@
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "Locations:"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(NewLocationText)
-            For Each location In world.Locations
-                prompt.AddChoice(location.UniqueName)
-            Next
+            Dim table = world.Locations.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+            prompt.AddChoices(table.Keys.ToArray)
             Dim answer = AnsiConsole.Prompt(prompt)
             Select Case answer
                 Case GoBackText
@@ -15,6 +14,7 @@
                 Case NewLocationText
                     NewLocationProcessor.Run(world)
                 Case Else
+                    EditLocationProcessor.Run(table(answer))
             End Select
         End While
     End Sub
