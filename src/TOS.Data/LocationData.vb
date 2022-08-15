@@ -2,6 +2,11 @@
     Inherits BaseData
     Friend Const TableName = "Locations"
     Friend Const LocationIdColumn = "LocationId"
+
+    Public Function Create() As Long
+        Return Store.CreateRecord(AddressOf Initialize, TableName)
+    End Function
+
     Friend Sub Initialize()
         Store.ExecuteNonQuery(
             $"CREATE TABLE IF NOT EXISTS [{TableName}]

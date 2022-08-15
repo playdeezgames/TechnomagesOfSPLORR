@@ -5,8 +5,13 @@
         While Not done
             AnsiConsole.Clear()
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Edit Menu[/]"}
-            prompt.AddChoices(CommitChangesText, AbandonChangesText)
+            prompt.AddChoices(
+                EditLocationsText,
+                CommitChangesText,
+                AbandonChangesText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case EditLocationsText
+                    EditLocationsProcessor.Run(world)
                 Case CommitChangesText
                     world.Save(BoilerplateDb)
                     done = True

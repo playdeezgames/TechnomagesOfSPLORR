@@ -1,5 +1,10 @@
 Public Class World
     Private worldData As New WorldData(New SPLORR.Data.Store)
+
+    Public Sub AddLocation()
+        worldData.Location.Create()
+    End Sub
+
     Sub New(filename As String)
         worldData.Load(filename)
     End Sub
