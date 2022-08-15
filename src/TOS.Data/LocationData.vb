@@ -25,6 +25,18 @@
             (LocationIdColumn, locationId))
     End Function
 
+    Public Sub WriteName(locationId As Long, locationName As String)
+        Store.WriteColumnValue(
+            AddressOf Initialize,
+            TableName,
+            (LocationNameColumn, locationName),
+            (LocationIdColumn, locationId))
+    End Sub
+
+    Public Sub Clear(locationId As Long)
+        Store.ClearForColumnValue(AddressOf Initialize, TableName, (LocationIdColumn, locationId))
+    End Sub
+
     Public Sub New(store As Store)
         MyBase.New(store)
     End Sub

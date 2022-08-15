@@ -14,9 +14,16 @@
             Return $"{Name}({Id})"
         End Get
     End Property
-    Public ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.Location.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.Location.WriteName(Id, value)
+        End Set
     End Property
+
+    Public Sub Destroy()
+        WorldData.Location.Clear(Id)
+    End Sub
 End Class
