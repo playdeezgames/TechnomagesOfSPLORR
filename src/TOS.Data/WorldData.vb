@@ -14,4 +14,7 @@ Public Class WorldData
         Store.Save(filename)
     End Sub
 
+    Public Sub Reset()
+        Store.Reset()
+    End Sub
 End Class

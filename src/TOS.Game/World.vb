@@ -7,8 +7,8 @@ Public Class World
         MyBase.New(worldData)
     End Sub
 
-    Public Sub AddLocation()
-        worldData.Location.Create()
+    Public Sub AddLocation(name As String)
+        WorldData.Location.Create(name)
     End Sub
 
     Sub New(filename As String)
@@ -23,4 +23,8 @@ Public Class World
             Return worldData.Location.All.Select(Function(x) Location.FromId(worldData, x))
         End Get
     End Property
+
+    Public Sub Reset()
+        WorldData.Reset()
+    End Sub
 End Class

@@ -8,7 +8,8 @@
             prompt.AddChoices(
                 EditLocationsText,
                 CommitChangesText,
-                AbandonChangesText)
+                AbandonChangesText,
+                ResetText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case EditLocationsText
                     EditLocationsProcessor.Run(world)
@@ -17,6 +18,10 @@
                     done = True
                 Case AbandonChangesText
                     done = ConfirmProcessor.Run("Are you sure you want to abandon yer changes?")
+                Case ResetText
+                    If ConfirmProcessor.Run("Are you sure you want to nuke the world?") Then
+                        world.Reset()
+                    End If
             End Select
         End While
     End Sub

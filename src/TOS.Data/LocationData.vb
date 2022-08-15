@@ -2,18 +2,28 @@
     Inherits BaseData
     Friend Const TableName = "Locations"
     Friend Const LocationIdColumn = "LocationId"
+    Friend Const LocationNameColumn = "LocationName"
 
-    Public Function Create() As Long
-        Return Store.CreateRecord(AddressOf Initialize, TableName)
+    Public Function Create(name As String) As Long
+        Return Store.CreateRecord(AddressOf Initialize, TableName, (LocationNameColumn, name))
     End Function
 
     Friend Sub Initialize()
         Store.ExecuteNonQuery(
             $"CREATE TABLE IF NOT EXISTS [{TableName}]
             (
-                [{LocationIdColumn}] INTEGER PRIMARY KEY
+                [{LocationIdColumn}] INTEGER PRIMARY KEY,
+                [{LocationNameColumn}] TEXT NOT NULL
             );")
     End Sub
+
+    Public Function ReadName(locationId As Long) As String
+        Return Store.ReadColumnString(
+            AddressOf Initialize,
+            TableName,
+            LocationNameColumn,
+            (LocationIdColumn, locationId))
+    End Function
 
     Public Sub New(store As Store)
         MyBase.New(store)

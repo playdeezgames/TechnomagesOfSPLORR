@@ -1,6 +1,7 @@
 ﻿Module Utility
     Friend Const AbandonChangesText = "AbandonChanges"
     Friend Const CommitChangesText = "CommitChanges"
+    Friend Const ResetText = "Reset(Nuke World)"
     Friend Const EditText = "Edit..."
     Friend Const EditLocationsText = "Edit Locations..."
     Friend Const GoBackText = "Go Back"

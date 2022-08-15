@@ -11,7 +11,12 @@
 
     Public ReadOnly Property UniqueName As String
         Get
-            Return $"({Id})"
+            Return $"{Name}({Id})"
+        End Get
+    End Property
+    Public ReadOnly Property Name As String
+        Get
+            Return WorldData.Location.ReadName(Id)
         End Get
     End Property
 End Class
