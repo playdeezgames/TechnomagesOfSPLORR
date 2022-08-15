@@ -23,4 +23,8 @@
     <ProjectReference Include="..\TOS.Data\TOS.Data.vbproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Import Include="TOS.Data" />
+  </ItemGroup>
+
 </Project>

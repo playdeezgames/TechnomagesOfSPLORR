@@ -61,7 +61,7 @@ Public Class Store
             Return transform(command.ExecuteScalar)
         End Using
     End Function
-    Private Function ExecuteReader(Of TResult)(transform As Func(Of SqliteDataReader, TResult), query As String, ParamArray parameters() As SqliteParameter) As List(Of TResult)
+    Private Function ExecuteReader(Of TResult)(transform As Func(Of SqliteDataReader, TResult), query As String, ParamArray parameters() As SqliteParameter) As IEnumerable(Of TResult)
         Using command = CreateCommand(query, parameters)
             Using reader = command.ExecuteReader
                 Dim result As New List(Of TResult)
@@ -133,20 +133,20 @@ Public Class Store
             MakeParameter($"@{whereColumn.Item1}", whereColumn.Item2),
             MakeParameter($"@{setColumn.Item1}", setColumn.Item2))
     End Sub
-    Public Function ReadRecords(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As List(Of TOutputColumn)
+    Public Function ReadRecords(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
             $"SELECT [{outputColumnName}] FROM [{tableName}];")
     End Function
-    Public Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As List(Of TOutputColumn)
+    Public Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
             MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
     End Function
-    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As List(Of TOutputColumn)
+    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
@@ -166,7 +166,7 @@ Public Class Store
                     initializer As Action,
                     tableName As String,
                     outputColumnNames As (String, String),
-                    forColumnValue As (String, TInputColumn)) As List(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
+                    forColumnValue As (String, TInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
         initializer()
         Return ExecuteReader(
             Function(reader) New Tuple(Of TFirstOutputColumn, TSecondOutputColumn)(CType(reader(outputColumnNames.Item1), TFirstOutputColumn), CType(reader(outputColumnNames.Item2), TSecondOutputColumn)),
