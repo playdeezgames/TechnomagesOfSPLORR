@@ -16,9 +16,19 @@
             Return WorldData.Character.ReadName(Id)
         End Get
     End Property
+    ReadOnly Property FullName As String
+        Get
+            Return $"{Name} the {CharacterType.Name}"
+        End Get
+    End Property
     ReadOnly Property CharacterType As CharacterType
         Get
             Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)
+        End Get
+    End Property
+    ReadOnly Property Location As Location
+        Get
+            Return Location.FromId(WorldData, WorldData.Character.ReadLocation(Id).Value)
         End Get
     End Property
 End Class

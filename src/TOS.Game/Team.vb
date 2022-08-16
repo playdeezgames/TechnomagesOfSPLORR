@@ -8,6 +8,16 @@
             Return WorldData.Team.ReadCharacterIds().Select(Function(x) Character.FromId(WorldData, x))
         End Get
     End Property
+    ReadOnly Property Leader As Character
+        Get
+            Return Characters.First
+        End Get
+    End Property
+    ReadOnly Property CharacterNames As String
+        Get
+            Return String.Join(", ", Characters.Select(Function(x) x.FullName))
+        End Get
+    End Property
 
     Public Sub Disband()
         For Each character In Characters
