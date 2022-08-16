@@ -99,6 +99,13 @@ Public Class Store
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{inputColumnValue.Item1}]=@{inputColumnValue.Item1};",
             MakeParameter($"@{inputColumnValue.Item1}", inputColumnValue.Item2))
     End Function
+    Public Function ReadColumnValue(Of TInputColumn, TOutputColumn As Structure)(tableName As String, outputColumnName As String, inputColumnValue As (String, TInputColumn)) As TOutputColumn?
+        Return ReadColumnValue(Of TInputColumn, TOutputColumn)(
+            AddressOf NoInitializer,
+            tableName,
+            outputColumnName,
+            inputColumnValue)
+    End Function
     Public Function ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As TOutputColumn?
         initializer()
         Return ExecuteScalar(Of TOutputColumn)(
@@ -121,6 +128,9 @@ Public Class Store
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{inputColumnValue.Item1}]=@{inputColumnValue.Item1};",
             MakeParameter($"@{inputColumnValue.Item1}", inputColumnValue.Item2))
     End Function
+    Public Function ReadColumnString(tableName As String, outputColumnName As String, inputColumnValue As (String, Long)) As String
+        Return ReadColumnString(AddressOf NoInitializer, tableName, outputColumnName, inputColumnValue)
+    End Function
     Public Sub WriteColumnValue(Of TWhereColumn, TSetColumn)(initializer As Action, tableName As String, setColumn As (String, TSetColumn), whereColumn As (String, TWhereColumn))
         initializer()
         ExecuteNonQuery(
@@ -133,11 +143,27 @@ Public Class Store
             MakeParameter($"@{whereColumn.Item1}", whereColumn.Item2),
             MakeParameter($"@{setColumn.Item1}", setColumn.Item2))
     End Sub
+    Public Sub WriteColumnValue(Of TWhereColumn, TSetColumn)(tableName As String, setColumn As (String, TSetColumn), whereColumn As (String, TWhereColumn))
+        WriteColumnValue(
+            AddressOf NoInitializer,
+            tableName,
+            setColumn,
+            whereColumn)
+    End Sub
     Public Function ReadRecords(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
             $"SELECT [{outputColumnName}] FROM [{tableName}];")
+    End Function
+    Private Sub NoInitializer()
+
+    End Sub
+    Public Function ReadRecords(Of TOutputColumn)(tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
+        Return ReadRecords(Of TOutputColumn)(
+            AddressOf NoInitializer,
+            tableName,
+            outputColumnName)
     End Function
     Public Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
@@ -176,6 +202,9 @@ Public Class Store
     Public Sub ClearForColumnValue(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
         initializer()
         ExecuteNonQuery($"DELETE FROM [{tableName}] WHERE [{columnValue.Item1}]=@{columnValue.Item1};", MakeParameter($"@{columnValue.Item1}", columnValue.Item2))
+    End Sub
+    Public Sub ClearForColumnValue(Of TColumn)(tableName As String, columnValue As (String, TColumn))
+        ClearForColumnValue(Of TColumn)(AddressOf NoInitializer, tableName, columnValue)
     End Sub
     Public Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn)(
                                                                    initializer As Action,

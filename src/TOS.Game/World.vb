@@ -1,30 +1,23 @@
 Public Class World
-    Inherits BaseThingie
-    Sub New()
-        MyBase.New(New WorldData(New SPLORR.Data.Store), 1)
-    End Sub
+    Private ReadOnly WorldData As WorldData
     Sub New(worldData As WorldData)
-        MyBase.New(worldData, 1)
+        Me.WorldData = worldData
     End Sub
 
-    Public Sub AddLocation(name As String)
-        WorldData.Location.Create(name)
-    End Sub
+    Public Function CanContinue() As Boolean
+        Return Team.Characters.Any
+    End Function
 
     Sub New(filename As String)
-        Me.New
+        WorldData = New WorldData(New SPLORR.Data.Store)
         WorldData.Load(filename)
     End Sub
     Sub Save(filename As String)
         worldData.Save(filename)
     End Sub
-    ReadOnly Property Locations As IEnumerable(Of Location)
+    ReadOnly Property Team As Team
         Get
-            Return worldData.Location.All.Select(Function(x) Location.FromId(worldData, x))
+            Return New Team(WorldData)
         End Get
     End Property
-
-    Public Sub Reset()
-        WorldData.Reset()
-    End Sub
 End Class

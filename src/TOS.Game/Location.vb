@@ -14,10 +14,6 @@
             WorldData.Location.WriteName(Id, value)
         End Set
     End Property
-
-    Public Sub Destroy()
-        WorldData.Location.Clear(Id)
-    End Sub
     Public Property LocationType As LocationType
         Get
             Return LocationType.FromId(WorldData, WorldData.Location.ReadLocationType(Id).Value)
