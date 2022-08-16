@@ -19,6 +19,9 @@
 
     Private Sub DescribeWorld(world As World)
         AnsiConsole.Clear()
-        AnsiConsole.MarkupLine("Yer alive!")
+        AnsiConsole.MarkupLine("Party:")
+        For Each character In world.Team.Characters
+            AnsiConsole.MarkupLine($"{character.Name}: {character.CharacterType.Name}")
+        Next
     End Sub
 End Module

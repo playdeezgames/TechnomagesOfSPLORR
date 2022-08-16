@@ -7,4 +7,9 @@
     Public Shared Function FromId(worldData As WorldData, characterTypeId As Long) As CharacterType
         Return New CharacterType(worldData, characterTypeId)
     End Function
+    ReadOnly Property Name As String
+        Get
+            Return WorldData.CharacterType.ReadName(Id)
+        End Get
+    End Property
 End Class
