@@ -1,19 +1,11 @@
 ﻿Public Class Location
     Inherits BaseThingie
-    ReadOnly Property Id As Long
     Sub New(worldData As WorldData, locationId As Long)
-        MyBase.New(worldData)
-        Id = locationId
+        MyBase.New(worldData, locationId)
     End Sub
     Shared Function FromId(data As WorldData, locationId As Long) As Location
         Return New Location(data, locationId)
     End Function
-
-    Public ReadOnly Property UniqueName As String
-        Get
-            Return $"{Name}({Id})"
-        End Get
-    End Property
     Public Property Name As String
         Get
             Return WorldData.Location.ReadName(Id)
@@ -26,4 +18,12 @@
     Public Sub Destroy()
         WorldData.Location.Clear(Id)
     End Sub
+    Public Property LocationType As LocationType
+        Get
+            Return LocationType.FromId(WorldData, WorldData.Location.ReadLocationType(Id).Value)
+        End Get
+        Set(value As LocationType)
+            WorldData.Location.WriteLocationType(Id, value.Id)
+        End Set
+    End Property
 End Class

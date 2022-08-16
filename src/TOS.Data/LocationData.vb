@@ -3,18 +3,13 @@
     Friend Const TableName = "Locations"
     Friend Const LocationIdColumn = "LocationId"
     Friend Const LocationNameColumn = "LocationName"
+    Friend Const LocationTypeIdColumn = LocationTypeData.LocationTypeIdColumn
 
     Public Function Create(name As String) As Long
         Return Store.CreateRecord(AddressOf Initialize, TableName, (LocationNameColumn, name))
     End Function
 
     Friend Sub Initialize()
-        Store.ExecuteNonQuery(
-            $"CREATE TABLE IF NOT EXISTS [{TableName}]
-            (
-                [{LocationIdColumn}] INTEGER PRIMARY KEY,
-                [{LocationNameColumn}] TEXT NOT NULL
-            );")
     End Sub
 
     Public Function ReadName(locationId As Long) As String
@@ -25,11 +20,27 @@
             (LocationIdColumn, locationId))
     End Function
 
+    Public Function ReadLocationType(locationId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(
+            AddressOf Initialize,
+            TableName,
+            LocationTypeIdColumn,
+            (LocationIdColumn, locationId))
+    End Function
+
     Public Sub WriteName(locationId As Long, locationName As String)
         Store.WriteColumnValue(
             AddressOf Initialize,
             TableName,
             (LocationNameColumn, locationName),
+            (LocationIdColumn, locationId))
+    End Sub
+
+    Public Sub WriteLocationType(locationId As Long, locationTypeId As Long)
+        Store.WriteColumnValue(
+            AddressOf Initialize,
+            TableName,
+            (LocationTypeIdColumn, locationTypeId),
             (LocationIdColumn, locationId))
     End Sub
 

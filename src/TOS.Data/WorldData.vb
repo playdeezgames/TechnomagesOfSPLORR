@@ -1,10 +1,12 @@
 Public Class WorldData
     Inherits BaseData
     Public ReadOnly Location As LocationData
+    Public ReadOnly LocationType As LocationTypeData
 
     Public Sub New(store As Store)
         MyBase.New(store)
         Location = New LocationData(store)
+        LocationType = New LocationTypeData(store)
     End Sub
 
     Sub Load(filename As String)

@@ -7,3 +7,4 @@ A Game in VB.NET About Being an RPG Maniac
 YYY Technomages of SPLORR!! #RPGManiaJam  #Niche4LIFE
 
 * 001 20220815
+* 002 20220816

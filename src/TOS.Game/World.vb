@@ -1,10 +1,10 @@
 Public Class World
     Inherits BaseThingie
     Sub New()
-        MyBase.New(New WorldData(New SPLORR.Data.Store))
+        MyBase.New(New WorldData(New SPLORR.Data.Store), 1)
     End Sub
     Sub New(worldData As WorldData)
-        MyBase.New(worldData)
+        MyBase.New(worldData, 1)
     End Sub
 
     Public Sub AddLocation(name As String)
