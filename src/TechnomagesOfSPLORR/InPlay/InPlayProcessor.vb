@@ -1,4 +1,4 @@
-﻿Module EmbarkProcessor
+﻿Module InPlayProcessor
     Friend Sub Run(world As World)
         While world.CanContinue
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
