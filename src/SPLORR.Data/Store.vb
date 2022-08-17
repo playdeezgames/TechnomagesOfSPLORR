@@ -477,4 +477,9 @@ Public Class Store
                 [{inputColumnValue.Item1}]=@{inputColumnValue.Item1};",
             MakeParameter($"@{inputColumnValue.Item1}", inputColumnValue.Item2)).Value
     End Function
+    Public Function ReadCountForColumnValue(Of TInputColumn)(
+                                                            tableName As String,
+                                                            inputColumnValue As (String, TInputColumn)) As Long
+        Return ReadCountForColumnValue(AddressOf NoInitializer, tableName, inputColumnValue)
+    End Function
 End Class

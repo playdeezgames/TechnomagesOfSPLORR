@@ -1,13 +1,13 @@
 ﻿Module EmbarkProcessor
     Friend Sub Run(world As World)
         While world.CanContinue
-            DescribeWorld(world)
-            HandleCommand(world)
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
+            DescribeWorld(world, prompt)
+            HandleCommand(world, prompt)
         End While
     End Sub
 
-    Private Sub HandleCommand(world As World)
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
+    Private Sub HandleCommand(world As World, prompt As SelectionPrompt(Of String))
         prompt.AddChoice(AbandonGameText)
         Select Case AnsiConsole.Prompt(prompt)
             Case AbandonGameText
@@ -17,11 +17,14 @@
         End Select
     End Sub
 
-    Private Sub DescribeWorld(world As World)
+    Private Sub DescribeWorld(world As World, prompt As SelectionPrompt(Of String))
         AnsiConsole.Clear()
         AnsiConsole.MarkupLine($"Party: {world.Team.CharacterNames}")
         Dim location = world.Team.Leader.Location
         AnsiConsole.MarkupLine($"Location: {location.Name}")
-        AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
+        If location.HasRoutes Then
+            prompt.AddChoice(MoveText)
+            AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
+        End If
     End Sub
 End Module

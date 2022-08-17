@@ -32,4 +32,8 @@
             WorldData.Location.WriteLocationType(Id, value.Id)
         End Set
     End Property
+
+    Public Function HasRoutes() As Boolean
+        Return WorldData.Route.ReadCountForLocation(Id) > 0
+    End Function
 End Class

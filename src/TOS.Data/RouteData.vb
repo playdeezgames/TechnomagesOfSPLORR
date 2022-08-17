@@ -22,4 +22,8 @@
             RouteIdColumn,
             (FromLocationIdColumn, fromLocationId))
     End Function
+
+    Public Function ReadCountForLocation(fromLocationId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (FromLocationIdColumn, fromLocationId))
+    End Function
 End Class
