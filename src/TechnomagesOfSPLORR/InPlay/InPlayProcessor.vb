@@ -30,7 +30,7 @@
         End If
         If location.HasItems Then
             prompt.AddChoice(TakeText)
-            AnsiConsole.MarkupLine($"Items: {location.ItemNames}")
+            AnsiConsole.MarkupLine($"Items: {location.ItemStackNames}")
         End If
     End Sub
 End Module

@@ -206,6 +206,22 @@ Public Class Store
             $"SELECT [{outputColumnNames.Item1}],[{outputColumnNames.Item2}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
             MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
     End Function
+    Public Function ReadRecordsWithColumnValue(
+            Of TInputColumn,
+                TFirstOutputColumn,
+                TSecondOutputColumn)(
+                    tableName As String,
+                    outputColumnNames As (String, String),
+                    forColumnValue As (String, TInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
+        Return ReadRecordsWithColumnValue(
+            Of TInputColumn,
+                TFirstOutputColumn,
+                TSecondOutputColumn)(
+                AddressOf NoInitializer,
+                tableName,
+                outputColumnNames,
+                forColumnValue)
+    End Function
     Public Sub ClearForColumnValue(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
         initializer()
         ExecuteNonQuery($"DELETE FROM [{tableName}] WHERE [{columnValue.Item1}]=@{columnValue.Item1};", MakeParameter($"@{columnValue.Item1}", columnValue.Item2))

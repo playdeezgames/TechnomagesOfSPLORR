@@ -24,6 +24,16 @@
             Return String.Join(", ", Routes.Select(Function(x) x.Name))
         End Get
     End Property
+    Public ReadOnly Property ItemStackNames As String
+        Get
+            Return String.Join(", ", ItemStacks.Select(Function(x) $"{x.Item1.Name}(x{x.Item2.Count})"))
+        End Get
+    End Property
+    Public ReadOnly Property ItemStacks As IEnumerable(Of (ItemType, IEnumerable(Of Item)))
+        Get
+            Return Inventory.ItemStacks
+        End Get
+    End Property
     Public ReadOnly Property ItemNames As String
         Get
             Return String.Join(", ", Items.Select(Function(x) x.Name))
