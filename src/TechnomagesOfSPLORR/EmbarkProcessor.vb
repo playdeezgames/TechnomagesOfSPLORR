@@ -22,5 +22,6 @@
         AnsiConsole.MarkupLine($"Party: {world.Team.CharacterNames}")
         Dim location = world.Team.Leader.Location
         AnsiConsole.MarkupLine($"Location: {location.Name}")
+        AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
     End Sub
 End Module

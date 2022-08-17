@@ -4,6 +4,7 @@ Public Class WorldData
     Public ReadOnly CharacterType As CharacterTypeData
     Public ReadOnly Location As LocationData
     Public ReadOnly LocationType As LocationTypeData
+    Public ReadOnly Route As RouteData
     Public ReadOnly Team As TeamData
 
     Public Sub New(store As Store)
@@ -12,6 +13,7 @@ Public Class WorldData
         CharacterType = New CharacterTypeData(store)
         Location = New LocationData(store)
         LocationType = New LocationTypeData(store)
+        Route = New RouteData(store)
         Team = New TeamData(store)
     End Sub
 

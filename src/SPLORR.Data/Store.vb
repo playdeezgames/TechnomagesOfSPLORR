@@ -172,6 +172,13 @@ Public Class Store
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
             MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
     End Function
+    Public Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As IEnumerable(Of TOutputColumn)
+        Return ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(
+            AddressOf NoInitializer,
+            tableName,
+            outputColumnName,
+            forColumnValue)
+    End Function
     Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(

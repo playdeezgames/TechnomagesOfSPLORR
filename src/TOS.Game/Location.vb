@@ -14,6 +14,16 @@
             WorldData.Location.WriteName(Id, value)
         End Set
     End Property
+    Public ReadOnly Property Routes As IEnumerable(Of Route)
+        Get
+            Return WorldData.Route.ReadForLocationId(Id).Select(Function(x) Route.FromId(WorldData, x))
+        End Get
+    End Property
+    Public ReadOnly Property RouteNames As String
+        Get
+            Return String.Join(", ", Routes.Select(Function(x) x.Name))
+        End Get
+    End Property
     Public Property LocationType As LocationType
         Get
             Return LocationType.FromId(WorldData, WorldData.Location.ReadLocationType(Id).Value)
