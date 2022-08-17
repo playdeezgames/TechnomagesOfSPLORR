@@ -28,5 +28,9 @@
             prompt.AddChoice(MoveText)
             AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
         End If
+        If location.HasItems Then
+            prompt.AddChoice(TakeText)
+            AnsiConsole.MarkupLine($"Items: {location.ItemNames}")
+        End If
     End Sub
 End Module

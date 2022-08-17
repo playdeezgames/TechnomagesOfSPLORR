@@ -1,0 +1,29 @@
+﻿Public Class InventoryData
+    Inherits BaseData
+    Friend Const TableName = "Inventories"
+    Friend Const InventoryIdColumn = "InventoryId"
+    Friend Const LocationIdColumn = "LocationId"
+
+    Public Sub New(store As Store)
+        MyBase.New(store)
+    End Sub
+
+    Public Function ReadCountForLocation(locationId As Long) As Long
+        Return Store.ReadCountForColumnValue(
+            TableName,
+            (LocationIdColumn, locationId))
+    End Function
+
+    Public Function ReadForLocation(locationId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(
+            TableName,
+            InventoryIdColumn,
+            (LocationIdColumn, locationId))
+    End Function
+
+    Public Function CreateForLocation(locationId As Long) As Long
+        Return Store.CreateRecord(Sub()
+
+                                  End Sub, TableName, (LocationIdColumn, locationId))
+    End Function
+End Class

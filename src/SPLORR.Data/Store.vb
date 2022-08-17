@@ -429,6 +429,12 @@ Public Class Store
             MakeParameter($"@{columnValue.Item1}", columnValue.Item2))
         Return LastInsertRowId
     End Function
+    Public Function CreateRecord(Of TColumn)(tableName As String, columnValue As (String, TColumn)) As Long
+        Return CreateRecord(
+            AddressOf NoInitializer,
+            tableName,
+            columnValue)
+    End Function
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn)) As Long
         initializer()
         ExecuteNonQuery(
