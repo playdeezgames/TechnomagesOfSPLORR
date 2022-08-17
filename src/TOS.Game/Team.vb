@@ -19,6 +19,12 @@
         End Get
     End Property
 
+    Public Sub Move(route As Route)
+        For Each character In Characters
+            character.Location = route.ToLocation
+        Next
+    End Sub
+
     Public Sub Disband()
         For Each character In Characters
             character.LeaveTeam()

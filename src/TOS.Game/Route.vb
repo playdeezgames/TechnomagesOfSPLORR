@@ -13,4 +13,7 @@
         End Get
     End Property
 
+    Friend Function ToLocation() As Location
+        Return Location.FromId(WorldData, WorldData.Route.ReadToLocationId(Id).Value)
+    End Function
 End Class

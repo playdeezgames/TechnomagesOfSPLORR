@@ -24,4 +24,11 @@
     Public Function ReadLocation(characterId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(TableName, LocationIdColumn, (CharacterIdColumn, characterId))
     End Function
+
+    Public Sub WriteLocation(characterId As Long, locationId As Long)
+        Store.WriteColumnValue(
+            TableName,
+            (LocationIdColumn, locationId),
+            (CharacterIdColumn, characterId))
+    End Sub
 End Class

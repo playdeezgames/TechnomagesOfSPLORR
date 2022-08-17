@@ -10,6 +10,8 @@
     Private Sub HandleCommand(world As World, prompt As SelectionPrompt(Of String))
         prompt.AddChoice(AbandonGameText)
         Select Case AnsiConsole.Prompt(prompt)
+            Case MoveText
+                MoveProcessor.Run(world)
             Case AbandonGameText
                 If ConfirmProcessor.Run("Are you sure you want to abandon the game?") Then
                     world.Team.Disband()

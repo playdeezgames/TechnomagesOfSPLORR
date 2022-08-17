@@ -26,9 +26,12 @@
             Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)
         End Get
     End Property
-    ReadOnly Property Location As Location
+    Property Location As Location
         Get
             Return Location.FromId(WorldData, WorldData.Character.ReadLocation(Id).Value)
         End Get
+        Set(value As Location)
+            WorldData.Character.WriteLocation(Id, value.Id)
+        End Set
     End Property
 End Class
