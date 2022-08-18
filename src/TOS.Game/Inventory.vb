@@ -19,7 +19,7 @@
     End Property
     Public ReadOnly Property ItemStacks As IEnumerable(Of (ItemType, IEnumerable(Of Item)))
         Get
-            Return WorldData.InventoryItem.ReadItemStacks(Id).Select(Function(x) (ItemType.FromId(WorldData, x.Item1), x.Item2.Select(Function(y) Item.FromId(WorldData, y))))
+            Return WorldData.InventoryItemType.ReadItemStacks(Id).Select(Function(x) (ItemType.FromId(WorldData, x.Item1), x.Item2.Select(Function(y) Item.FromId(WorldData, y))))
         End Get
     End Property
     Public Sub Add(item As Item)

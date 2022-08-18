@@ -4,6 +4,7 @@ Public Class WorldData
     Public ReadOnly CharacterType As CharacterTypeData
     Public ReadOnly Inventory As InventoryData
     Public ReadOnly InventoryItem As InventoryItemData
+    Public ReadOnly InventoryItemType As InventoryItemTypeData
     Public ReadOnly Item As ItemData
     Public ReadOnly ItemType As ItemTypeData
     Public ReadOnly Location As LocationData
@@ -17,6 +18,7 @@ Public Class WorldData
         CharacterType = New CharacterTypeData(store)
         Inventory = New InventoryData(store)
         InventoryItem = New InventoryItemData(store)
+        InventoryItemType = New InventoryItemTypeData(store)
         Item = New ItemData(store)
         ItemType = New ItemTypeData(store)
         Location = New LocationData(store)
