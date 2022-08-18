@@ -10,6 +10,8 @@
     Private Sub HandleCommand(world As World, prompt As SelectionPrompt(Of String))
         prompt.AddChoice(AbandonGameText)
         Select Case AnsiConsole.Prompt(prompt)
+            Case InventoryText
+                InventoryProcessor.Run(world)
             Case TakeText
                 TakeProcessor.Run(world)
             Case MoveText
