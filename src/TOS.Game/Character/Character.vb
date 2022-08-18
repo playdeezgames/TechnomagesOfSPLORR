@@ -41,8 +41,14 @@
     End Property
 
     Public Function CanGive() As Boolean
-        Return If(Team?.CharacterCount, 0) > 0
+        Return If(Team?.CharacterCount, 0) > 1
     End Function
+
+    Public ReadOnly Property Teammates As IEnumerable(Of Character)
+        Get
+            Return If(Team?.Characters, Array.Empty(Of Character)).Where(Function(x) x.Id <> Id)
+        End Get
+    End Property
 
     Public Function HasInventory() As Boolean
         Return WorldData.Inventory.ReadCountForCharacter(Id) > 0
