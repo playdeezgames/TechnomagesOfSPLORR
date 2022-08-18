@@ -19,6 +19,9 @@
                 End If
                 Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]What do you want to do?[/]"}
                 prompt.AddChoice(NeverMindText)
+                If character.CanGive Then
+                    prompt.AddChoice(GiveText)
+                End If
                 prompt.AddChoice(DropText)
                 Select Case AnsiConsole.Prompt(prompt)
                     Case NeverMindText

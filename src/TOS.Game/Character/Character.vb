@@ -34,6 +34,16 @@
             WorldData.Character.WriteLocation(Id, value.Id)
         End Set
     End Property
+    ReadOnly Property Team As Team
+        Get
+            Return If(WorldData.Team.Exists(Id), New Team(WorldData), Nothing)
+        End Get
+    End Property
+
+    Public Function CanGive() As Boolean
+        Return If(Team?.CharacterCount, 0) > 0
+    End Function
+
     Public Function HasInventory() As Boolean
         Return WorldData.Inventory.ReadCountForCharacter(Id) > 0
     End Function

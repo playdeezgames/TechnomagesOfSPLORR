@@ -8,6 +8,11 @@
             Return WorldData.Team.ReadCharacterIds().Select(Function(x) Character.FromId(WorldData, x))
         End Get
     End Property
+    ReadOnly Property CharacterCount As Long
+        Get
+            Return WorldData.Team.ReadCount()
+        End Get
+    End Property
     ReadOnly Property Leader As Character
         Get
             Return Characters.First
