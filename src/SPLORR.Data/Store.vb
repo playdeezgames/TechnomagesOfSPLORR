@@ -507,4 +507,14 @@ Public Class Store
                                                             inputColumnValue As (String, TInputColumn)) As Long
         Return ReadCountForColumnValue(AddressOf NoInitializer, tableName, inputColumnValue)
     End Function
+    Public Function ReadCount(initializer As Action, tableName As String) As Long
+        initializer()
+        Return ExecuteScalar(Of Long)(
+            $"SELECT 
+                COUNT(1) 
+            FROM [{tableName}];").Value
+    End Function
+    Public Function ReadCount(tableName As String) As Long
+        Return ReadCount(AddressOf NoInitializer, tableName)
+    End Function
 End Class
