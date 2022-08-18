@@ -28,4 +28,11 @@
             GroupBy(Function(x) x.Item1).
             Select(Function(x) (x.Key, x.Select(Function(y) y.Item2)))
     End Function
+
+    Public Sub Write(itemId As Long, inventoryId As Long)
+        Store.ReplaceRecord(
+            TableName,
+            (ItemIdColumn, itemId),
+            (InventoryIdColumn, inventoryId))
+    End Sub
 End Class

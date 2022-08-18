@@ -34,4 +34,18 @@
             WorldData.Character.WriteLocation(Id, value.Id)
         End Set
     End Property
+    Public Function HasInventory() As Boolean
+        Return WorldData.Inventory.ReadCountForCharacter(Id) > 0
+    End Function
+
+    Public ReadOnly Property Inventory As Inventory
+        Get
+            Dim inventoryId = WorldData.Inventory.ReadForCharacter(Id)
+            If inventoryId.HasValue Then
+                Return Inventory.FromId(WorldData, inventoryId.Value)
+            End If
+            inventoryId = WorldData.Inventory.CreateForCharacter(Id)
+            Return Inventory.FromId(WorldData, inventoryId.Value)
+        End Get
+    End Property
 End Class

@@ -2,7 +2,8 @@
     Inherits BaseData
     Friend Const TableName = "Inventories"
     Friend Const InventoryIdColumn = "InventoryId"
-    Friend Const LocationIdColumn = "LocationId"
+    Friend Const LocationIdColumn = LocationData.LocationIdColumn
+    Friend Const CharacterIdColumn = CharacterData.CharacterIdColumn
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -22,8 +23,23 @@
     End Function
 
     Public Function CreateForLocation(locationId As Long) As Long
-        Return Store.CreateRecord(Sub()
+        Return Store.CreateRecord(TableName, (LocationIdColumn, locationId))
+    End Function
 
-                                  End Sub, TableName, (LocationIdColumn, locationId))
+    Public Function CreateForCharacter(characterId As Long) As Long
+        Return Store.CreateRecord(TableName, (CharacterIdColumn, characterId))
+    End Function
+
+    Public Function ReadCountForCharacter(characterId As Long) As Long
+        Return Store.ReadCountForColumnValue(
+            TableName,
+            (CharacterIdColumn, characterId))
+    End Function
+
+    Public Function ReadForCharacter(characterId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(
+            TableName,
+            InventoryIdColumn,
+            (CharacterIdColumn, characterId))
     End Function
 End Class

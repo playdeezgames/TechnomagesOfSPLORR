@@ -10,6 +10,8 @@
     Private Sub HandleCommand(world As World, prompt As SelectionPrompt(Of String))
         prompt.AddChoice(AbandonGameText)
         Select Case AnsiConsole.Prompt(prompt)
+            Case TakeText
+                TakeProcessor.Run(world)
             Case MoveText
                 MoveProcessor.Run(world)
             Case AbandonGameText
@@ -22,7 +24,7 @@
     Private Sub DescribeWorld(world As World, prompt As SelectionPrompt(Of String))
         AnsiConsole.Clear()
         AnsiConsole.MarkupLine($"Party: {world.Team.CharacterNames}")
-        Dim location = world.Team.Leader.Location
+        Dim location = world.Team.Location
         AnsiConsole.MarkupLine($"Location: {location.Name}")
         If location.HasRoutes Then
             prompt.AddChoice(MoveText)

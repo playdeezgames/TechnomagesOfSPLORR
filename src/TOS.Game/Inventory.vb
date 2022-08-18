@@ -22,4 +22,13 @@
             Return WorldData.InventoryItem.ReadItemStacks(Id).Select(Function(x) (ItemType.FromId(WorldData, x.Item1), x.Item2.Select(Function(y) Item.FromId(WorldData, y))))
         End Get
     End Property
+    Public Sub Add(item As Item)
+        WorldData.InventoryItem.Write(item.Id, Id)
+    End Sub
+
+    Public Sub Add(items As IEnumerable(Of Item))
+        For Each item In items
+            Add(item)
+        Next
+    End Sub
 End Class

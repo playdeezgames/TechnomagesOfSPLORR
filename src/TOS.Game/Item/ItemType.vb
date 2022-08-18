@@ -8,7 +8,7 @@
         Return New ItemType(worldData, id)
     End Function
 
-    Friend Function Name() As String
+    Public Function Name() As String
         Return WorldData.ItemType.ReadName(Id)
     End Function
 End Class

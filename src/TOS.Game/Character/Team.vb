@@ -13,6 +13,11 @@
             Return Characters.First
         End Get
     End Property
+    ReadOnly Property Location As Location
+        Get
+            Return Leader.Location
+        End Get
+    End Property
     ReadOnly Property CharacterNames As String
         Get
             Return String.Join(", ", Characters.Select(Function(x) x.FullName))
