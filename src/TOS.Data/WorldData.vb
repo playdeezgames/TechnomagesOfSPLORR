@@ -8,6 +8,7 @@ Public Class WorldData
     Public ReadOnly Item As ItemData
     Public ReadOnly ItemType As ItemTypeData
     Public ReadOnly Location As LocationData
+    Public ReadOnly LocationCharacter As LocationCharacterData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly Route As RouteData
     Public ReadOnly Team As TeamData
@@ -23,6 +24,7 @@ Public Class WorldData
         Item = New ItemData(store)
         ItemType = New ItemTypeData(store)
         Location = New LocationData(store)
+        LocationCharacter = New LocationCharacterData(store)
         LocationType = New LocationTypeData(store)
         Route = New RouteData(store)
         Team = New TeamData(store)

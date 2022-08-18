@@ -39,6 +39,19 @@
             Return String.Join(", ", Items.Select(Function(x) x.Name))
         End Get
     End Property
+
+    Public Function HasOtherCharacters() As Boolean
+        Return WorldData.LocationCharacter.ReadCharacterCount(Id, False) > 0
+    End Function
+
+    Public Function OtherCharacters() As IEnumerable(Of Character)
+        Return WorldData.LocationCharacter.ReadCharacters(Id, False).Select(Function(x) Character.FromId(WorldData, x))
+    End Function
+
+    Public Function OtherCharacterNames() As String
+        Return String.Join(", ", OtherCharacters.Select(Function(x) x.FullName))
+    End Function
+
     Public ReadOnly Property Items As IEnumerable(Of Item)
         Get
             Return If(HasItems(), Inventory.Items, Array.Empty(Of Item))

@@ -113,6 +113,9 @@ Public Class Store
             MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2))
     End Function
+    Public Function ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn As Structure)(tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As TOutputColumn?
+        Return ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(AddressOf NoInitializer, tableName, outputColumnName, firstColumnValue, secondColumnValue)
+    End Function
     Public Function ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TThirdInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn), thirdColumnValue As (String, TThirdInputColumn)) As TOutputColumn?
         initializer()
         Return ExecuteScalar(Of TOutputColumn)(
@@ -178,6 +181,9 @@ Public Class Store
             tableName,
             outputColumnName,
             forColumnValue)
+    End Function
+    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
+        Return ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(AddressOf NoInitializer, tableName, outputColumnName, firstColumnValue, secondColumnValue)
     End Function
     Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
@@ -516,5 +522,20 @@ Public Class Store
     End Function
     Public Function ReadCount(tableName As String) As Long
         Return ReadCount(AddressOf NoInitializer, tableName)
+    End Function
+    Public Function ReadCountForColumnValues(Of TFirstInputColumn, TSecondInputColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As Long
+        initializer()
+        Return ExecuteScalar(Of Long)(
+            $"SELECT 
+                COUNT(1) 
+            FROM [{tableName}] 
+            WHERE 
+                [{firstColumnValue.Item1}]=@{firstColumnValue.Item1} 
+                AND [{secondColumnValue.Item1}]=@{secondColumnValue.Item1};",
+            MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
+            MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2)).Value
+    End Function
+    Public Function ReadCountForColumnValues(Of TFirstInputColumn, TSecondInputColumn)(tableName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As Long
+        Return ReadCountForColumnValues(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Function
 End Class
