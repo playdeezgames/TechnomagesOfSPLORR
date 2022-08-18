@@ -1,7 +1,6 @@
 ﻿Public Class TeamItemData
     Inherits BaseData
     Friend Const ViewName = "TeamItems"
-    Friend Const CharacterIdColumn = CharacterData.CharacterIdColumn
     Friend Const ItemIdColumn = ItemData.ItemIdColumn
 
     Public Sub New(store As Store)
