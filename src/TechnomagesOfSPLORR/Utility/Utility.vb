@@ -11,7 +11,9 @@
     Friend Const NoText = "No"
     Friend Const OkText = "Ok"
     Friend Const QuitText = "Quit"
+    Friend Const RemoveText = "Remove"
     Friend Const TakeText = "Take"
+    Friend Const TeamText = "Team"
     Friend Const YesText = "Yes"
     Friend Sub OkPrompt()
         Dim prompt As New SelectionPrompt(Of String) With {.Title = ""}

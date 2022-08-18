@@ -10,16 +10,18 @@
     Private Sub HandleCommand(world As World, prompt As SelectionPrompt(Of String))
         prompt.AddChoice(AbandonGameText)
         Select Case AnsiConsole.Prompt(prompt)
-            Case InventoryText
-                InventoryProcessor.Run(world)
-            Case TakeText
-                TakeProcessor.Run(world)
-            Case MoveText
-                MoveProcessor.Run(world)
             Case AbandonGameText
                 If ConfirmProcessor.Run("Are you sure you want to abandon the game?") Then
                     world.Team.Disband()
                 End If
+            Case InventoryText
+                InventoryProcessor.Run(world)
+            Case MoveText
+                MoveProcessor.Run(world)
+            Case TakeText
+                TakeProcessor.Run(world)
+            Case TeamText
+                TeamProcessor.Run(world)
         End Select
     End Sub
 
@@ -39,6 +41,9 @@
         End If
         If team.HasItems Then
             prompt.AddChoice(InventoryText)
+        End If
+        If team.CharacterCount > 0 Then
+            prompt.AddChoice(TeamText)
         End If
     End Sub
 End Module

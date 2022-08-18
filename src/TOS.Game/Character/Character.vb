@@ -26,6 +26,11 @@
             Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)
         End Get
     End Property
+
+    Public Sub Leave()
+        WorldData.Team.ClearForCharacterId(Id)
+    End Sub
+
     Property Location As Location
         Get
             Return Location.FromId(WorldData, WorldData.Character.ReadLocation(Id).Value)
