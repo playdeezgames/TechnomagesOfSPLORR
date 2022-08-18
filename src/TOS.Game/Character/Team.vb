@@ -37,6 +37,6 @@
     End Sub
 
     Public Function HasItems() As Boolean
-        Return WorldData.Team.ReadItemCount() > 0
+        Return WorldData.TeamItem.ReadCount() > 0
     End Function
 End Class

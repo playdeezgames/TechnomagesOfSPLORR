@@ -11,6 +11,7 @@ Public Class WorldData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly Route As RouteData
     Public ReadOnly Team As TeamData
+    Public ReadOnly TeamItem As TeamItemData
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -25,6 +26,7 @@ Public Class WorldData
         LocationType = New LocationTypeData(store)
         Route = New RouteData(store)
         Team = New TeamData(store)
+        TeamItem = New TeamItemData(store)
     End Sub
 
     Sub Load(filename As String)
