@@ -12,6 +12,7 @@ Public Class WorldData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly Route As RouteData
     Public ReadOnly Team As TeamData
+    Public ReadOnly TeamCharacter As TeamCharacterData
     Public ReadOnly TeamItem As TeamItemData
 
     Public Sub New(store As Store)
@@ -28,6 +29,7 @@ Public Class WorldData
         LocationType = New LocationTypeData(store)
         Route = New RouteData(store)
         Team = New TeamData(store)
+        TeamCharacter = New TeamCharacterData(store)
         TeamItem = New TeamItemData(store)
     End Sub
 

@@ -16,9 +16,11 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Data", "SPLORR.Data\
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SPLORR.Game", "SPLORR.Game\SPLORR.Game.vbproj", "{8BE2056C-D9B3-42B8-AAB3-8E5CE2426D43}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TOS.Data", "TOS.Data\TOS.Data.vbproj", "{61BAF3F6-EA7E-4B8C-8B2A-8FDC45D13792}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TOS.Data", "TOS.Data\TOS.Data.vbproj", "{61BAF3F6-EA7E-4B8C-8B2A-8FDC45D13792}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TOS.Game", "TOS.Game\TOS.Game.vbproj", "{EE4D0A99-67BF-4F75-BEA7-E9DB2BF7C38F}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TOS.Game", "TOS.Game\TOS.Game.vbproj", "{EE4D0A99-67BF-4F75-BEA7-E9DB2BF7C38F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{77B11C62-4B4D-4D14-A60F-A01E1B513AA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0223DFA3-B2F8-46F0-B9AA-CAD866B73C66} = {77B11C62-4B4D-4D14-A60F-A01E1B513AA1}
+		{8BE2056C-D9B3-42B8-AAB3-8E5CE2426D43} = {77B11C62-4B4D-4D14-A60F-A01E1B513AA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9A8B66E-1795-4EA4-8D7C-8D0B73DD1B5D}

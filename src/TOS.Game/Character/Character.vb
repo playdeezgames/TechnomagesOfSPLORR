@@ -11,6 +11,13 @@
     Friend Sub LeaveTeam()
         WorldData.Team.ClearForCharacterId(Id)
     End Sub
+
+    Public ReadOnly Property CanLeave() As Boolean
+        Get
+            Return WorldData.TeamCharacter.ReadCanLeave(Id).Value > 0
+        End Get
+    End Property
+
     ReadOnly Property Name As String
         Get
             Return WorldData.Character.ReadName(Id)
