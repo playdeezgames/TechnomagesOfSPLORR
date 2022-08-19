@@ -14,4 +14,10 @@
             CanLeaveColumn,
             (CharacterIdColumn, characterId))
     End Function
+
+    Public Function Exists(characterId As Long) As Boolean
+        Return Store.ReadCountForColumnValue(
+            TableName,
+            (CharacterIdColumn, characterId)) > 0
+    End Function
 End Class

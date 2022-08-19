@@ -14,6 +14,10 @@
         Store.ClearForColumnValue(TableName, (CharacterIdColumn, characterId))
     End Sub
 
+    Public Sub Write(characterId As Long)
+        Store.ReplaceRecord(TableName, (CharacterIdColumn, characterId))
+    End Sub
+
     Public Function ReadCount() As Long
         Return Store.ReadCount(TableName)
     End Function

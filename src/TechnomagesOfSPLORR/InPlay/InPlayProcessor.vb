@@ -18,6 +18,8 @@
                 InventoryProcessor.Run(world)
             Case MoveText
                 MoveProcessor.Run(world)
+            Case OtherCharactersText
+                OtherCharactersProcessor.Run(world)
             Case TakeText
                 TakeProcessor.Run(world)
             Case TeamText
@@ -33,6 +35,7 @@
         AnsiConsole.MarkupLine($"Location: {location.Name}")
         If location.HasOtherCharacters Then
             AnsiConsole.MarkupLine($"Other Characters: {location.OtherCharacterNames}")
+            prompt.AddChoice(OtherCharactersText)
         End If
         If location.HasRoutes Then
             prompt.AddChoice(MoveText)

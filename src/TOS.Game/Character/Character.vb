@@ -8,6 +8,18 @@
         Return New Character(worldData, characterId)
     End Function
 
+    Public Sub Join()
+        If CanJoin AndAlso Not OnTheTeam Then
+            WorldData.Team.Write(Id)
+        End If
+    End Sub
+
+    Public ReadOnly Property OnTheTeam As Boolean
+        Get
+            Return WorldData.Team.Exists(Id)
+        End Get
+    End Property
+
     Friend Sub LeaveTeam()
         WorldData.Team.ClearForCharacterId(Id)
     End Sub
@@ -28,6 +40,13 @@
             Return $"{Name} the {CharacterType.Name}"
         End Get
     End Property
+
+    Public ReadOnly Property CanJoin As Boolean
+        Get
+            Return WorldData.TeamCharacter.Exists(Id)
+        End Get
+    End Property
+
     ReadOnly Property CharacterType As CharacterType
         Get
             Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)

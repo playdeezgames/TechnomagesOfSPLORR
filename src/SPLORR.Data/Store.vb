@@ -246,6 +246,22 @@ Public Class Store
             MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2))
     End Sub
+    Public Sub ReplaceRecord(Of TColumn)(tableName As String, columnValue As (String, TColumn))
+        ReplaceRecord(AddressOf NoInitializer, tableName, columnValue)
+    End Sub
+    Public Sub ReplaceRecord(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
+        initializer()
+        ExecuteNonQuery(
+            $"REPLACE INTO [{tableName}]
+            (
+                [{columnValue.Item1}]
+            ) 
+            VALUES
+            (
+                @{columnValue.Item1}
+            );",
+            MakeParameter($"@{columnValue.Item1}", columnValue.Item2))
+    End Sub
     Public Sub ReplaceRecord(Of TFirstColumn, TSecondColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn))
         ReplaceRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Sub
