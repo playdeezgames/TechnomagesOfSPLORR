@@ -3,6 +3,7 @@
     Friend Const BoilerplateDb = "boilerplate.db"
     Friend Const DropText = "Drop"
     Friend Const EmbarkText = "Embark!"
+    Friend Const EquipText = "Equip"
     Friend Const GiveText = "Give"
     Friend Const GoBackText = "Go Back"
     Friend Const InventoryText = "Inventory"

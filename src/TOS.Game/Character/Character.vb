@@ -41,6 +41,16 @@
         End Get
     End Property
 
+    ReadOnly Property AvailableEquipSlots As IEnumerable(Of EquipSlot)
+        Get
+            Return WorldData.CharacterAvailableEquipSlot.ReadForCharacter(Id).Select(Function(x) EquipSlot.FromId(WorldData, x))
+        End Get
+    End Property
+
+    Public Function CanEquip(item As Item) As Boolean
+        Return item.CanBeEquipped(AvailableEquipSlots)
+    End Function
+
     Public ReadOnly Property CanJoin As Boolean
         Get
             Return WorldData.TeamCharacter.Exists(Id)

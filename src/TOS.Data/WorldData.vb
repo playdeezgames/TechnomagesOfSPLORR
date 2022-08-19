@@ -1,11 +1,14 @@
 Public Class WorldData
     Inherits BaseData
     Public ReadOnly Character As CharacterData
+    Public ReadOnly CharacterAvailableEquipSlot As CharacterAvailableEquipSlotData
     Public ReadOnly CharacterType As CharacterTypeData
+    Public ReadOnly EquipSlot As EquipSlotData
     Public ReadOnly Inventory As InventoryData
     Public ReadOnly InventoryItem As InventoryItemData
     Public ReadOnly InventoryItemType As InventoryItemTypeData
     Public ReadOnly Item As ItemData
+    Public ReadOnly ItemEquipSlot As ItemEquipSlotData
     Public ReadOnly ItemType As ItemTypeData
     Public ReadOnly Location As LocationData
     Public ReadOnly LocationCharacter As LocationCharacterData
@@ -18,11 +21,14 @@ Public Class WorldData
     Public Sub New(store As Store)
         MyBase.New(store)
         Character = New CharacterData(store)
+        CharacterAvailableEquipSlot = New CharacterAvailableEquipSlotData(store)
         CharacterType = New CharacterTypeData(store)
+        EquipSlot = New EquipSlotData(store)
         Inventory = New InventoryData(store)
         InventoryItem = New InventoryItemData(store)
         InventoryItemType = New InventoryItemTypeData(store)
         Item = New ItemData(store)
+        ItemEquipSlot = New ItemEquipSlotData(store)
         ItemType = New ItemTypeData(store)
         Location = New LocationData(store)
         LocationCharacter = New LocationCharacterData(store)

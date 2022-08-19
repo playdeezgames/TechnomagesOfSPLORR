@@ -23,6 +23,9 @@
                 If character.CanGive Then
                     prompt.AddChoice(GiveText)
                 End If
+                If character.CanEquip(itemStack.First) Then
+                    prompt.AddChoice(EquipText)
+                End If
                 prompt.AddChoice(DropText)
                 Select Case AnsiConsole.Prompt(prompt)
                     Case NeverMindText
