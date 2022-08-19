@@ -2,6 +2,7 @@
     Friend Sub Run(world As World)
         Do
             AnsiConsole.Clear()
+            AnsiConsole.MarkupLine("Inventory:")
             Dim character = ChooseCharacter("Which team member?", world.Team.Characters)
             If character Is Nothing Then
                 Exit Do

@@ -30,13 +30,9 @@
     Private Sub DescribeWorld(world As World, prompt As SelectionPrompt(Of String))
         AnsiConsole.Clear()
         Dim team = world.Team
-        AnsiConsole.MarkupLine($"Party: {team.CharacterNames}")
+        AnsiConsole.MarkupLine($"Team: {team.CharacterNames}")
         Dim location = team.Location
         AnsiConsole.MarkupLine($"Location: {location.Name}")
-        If location.HasOtherCharacters Then
-            AnsiConsole.MarkupLine($"Other Characters: {location.OtherCharacterNames}")
-            prompt.AddChoice(OtherCharactersText)
-        End If
         If location.HasRoutes Then
             prompt.AddChoice(MoveText)
             AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
@@ -45,11 +41,15 @@
             prompt.AddChoice(TakeText)
             AnsiConsole.MarkupLine($"Items: {location.ItemStackNames}")
         End If
+        If team.CharacterCount > 0 Then
+            prompt.AddChoice(TeamText)
+        End If
         If team.HasItems Then
             prompt.AddChoice(InventoryText)
         End If
-        If team.CharacterCount > 0 Then
-            prompt.AddChoice(TeamText)
+        If location.HasOtherCharacters Then
+            AnsiConsole.MarkupLine($"Other Characters: {location.OtherCharacterNames}")
+            prompt.AddChoice(OtherCharactersText)
         End If
     End Sub
 End Module
