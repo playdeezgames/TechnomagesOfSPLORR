@@ -3,6 +3,7 @@ Public Class WorldData
     Public ReadOnly Character As CharacterData
     Public ReadOnly CharacterAvailableEquipSlot As CharacterAvailableEquipSlotData
     Public ReadOnly CharacterEquipSlot As CharacterEquipSlotData
+    Public ReadOnly CharacterStatistic As CharacterStatisticData
     Public ReadOnly CharacterType As CharacterTypeData
     Public ReadOnly EquipSlot As EquipSlotData
     Public ReadOnly Inventory As InventoryData
@@ -15,6 +16,7 @@ Public Class WorldData
     Public ReadOnly LocationCharacter As LocationCharacterData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly Route As RouteData
+    Public ReadOnly StatisticType As StatisticTypeData
     Public ReadOnly Team As TeamData
     Public ReadOnly TeamCharacter As TeamCharacterData
     Public ReadOnly TeamEquipSlot As TeamEquipSlotData
@@ -25,6 +27,7 @@ Public Class WorldData
         Character = New CharacterData(store)
         CharacterAvailableEquipSlot = New CharacterAvailableEquipSlotData(store)
         CharacterEquipSlot = New CharacterEquipSlotData(store)
+        CharacterStatistic = New CharacterStatisticData(store)
         CharacterType = New CharacterTypeData(store)
         EquipSlot = New EquipSlotData(store)
         Inventory = New InventoryData(store)
@@ -37,6 +40,7 @@ Public Class WorldData
         LocationCharacter = New LocationCharacterData(store)
         LocationType = New LocationTypeData(store)
         Route = New RouteData(store)
+        StatisticType = New StatisticTypeData(store)
         Team = New TeamData(store)
         TeamCharacter = New TeamCharacterData(store)
         TeamEquipSlot = New TeamEquipSlotData(store)

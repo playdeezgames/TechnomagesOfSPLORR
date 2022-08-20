@@ -154,4 +154,10 @@
             Return Inventory.FromId(WorldData, inventoryId.Value)
         End Get
     End Property
+
+    Public ReadOnly Property Statistics As IEnumerable(Of StatisticType)
+        Get
+            Return WorldData.CharacterStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
+        End Get
+    End Property
 End Class

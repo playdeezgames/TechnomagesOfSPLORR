@@ -7,6 +7,10 @@
         End If
         AnsiConsole.Clear()
         AnsiConsole.MarkupLine($"{character.FullName}:")
+        Dim statistics = character.Statistics
+        For Each statistic In statistics
+            AnsiConsole.MarkupLine($"{statistic.DisplayName}: ")
+        Next
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]What would you like to do?[/]"}
         prompt.AddChoice(NeverMindText)
         If character.CanLeave Then
