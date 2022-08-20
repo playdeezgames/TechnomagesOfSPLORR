@@ -8,6 +8,38 @@
         Return New Character(worldData, characterId)
     End Function
 
+    Public Sub Equip(item As Item)
+        If Not CanEquip(item) Then
+            Return
+        End If
+        WorldData.InventoryItem.ClearForItem(item.Id)
+        Dim neededEquipSlots = item.FindEquipConfiguration(AvailableEquipSlots)
+        UnequipEquipSlots(neededEquipSlots)
+        For Each neededEquipSlot In neededEquipSlots
+            PlaceItemInEquipSlot(item, neededEquipSlot)
+        Next
+    End Sub
+
+    Private Sub PlaceItemInEquipSlot(item As Item, equipSlot As EquipSlot)
+        WorldData.CharacterEquipSlot.Write(Id, equipSlot.Id, item.Id)
+    End Sub
+
+    Private ReadOnly Property EquipSlot(slot As EquipSlot) As Item
+        Get
+            Return Item.FromId(WorldData, WorldData.CharacterEquipSlot.Read(Id, slot.Id))
+        End Get
+    End Property
+
+    Private Sub UnequipEquipSlots(equipSlots As IEnumerable(Of EquipSlot))
+        For Each slot In equipSlots
+            Dim item = EquipSlot(slot)
+            If item IsNot Nothing Then
+                WorldData.CharacterEquipSlot.ClearForItem(item.Id)
+                Inventory.Add(item)
+            End If
+        Next
+    End Sub
+
     Public Sub Join()
         If CanJoin AndAlso Not OnTheTeam Then
             WorldData.Team.Write(Id)
@@ -43,7 +75,7 @@
 
     ReadOnly Property AvailableEquipSlots As IEnumerable(Of EquipSlot)
         Get
-            Return WorldData.CharacterAvailableEquipSlot.ReadForCharacter(Id).Select(Function(x) EquipSlot.FromId(WorldData, x))
+            Return WorldData.CharacterAvailableEquipSlot.ReadForCharacter(Id).Select(Function(x) Game.EquipSlot.FromId(WorldData, x))
         End Get
     End Property
 

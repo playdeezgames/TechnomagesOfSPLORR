@@ -11,6 +11,10 @@
         Return Store.ReadCountForColumnValue(TableName, (InventoryIdColumn, inventoryId))
     End Function
 
+    Public Sub ClearForItem(itemId As Long)
+        Store.ClearForColumnValue(TableName, (ItemIdColumn, itemId))
+    End Sub
+
     Public Function ReadForInventory(inventoryId As Long) As IEnumerable(Of Long)
         Return Store.ReadRecordsWithColumnValue(Of Long, Long)(
             TableName,

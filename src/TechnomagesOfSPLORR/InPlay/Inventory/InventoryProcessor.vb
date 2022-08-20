@@ -33,6 +33,9 @@
                     Case DropText
                         DropProcessor.Run(itemStack, character.Location)
                         Exit Do
+                    Case EquipText
+                        EquipProcessor.Run(character, itemStack.First)
+                        Exit Do
                     Case GiveText
                         GiveProcessor.Run(itemStack, character.Teammates, character)
                 End Select
