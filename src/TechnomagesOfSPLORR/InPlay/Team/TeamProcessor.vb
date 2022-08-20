@@ -9,7 +9,7 @@
         AnsiConsole.MarkupLine($"{character.FullName}:")
         Dim statistics = character.Statistics
         For Each statistic In statistics
-            AnsiConsole.MarkupLine($"{statistic.DisplayName}: ")
+            AnsiConsole.MarkupLine($"{statistic.DisplayName}: {character.Statistic(statistic).Value}")
         Next
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]What would you like to do?[/]"}
         prompt.AddChoice(NeverMindText)

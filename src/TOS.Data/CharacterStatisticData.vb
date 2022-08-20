@@ -3,7 +3,7 @@
     Friend Const ViewName = "CharacterStatistics"
     Friend Const CharacterIdColumn = CharacterData.CharacterIdColumn
     Friend Const StatisticTypeIdColumn = StatisticTypeData.StatisticTypeIdColumn
-    Friend Const DeltaColumn = "Delta"
+    Friend Const StatisticDeltaColumn = "StatisticDelta"
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -15,5 +15,14 @@
             ViewName,
             StatisticTypeIdColumn,
             (CharacterIdColumn, characterId))
+    End Function
+
+    Public Function Read(characterId As Long, statisticTypeId As Long) As Long?
+        Return Store.ReadColumnValue(
+            Of Long, Long, Long)(
+            ViewName,
+            StatisticDeltaColumn,
+            (CharacterIdColumn, characterId),
+            (StatisticTypeIdColumn, statisticTypeId))
     End Function
 End Class

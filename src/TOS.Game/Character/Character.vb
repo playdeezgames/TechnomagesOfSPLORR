@@ -160,4 +160,10 @@
             Return WorldData.CharacterStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
         End Get
     End Property
+
+    Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.CharacterStatistic.Read(Id, statisticType.Id)
+        End Get
+    End Property
 End Class
