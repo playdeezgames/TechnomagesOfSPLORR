@@ -14,6 +14,8 @@
                 If ConfirmProcessor.Run("Are you sure you want to abandon the game?") Then
                     world.Team.Disband()
                 End If
+            Case EquipmentText
+                EquipmentProcessor.Run(world)
             Case InventoryText
                 InventoryProcessor.Run(world)
             Case MoveText

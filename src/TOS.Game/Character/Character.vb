@@ -8,6 +8,23 @@
         Return New Character(worldData, characterId)
     End Function
 
+    Public ReadOnly Property HasEquipment As Boolean
+        Get
+            Return WorldData.CharacterEquipSlot.ReadCount(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property Equipment As IEnumerable(Of (EquipSlot, Item))
+        Get
+            Return WorldData.
+                CharacterEquipSlot.
+                ReadForCharacter(Id).
+                Select(
+                    Function(x) (Game.EquipSlot.FromId(WorldData, x.Item1), Item.FromId(WorldData, x.Item2)))
+        End Get
+    End Property
+
+
     Public Sub Equip(item As Item)
         If Not CanEquip(item) Then
             Return
