@@ -163,7 +163,10 @@
 
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
-            Return WorldData.CharacterStatistic.Read(Id, statisticType.Id)
+            Dim result = WorldData.CharacterStatistic.Read(Id, statisticType.Id)
+            result += If(Location.Statistic(statisticType), 0)
+            'TODO: take into account equipped items' stat buffs
+            Return result
         End Get
     End Property
 End Class

@@ -14,6 +14,7 @@ Public Class WorldData
     Public ReadOnly ItemType As ItemTypeData
     Public ReadOnly Location As LocationData
     Public ReadOnly LocationCharacter As LocationCharacterData
+    Public ReadOnly LocationStatistic As LocationStatisticData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly Route As RouteData
     Public ReadOnly StatisticType As StatisticTypeData
@@ -38,6 +39,7 @@ Public Class WorldData
         ItemType = New ItemTypeData(store)
         Location = New LocationData(store)
         LocationCharacter = New LocationCharacterData(store)
+        LocationStatistic = New LocationStatisticData(store)
         LocationType = New LocationTypeData(store)
         Route = New RouteData(store)
         StatisticType = New StatisticTypeData(store)

@@ -88,4 +88,9 @@
     Public Function HasItems() As Boolean
         Return HasInventory AndAlso Inventory.HasItems
     End Function
+    Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.LocationStatistic.Read(Id, statisticType.Id)
+        End Get
+    End Property
 End Class
