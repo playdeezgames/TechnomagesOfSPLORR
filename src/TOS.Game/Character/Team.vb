@@ -41,7 +41,15 @@
         Next
     End Sub
 
-    Public Function HasItems() As Boolean
-        Return WorldData.TeamItem.ReadCount() > 0
-    End Function
+    Public ReadOnly Property HasItems() As Boolean
+        Get
+            Return WorldData.TeamItem.ReadCount() > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property HasEquipment() As Boolean
+        Get
+            Return WorldData.TeamEquipSlot.ReadCount() > 0
+        End Get
+    End Property
 End Class

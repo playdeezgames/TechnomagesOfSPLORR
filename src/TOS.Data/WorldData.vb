@@ -17,6 +17,7 @@ Public Class WorldData
     Public ReadOnly Route As RouteData
     Public ReadOnly Team As TeamData
     Public ReadOnly TeamCharacter As TeamCharacterData
+    Public ReadOnly TeamEquipSlot As TeamEquipSlotData
     Public ReadOnly TeamItem As TeamItemData
 
     Public Sub New(store As Store)
@@ -38,6 +39,7 @@ Public Class WorldData
         Route = New RouteData(store)
         Team = New TeamData(store)
         TeamCharacter = New TeamCharacterData(store)
+        TeamEquipSlot = New TeamEquipSlotData(store)
         TeamItem = New TeamItemData(store)
     End Sub
 

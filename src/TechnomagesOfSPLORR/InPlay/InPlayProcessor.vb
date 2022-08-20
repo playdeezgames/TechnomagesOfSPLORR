@@ -47,6 +47,9 @@
         If team.HasItems Then
             prompt.AddChoice(InventoryText)
         End If
+        If team.HasEquipment Then
+            prompt.AddChoice(EquipmentText)
+        End If
         If location.HasOtherCharacters Then
             AnsiConsole.MarkupLine($"Other Characters: {location.OtherCharacterNames}")
             prompt.AddChoice(OtherCharactersText)
