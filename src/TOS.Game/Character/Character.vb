@@ -160,12 +160,20 @@
             Return WorldData.CharacterStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
         End Get
     End Property
+    Public ReadOnly Property EquippedItems As IEnumerable(Of Item)
+        Get
+            Return WorldData.CharacterEquippedItem.ForCharacter(Id).Select(Function(x) Item.FromId(WorldData, x))
+        End Get
+    End Property
 
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
             Dim result = WorldData.CharacterStatistic.Read(Id, statisticType.Id)
             result += If(Location.Statistic(statisticType), 0)
-            'TODO: take into account equipped items' stat buffs
+            Dim items = EquippedItems
+            For Each item In items
+                result += If(item.Statistic(statisticType), 0)
+            Next
             Return result
         End Get
     End Property

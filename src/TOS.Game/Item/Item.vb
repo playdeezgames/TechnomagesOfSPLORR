@@ -43,4 +43,9 @@
             Function(x) New HashSet(Of Long)(x.Select(Function(y) y.Id))).
                 Any(Function(x) x.IsSubsetOf(available))
     End Function
+    Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.ItemStatistic.Read(Id, statisticType.Id)
+        End Get
+    End Property
 End Class
