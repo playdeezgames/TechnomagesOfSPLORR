@@ -11,6 +11,10 @@
             Select Case answer
                 Case GoBackText
                     Exit Do
+                Case NewText
+                    'we get to this
+                Case Else
+                    CharacterTypeProcessor.Run(table(answer))
             End Select
         Loop
     End Sub

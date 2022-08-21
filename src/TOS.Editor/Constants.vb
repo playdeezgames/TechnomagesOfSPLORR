@@ -1,5 +1,6 @@
 ﻿Module Constants
     Friend Const BoilerplateDb = "boilerplate.db"
+    Friend Const ChangeNameText = "Change Name"
     Friend Const CharacterTypesText = "Character Types"
     Friend Const GoBackText = "Go Back"
     Friend Const NewText = "New"

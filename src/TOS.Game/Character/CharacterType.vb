@@ -7,10 +7,13 @@
     Public Shared Function FromId(worldData As WorldData, characterTypeId As Long) As CharacterType
         Return New CharacterType(worldData, characterTypeId)
     End Function
-    ReadOnly Property Name As String
+    Property Name As String
         Get
             Return WorldData.CharacterType.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.CharacterType.WriteName(Id, value)
+        End Set
     End Property
 
     Public ReadOnly Property UniqueName As String

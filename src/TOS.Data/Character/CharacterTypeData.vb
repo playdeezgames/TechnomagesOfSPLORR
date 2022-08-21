@@ -15,6 +15,13 @@
             (CharacterTypeIdColumn, characterTypeId))
     End Function
 
+    Public Sub WriteName(characterTypeId As Long, name As String)
+        Store.WriteColumnValue(
+            TableName,
+            (CharacterTypeNameColumn, name),
+            (CharacterTypeIdColumn, characterTypeId))
+    End Sub
+
     Public Function All() As IEnumerable(Of Long)
         Return Store.ReadRecords(Of Long)(
             TableName,
