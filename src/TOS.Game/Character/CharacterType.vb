@@ -25,7 +25,7 @@
 
     Public ReadOnly Property CanDelete As Boolean
         Get
-            Return WorldData.Character.CountForCharacterType(Id) = 0
+            Return WorldData.Character.CountForCharacterType(Id) = 0 AndAlso WorldData.CharacterTypeStatistic.CountForCharacterType(Id) = 0
         End Get
     End Property
 

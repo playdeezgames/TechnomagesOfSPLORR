@@ -15,4 +15,8 @@
             (StatisticTypeIdColumn, StatisticDeltaColumn),
             (CharacterTypeIdColumn, characterTypeId))
     End Function
+
+    Public Function CountForCharacterType(characterTypeId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (CharacterTypeIdColumn, characterTypeId))
+    End Function
 End Class
