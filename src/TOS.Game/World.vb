@@ -12,8 +12,15 @@ Public Class World
         WorldData = New WorldData(New SPLORR.Data.Store)
         WorldData.Load(filename)
     End Sub
+
+    Public ReadOnly Property CharacterTypes As IEnumerable(Of CharacterType)
+        Get
+            Return WorldData.CharacterType.All.Select(Function(x) CharacterType.FromId(WorldData, x))
+        End Get
+    End Property
+
     Sub Save(filename As String)
-        worldData.Save(filename)
+        WorldData.Save(filename)
     End Sub
     ReadOnly Property Team As Team
         Get

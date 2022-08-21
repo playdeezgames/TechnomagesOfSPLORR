@@ -4,16 +4,19 @@
         Dim world As New World(BoilerplateDb)
         Do
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Main Menu:[/]"}
+            prompt.AddChoice(CharacterTypesText)
             prompt.AddChoice(SaveAndQuitText)
             prompt.AddChoice(QuitText)
             Select Case AnsiConsole.Prompt(prompt)
-                Case SaveAndQuitText
-                    world.Save(BoilerplateDb)
-                    Exit Do
+                Case CharacterTypesText
+                    CharacterTypesProcessor.Run(world)
                 Case QuitText
                     If ConfirmProcessor.Run("Are you sure you want to quit without saving?") Then
                         Exit Do
                     End If
+                Case SaveAndQuitText
+                    world.Save(BoilerplateDb)
+                    Exit Do
             End Select
         Loop
     End Sub

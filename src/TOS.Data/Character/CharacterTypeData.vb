@@ -14,4 +14,10 @@
             CharacterTypeNameColumn,
             (CharacterTypeIdColumn, characterTypeId))
     End Function
+
+    Public Function All() As IEnumerable(Of Long)
+        Return Store.ReadRecords(Of Long)(
+            TableName,
+            CharacterTypeIdColumn)
+    End Function
 End Class

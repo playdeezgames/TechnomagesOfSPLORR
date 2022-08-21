@@ -12,4 +12,10 @@
             Return WorldData.CharacterType.ReadName(Id)
         End Get
     End Property
+
+    Public ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
 End Class
