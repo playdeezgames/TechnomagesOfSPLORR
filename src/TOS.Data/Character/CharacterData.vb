@@ -21,6 +21,10 @@
         Return Store.ReadColumnValue(Of Long, Long)(TableName, CharacterTypeIdColumn, (CharacterIdColumn, characterId))
     End Function
 
+    Public Function CountForCharacterType(characterTypeId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (CharacterTypeIdColumn, characterTypeId))
+    End Function
+
     Public Function ReadLocation(characterId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(TableName, LocationIdColumn, (CharacterIdColumn, characterId))
     End Function

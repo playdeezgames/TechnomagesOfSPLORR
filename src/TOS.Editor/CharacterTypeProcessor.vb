@@ -8,13 +8,23 @@
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)
+            If characterType.CanDelete Then
+                prompt.AddChoice(DeleteText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeNameText
                     RunChangeName(characterType)
+                Case DeleteText
+                    RunDelete(characterType)
+                    Exit Do
                 Case GoBackText
                     Exit Do
             End Select
         Loop
+    End Sub
+
+    Private Sub RunDelete(characterType As CharacterType)
+        characterType.Destroy()
     End Sub
 
     Friend Sub RunNew(world As World)

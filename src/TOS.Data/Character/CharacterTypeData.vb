@@ -28,6 +28,10 @@
             CharacterTypeIdColumn)
     End Function
 
+    Public Sub Clear(characterTypeId As Long)
+        Store.ClearForColumnValue(TableName, (CharacterTypeIdColumn, characterTypeId))
+    End Sub
+
     Public Function Create(name As String) As Long
         Return Store.CreateRecord(TableName, (CharacterTypeNameColumn, name))
     End Function

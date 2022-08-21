@@ -16,9 +16,19 @@
         End Set
     End Property
 
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return WorldData.Character.CountForCharacterType(Id) = 0
+        End Get
+    End Property
+
     Public ReadOnly Property UniqueName As String
         Get
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public Sub Destroy()
+        WorldData.CharacterType.Clear(Id)
+    End Sub
 End Class

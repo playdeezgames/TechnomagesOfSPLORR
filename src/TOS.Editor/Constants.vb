@@ -2,6 +2,7 @@
     Friend Const BoilerplateDb = "boilerplate.db"
     Friend Const ChangeNameText = "Change Name"
     Friend Const CharacterTypesText = "Character Types"
+    Friend Const DeleteText = "Delete"
     Friend Const GoBackText = "Go Back"
     Friend Const NewText = "New"
     Friend Const NoText = "No"
