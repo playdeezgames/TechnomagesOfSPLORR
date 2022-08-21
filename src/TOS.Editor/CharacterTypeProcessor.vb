@@ -5,6 +5,13 @@
             AnsiConsole.MarkupLine("Character Type:")
             AnsiConsole.MarkupLine($"Id: {characterType.Id}")
             AnsiConsole.MarkupLine($"Name: {characterType.Name}")
+            Dim statistics = characterType.Statistics
+            If statistics.Any Then
+                AnsiConsole.MarkupLine("Statistic Deltas:")
+                For Each statistic In statistics
+                    AnsiConsole.MarkupLine($"{statistic.Item1.Name}({statistic.Item1.DisplayName}): {statistic.Item2}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)

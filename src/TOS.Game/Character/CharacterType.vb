@@ -16,6 +16,13 @@
         End Set
     End Property
 
+    Public ReadOnly Property Statistics As IEnumerable(Of (StatisticType, Long))
+        Get
+            Return WorldData.CharacterTypeStatistic.ReadForCharacterType(Id).
+                Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+        End Get
+    End Property
+
     Public ReadOnly Property CanDelete As Boolean
         Get
             Return WorldData.Character.CountForCharacterType(Id) = 0
