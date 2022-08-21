@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TOS.Editor</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn />
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn />
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="boilerplate.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="boilerplate.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Spectre.Console" Version="0.44.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="Spectre.Console" />
+    <Import Include="SPLORR.Game" />
+  </ItemGroup>
+
+</Project>
