@@ -12,9 +12,9 @@
                 Case GoBackText
                     Exit Do
                 Case NewText
-                    'we get to this
+                    CharacterTypeProcessor.RunNew(world)
                 Case Else
-                    CharacterTypeProcessor.Run(table(answer))
+                    CharacterTypeProcessor.RunEdit(table(answer))
             End Select
         Loop
     End Sub

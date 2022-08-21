@@ -1,5 +1,5 @@
 ﻿Module CharacterTypeProcessor
-    Friend Sub Run(characterType As CharacterType)
+    Friend Sub RunEdit(characterType As CharacterType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character Type:")
@@ -15,6 +15,13 @@
                     Exit Do
             End Select
         Loop
+    End Sub
+
+    Friend Sub RunNew(world As World)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            world.CreateCharacterType(newName)
+        End If
     End Sub
 
     Private Sub RunChangeName(characterType As CharacterType)

@@ -27,4 +27,8 @@ Public Class World
             Return New Team(WorldData)
         End Get
     End Property
+
+    Public Function CreateCharacterType(newName As String) As CharacterType
+        Return CharacterType.FromId(WorldData, WorldData.CharacterType.Create(newName))
+    End Function
 End Class

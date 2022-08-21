@@ -27,4 +27,8 @@
             TableName,
             CharacterTypeIdColumn)
     End Function
+
+    Public Function Create(name As String) As Long
+        Return Store.CreateRecord(TableName, (CharacterTypeNameColumn, name))
+    End Function
 End Class
