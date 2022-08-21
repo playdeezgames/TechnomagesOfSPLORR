@@ -14,7 +14,7 @@
                 Case NewText
                     CharacterTypeProcessor.RunNew(world)
                 Case Else
-                    CharacterTypeProcessor.RunEdit(table(answer))
+                    CharacterTypeProcessor.RunEdit(world, table(answer))
             End Select
         Loop
     End Sub

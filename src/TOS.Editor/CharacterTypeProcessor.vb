@@ -1,5 +1,5 @@
 ﻿Module CharacterTypeProcessor
-    Friend Sub RunEdit(characterType As CharacterType)
+    Friend Sub RunEdit(world As World, characterType As CharacterType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character Type:")
@@ -23,6 +23,8 @@
                 prompt.AddChoice(RemoveStatisticText)
             End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddChangeStatisticText
+                    RunAddChangeStatistic(characterType)
                 Case ChangeNameText
                     RunChangeName(characterType)
                 Case DeleteText
@@ -30,8 +32,28 @@
                     Exit Do
                 Case GoBackText
                     Exit Do
+                Case RemoveStatisticText
+                    RunRemoveStatistic(world, characterType)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunRemoveStatistic(world As World, characterType As CharacterType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Remove which statistic?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                characterType.RemoveStatistic(table(answer))
+        End Select
+    End Sub
+
+    Private Sub RunAddChangeStatistic(characterType As CharacterType)
+        Throw New NotImplementedException()
     End Sub
 
     Private Sub RunDelete(characterType As CharacterType)
@@ -41,7 +63,7 @@
     Friend Sub RunNew(world As World)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
-            world.CreateCharacterType(newName)
+            RunEdit(world, world.CreateCharacterType(newName))
         End If
     End Sub
 

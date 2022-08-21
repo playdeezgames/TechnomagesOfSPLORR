@@ -15,4 +15,8 @@
     Public Function ReadName(statisticTypeId As Long) As String
         Return Store.ReadColumnString(TableName, StatisticTypeNameColumn, (StatisticTypeIdColumn, statisticTypeId))
     End Function
+
+    Public Function All() As IEnumerable(Of Long)
+        Return Store.ReadRecords(Of Long)(TableName, StatisticTypeIdColumn)
+    End Function
 End Class

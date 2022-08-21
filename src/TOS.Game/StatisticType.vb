@@ -17,4 +17,10 @@
             Return WorldData.StatisticType.ReadDisplayName(Id)
         End Get
     End Property
+
+    Public ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
 End Class

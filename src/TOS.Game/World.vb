@@ -31,4 +31,10 @@ Public Class World
     Public Function CreateCharacterType(newName As String) As CharacterType
         Return CharacterType.FromId(WorldData, WorldData.CharacterType.Create(newName))
     End Function
+
+    Public ReadOnly Property StatisticTypes As IEnumerable(Of StatisticType)
+        Get
+            Return WorldData.StatisticType.All.Select(Function(x) StatisticType.FromId(WorldData, x))
+        End Get
+    End Property
 End Class

@@ -19,4 +19,11 @@
     Public Function CountForCharacterType(characterTypeId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (CharacterTypeIdColumn, characterTypeId))
     End Function
+
+    Public Sub Clear(characterTypeId As Long, statisticTypeId As Long)
+        Store.ClearForColumnValues(
+            TableName,
+            (CharacterTypeIdColumn, characterTypeId),
+            (StatisticTypeIdColumn, statisticTypeId))
+    End Sub
 End Class

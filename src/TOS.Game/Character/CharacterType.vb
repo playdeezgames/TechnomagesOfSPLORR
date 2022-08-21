@@ -44,4 +44,8 @@
     Public Sub Destroy()
         WorldData.CharacterType.Clear(Id)
     End Sub
+
+    Public Sub RemoveStatistic(statisticType As StatisticType)
+        WorldData.CharacterTypeStatistic.Clear(Id, statisticType.Id)
+    End Sub
 End Class
