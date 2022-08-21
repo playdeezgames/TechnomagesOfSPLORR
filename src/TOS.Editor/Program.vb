@@ -3,6 +3,7 @@ Imports System
 Module Program
     Sub Main(args As String())
         AnsiConsole.Clear()
+        Dim world As New World(BoilerplateDb)
         Do
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Main Menu:[/]"}
             prompt.AddChoice(QuitText)

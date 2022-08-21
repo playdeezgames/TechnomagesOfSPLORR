@@ -34,12 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
+    <Import Include="Spectre.Console" />
+    <Import Include="TOS.Game" />
   </ItemGroup>
 
   <ItemGroup>
-    <Import Include="Spectre.Console" />
-    <Import Include="SPLORR.Game" />
+    <ProjectReference Include="..\TOS.Game\TOS.Game.vbproj" />
   </ItemGroup>
 
 </Project>
