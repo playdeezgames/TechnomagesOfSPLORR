@@ -26,4 +26,20 @@
             (CharacterTypeIdColumn, characterTypeId),
             (StatisticTypeIdColumn, statisticTypeId))
     End Sub
+
+    Public Function Read(characterTypeId As Long, statisticTypeId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long, Long)(
+            TableName,
+            StatisticDeltaColumn,
+            (CharacterTypeIdColumn, characterTypeId),
+            (StatisticTypeIdColumn, statisticTypeId))
+    End Function
+
+    Public Sub Write(characterTypeId As Long, statisticTypeId As Long, value As Long)
+        Store.ReplaceRecord(
+            TableName,
+            (CharacterTypeIdColumn, characterTypeId),
+            (StatisticTypeIdColumn, statisticTypeId),
+            (StatisticDeltaColumn, value))
+    End Sub
 End Class

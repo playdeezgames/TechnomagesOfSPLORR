@@ -45,7 +45,16 @@
         WorldData.CharacterType.Clear(Id)
     End Sub
 
-    Public Sub RemoveStatistic(statisticType As StatisticType)
-        WorldData.CharacterTypeStatistic.Clear(Id, statisticType.Id)
-    End Sub
+    Public Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.CharacterTypeStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.CharacterTypeStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.CharacterTypeStatistic.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
 End Class

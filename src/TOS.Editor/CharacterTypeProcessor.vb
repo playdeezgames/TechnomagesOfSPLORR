@@ -3,13 +3,13 @@
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character Type:")
-            AnsiConsole.MarkupLine($"Id: {characterType.Id}")
-            AnsiConsole.MarkupLine($"Name: {characterType.Name}")
+            AnsiConsole.MarkupLine($"* Id: {characterType.Id}")
+            AnsiConsole.MarkupLine($"* Name: {characterType.Name}")
             Dim statistics = characterType.Statistics
             If statistics.Any Then
-                AnsiConsole.MarkupLine("Statistic Deltas:")
+                AnsiConsole.MarkupLine($"* Statistic Deltas:")
                 For Each statistic In statistics
-                    AnsiConsole.MarkupLine($"{statistic.Item1.Name}({statistic.Item1.DisplayName}): {statistic.Item2}")
+                    AnsiConsole.MarkupLine($"  * {statistic.Item1.Name}({statistic.Item1.DisplayName}): {statistic.Item2}")
                 Next
             End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
@@ -24,7 +24,7 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    RunAddChangeStatistic(characterType)
+                    RunAddChangeStatistic(world, characterType)
                 Case ChangeNameText
                     RunChangeName(characterType)
                 Case DeleteText
@@ -48,12 +48,23 @@
             Case NeverMindText
                 'do nothing
             Case Else
-                characterType.RemoveStatistic(table(answer))
+                characterType.Statistic(table(answer)) = Nothing
         End Select
     End Sub
 
-    Private Sub RunAddChangeStatistic(characterType As CharacterType)
-        Throw New NotImplementedException()
+    Private Sub RunAddChangeStatistic(world As World, characterType As CharacterType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Add/Change which statistic?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                Dim statisticValue = AnsiConsole.Ask(Of Long)("[olive]Statistic Value: [/]")
+                characterType.Statistic(table(answer)) = statisticValue
+        End Select
     End Sub
 
     Private Sub RunDelete(characterType As CharacterType)
