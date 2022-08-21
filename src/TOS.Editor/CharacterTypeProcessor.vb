@@ -18,6 +18,10 @@
             If characterType.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
+            prompt.AddChoice(AddChangeStatisticText)
+            If characterType.HasStatistics Then
+                prompt.AddChoice(RemoveStatisticText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeNameText
                     RunChangeName(characterType)

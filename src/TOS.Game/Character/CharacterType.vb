@@ -29,6 +29,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property HasStatistics As Boolean
+        Get
+            Return WorldData.CharacterTypeStatistic.CountForCharacterType(Id) > 0
+        End Get
+    End Property
+
     Public ReadOnly Property UniqueName As String
         Get
             Return $"{Name}(#{Id})"
