@@ -19,4 +19,21 @@
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public Function CanDelete() As Boolean
+        Return WorldData.LocationTypeStatistic.CountForLocationType(Id) = 0 AndAlso
+            WorldData.Location.CountForLocationType(Id) = 0
+    End Function
+
+    Public ReadOnly Property HasStatistics() As Boolean
+        Get
+            Return WorldData.LocationTypeStatistic.CountForLocationType(Id) > 0
+        End Get
+    End Property
+    Public ReadOnly Property Statistics As IEnumerable(Of (StatisticType, Long))
+        Get
+            Return WorldData.LocationTypeStatistic.ReadForLocationType(Id).
+                Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+        End Get
+    End Property
 End Class

@@ -26,6 +26,10 @@
             (LocationIdColumn, locationId))
     End Sub
 
+    Public Function CountForLocationType(locationTypeId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (LocationTypeIdColumn, locationTypeId))
+    End Function
+
     Public Sub WriteLocationType(locationId As Long, locationTypeId As Long)
         Store.WriteColumnValue(
             TableName,
