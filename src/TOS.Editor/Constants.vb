@@ -5,6 +5,7 @@
     Friend Const ChangeNameText = "Change Name"
     Friend Const CharacterTypesText = "Character Types"
     Friend Const DeleteText = "Delete"
+    Friend Const EquipSlotsText = "Equip Slots"
     Friend Const GoBackText = "Go Back"
     Friend Const LocationTypesText = "Location Types"
     Friend Const NeverMindText = "Never Mind"

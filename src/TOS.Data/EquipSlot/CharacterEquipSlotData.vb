@@ -25,6 +25,10 @@
             (CharacterIdColumn, characterId))
     End Function
 
+    Public Function CountForEquipSlot(equipSlotId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (EquipSlotIdColumn, equipSlotId))
+    End Function
+
     Public Function Read(characterId As Long, equipSlotId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long, Long)(
             TableName,

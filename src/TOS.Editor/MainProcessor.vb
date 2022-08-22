@@ -5,6 +5,7 @@
         Do
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Main Menu:[/]"}
             prompt.AddChoice(CharacterTypesText)
+            prompt.AddChoice(EquipSlotsText)
             prompt.AddChoice(LocationTypesText)
             prompt.AddChoice(StatisticTypesText)
             prompt.AddChoice(SaveAndQuitText)
@@ -12,6 +13,8 @@
             Select Case AnsiConsole.Prompt(prompt)
                 Case CharacterTypesText
                     CharacterTypesProcessor.Run(world)
+                Case EquipSlotsText
+                    EquipSlotsProcessor.Run(world)
                 Case LocationTypesText
                     LocationTypesProcessor.Run(world)
                 Case QuitText

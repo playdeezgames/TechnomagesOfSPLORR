@@ -6,6 +6,7 @@ Public Class WorldData
     Public ReadOnly CharacterEquipSlot As CharacterEquipSlotData
     Public ReadOnly CharacterStatistic As CharacterStatisticData
     Public ReadOnly CharacterType As CharacterTypeData
+    Public ReadOnly CharacterTypeEquipSlot As CharacterTypeEquipSlotData
     Public ReadOnly CharacterTypeStatistic As CharacterTypeStatisticData
     Public ReadOnly EquipSlot As EquipSlotData
     Public ReadOnly Inventory As InventoryData
@@ -15,6 +16,7 @@ Public Class WorldData
     Public ReadOnly ItemEquipSlot As ItemEquipSlotData
     Public ReadOnly ItemStatistic As ItemStatisticData
     Public ReadOnly ItemType As ItemTypeData
+    Public ReadOnly ItemTypeEquipSlot As ItemTypeEquipSlotData
     Public ReadOnly ItemTypeStatistic As ItemTypeStatisticData
     Public ReadOnly Location As LocationData
     Public ReadOnly LocationCharacter As LocationCharacterData
@@ -36,6 +38,7 @@ Public Class WorldData
         CharacterEquipSlot = New CharacterEquipSlotData(store)
         CharacterStatistic = New CharacterStatisticData(store)
         CharacterType = New CharacterTypeData(store)
+        CharacterTypeEquipSlot = New CharacterTypeEquipSlotData(store)
         CharacterTypeStatistic = New CharacterTypeStatisticData(store)
         EquipSlot = New EquipSlotData(store)
         Inventory = New InventoryData(store)
@@ -45,6 +48,7 @@ Public Class WorldData
         ItemEquipSlot = New ItemEquipSlotData(store)
         ItemStatistic = New ItemStatisticData(store)
         ItemType = New ItemTypeData(store)
+        ItemTypeEquipSlot = New ItemTypeEquipSlotData(store)
         ItemTypeStatistic = New ItemTypeStatisticData(store)
         Location = New LocationData(store)
         LocationCharacter = New LocationCharacterData(store)

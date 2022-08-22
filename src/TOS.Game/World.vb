@@ -13,6 +13,12 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Public ReadOnly Property EquipSlots() As IEnumerable(Of EquipSlot)
+        Get
+            Return WorldData.EquipSlot.All.Select(Function(x) EquipSlot.FromId(WorldData, x))
+        End Get
+    End Property
+
     Public ReadOnly Property CharacterTypes As IEnumerable(Of CharacterType)
         Get
             Return WorldData.CharacterType.All.Select(Function(x) CharacterType.FromId(WorldData, x))
@@ -50,5 +56,9 @@ Public Class World
 
     Public Function CreateLocationType(newName As String) As LocationType
         Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))
+    End Function
+
+    Public Function CreateEquipSlot(newName As String, newDisplayName As String) As EquipSlot
+        Return EquipSlot.FromId(WorldData, WorldData.EquipSlot.Create(newName, newDisplayName))
     End Function
 End Class
