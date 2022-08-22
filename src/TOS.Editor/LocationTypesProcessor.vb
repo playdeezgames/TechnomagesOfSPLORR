@@ -45,7 +45,7 @@
                 Case AddChangeStatisticText
                     'RunAddChangeStatistic(world, locationType)
                 Case ChangeNameText
-                    'RunChangeName(locationType)
+                    RunChangeName(locationType)
                 Case DeleteText
                     locationType.Destroy()
                     Exit Do
@@ -60,6 +60,13 @@
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
             RunEdit(world, world.CreateLocationType(newName))
+        End If
+    End Sub
+
+    Private Sub RunChangeName(locationType As LocationType)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            locationType.Name = newName
         End If
     End Sub
 

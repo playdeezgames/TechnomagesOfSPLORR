@@ -8,10 +8,13 @@
         Return New LocationType(worldData, locationTypeId)
     End Function
 
-    Public ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.LocationType.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.LocationType.WriteName(Id, value)
+        End Set
     End Property
 
     Public ReadOnly Property UniqueName() As String
