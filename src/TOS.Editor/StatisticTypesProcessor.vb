@@ -12,7 +12,7 @@
                 Case GoBackText
                     Exit Do
                 Case NewText
-                    'RunNew(world)
+                    RunNew(world)
                 Case Else
                     RunEdit(world, table(answer))
             End Select
@@ -65,4 +65,15 @@
         statisticType.Destroy()
     End Sub
 
+    Private Sub RunNew(world As World)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim newDisplayName = AnsiConsole.Ask("[olive]New Display Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newDisplayName) Then
+            Return
+        End If
+        RunEdit(world, world.CreateStatisticType(newName, newDisplayName))
+    End Sub
 End Module

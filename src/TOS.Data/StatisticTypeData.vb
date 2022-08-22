@@ -22,14 +22,28 @@
     End Function
 
     Public Sub WriteDisplayName(statisticTypeId As Long, displayName As String)
-        Store.WriteColumnValue(TableName, (StatisticTypeDisplayNameColumn, displayName), (StatisticTypeIdColumn, statisticTypeId))
+        Store.WriteColumnValue(
+            TableName,
+            (StatisticTypeDisplayNameColumn, displayName),
+            (StatisticTypeIdColumn, statisticTypeId))
     End Sub
 
     Public Function All() As IEnumerable(Of Long)
-        Return Store.ReadRecords(Of Long)(TableName, StatisticTypeIdColumn)
+        Return Store.ReadRecords(Of Long)(
+            TableName,
+            StatisticTypeIdColumn)
     End Function
 
     Public Sub Clear(statisticTypeId As Long)
-        Store.ClearForColumnValue(TableName, (StatisticTypeIdColumn, statisticTypeId))
+        Store.ClearForColumnValue(
+            TableName,
+            (StatisticTypeIdColumn, statisticTypeId))
     End Sub
+
+    Public Function Create(newName As String, newDisplayName As String) As Long
+        Return Store.CreateRecord(
+            TableName,
+            (StatisticTypeNameColumn, newName),
+            (StatisticTypeDisplayNameColumn, newDisplayName))
+    End Function
 End Class

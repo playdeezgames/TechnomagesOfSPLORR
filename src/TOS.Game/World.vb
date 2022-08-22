@@ -37,4 +37,8 @@ Public Class World
             Return WorldData.StatisticType.All.Select(Function(x) StatisticType.FromId(WorldData, x))
         End Get
     End Property
+
+    Public Function CreateStatisticType(newName As String, newDisplayName As String) As StatisticType
+        Return StatisticType.FromId(WorldData, WorldData.StatisticType.Create(newName, newDisplayName))
+    End Function
 End Class
