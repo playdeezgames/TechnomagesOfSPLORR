@@ -2,7 +2,7 @@
     Friend Sub Run(world As World)
         Do
             AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Character Type:[/]"}
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Character Type?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(NewText)
             Dim table = world.CharacterTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
