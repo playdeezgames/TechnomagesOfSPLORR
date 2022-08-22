@@ -63,4 +63,18 @@
             End If
         End Set
     End Property
+
+    Public ReadOnly Property HasEquipSlots As Boolean
+        Get
+            Return WorldData.CharacterTypeEquipSlot.CountForCharacterType(Id) > 0
+        End Get
+    End Property
+
+    Public Sub RemoveEquipSlot(equipSlot As EquipSlot)
+        WorldData.CharacterTypeEquipSlot.Clear(Id, equipSlot.Id)
+    End Sub
+
+    Public Sub AddEquipSlot(equipSlot As EquipSlot)
+        WorldData.CharacterTypeEquipSlot.Write(Id, equipSlot.Id)
+    End Sub
 End Class

@@ -48,9 +48,15 @@
             If characterType.HasStatistics Then
                 prompt.AddChoice(RemoveStatisticText)
             End If
+            prompt.AddChoice(AddEquipSlotText)
+            If characterType.HasEquipSlots Then
+                prompt.AddChoice(RemoveEquipSlotText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
                     RunAddChangeStatistic(world, characterType)
+                Case AddEquipSlotText
+                    RunAddEquipSlotText(world, characterType)
                 Case ChangeNameText
                     RunChangeName(characterType)
                 Case DeleteText
@@ -58,10 +64,40 @@
                     Exit Do
                 Case GoBackText
                     Exit Do
+                Case RemoveEquipSlotText
+                    RunRemoveEquipSlot(characterType)
                 Case RemoveStatisticText
                     RunRemoveStatistic(world, characterType)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunRemoveEquipSlot(characterType As CharacterType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Equip Slot?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = characterType.EquipSlots.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                characterType.RemoveEquipSlot(table(answer))
+        End Select
+    End Sub
+
+    Private Sub RunAddEquipSlotText(world As World, characterType As CharacterType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Equip Slot?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.EquipSlots.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                characterType.AddEquipSlot(table(answer))
+        End Select
     End Sub
 
     Private Sub RunRemoveStatistic(world As World, characterType As CharacterType)
