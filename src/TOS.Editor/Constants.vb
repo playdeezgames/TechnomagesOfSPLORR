@@ -6,6 +6,7 @@
     Friend Const CharacterTypesText = "Character Types"
     Friend Const DeleteText = "Delete"
     Friend Const GoBackText = "Go Back"
+    Friend Const LocationTypesText = "Location Types"
     Friend Const NeverMindText = "Never Mind"
     Friend Const NewText = "New"
     Friend Const NoText = "No"

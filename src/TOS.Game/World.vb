@@ -41,4 +41,10 @@ Public Class World
     Public Function CreateStatisticType(newName As String, newDisplayName As String) As StatisticType
         Return StatisticType.FromId(WorldData, WorldData.StatisticType.Create(newName, newDisplayName))
     End Function
+
+    Public ReadOnly Property LocationTypes As IEnumerable(Of LocationType)
+        Get
+            Return WorldData.LocationType.All.Select(Function(x) LocationType.FromId(WorldData, x))
+        End Get
+    End Property
 End Class
