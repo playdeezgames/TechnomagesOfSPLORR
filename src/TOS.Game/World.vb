@@ -47,4 +47,8 @@ Public Class World
             Return WorldData.LocationType.All.Select(Function(x) LocationType.FromId(WorldData, x))
         End Get
     End Property
+
+    Public Function CreateLocationType(newName As String) As LocationType
+        Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))
+    End Function
 End Class

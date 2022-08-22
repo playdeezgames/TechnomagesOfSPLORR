@@ -12,7 +12,7 @@
                 Case GoBackText
                     Exit Do
                 Case NewText
-                    'RunNew(world)
+                    RunNew(world)
                 Case Else
                     RunEdit(world, table(answer))
             End Select
@@ -47,7 +47,7 @@
                 Case ChangeNameText
                     'RunChangeName(locationType)
                 Case DeleteText
-                    'RunDelete(locationType)
+                    locationType.Destroy()
                     Exit Do
                 Case GoBackText
                     Exit Do
@@ -55,6 +55,12 @@
                     'RunRemoveStatistic(world, locationType)
             End Select
         Loop
+    End Sub
+    Private Sub RunNew(world As World)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            RunEdit(world, world.CreateLocationType(newName))
+        End If
     End Sub
 
 End Module

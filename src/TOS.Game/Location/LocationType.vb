@@ -36,4 +36,8 @@
                 Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
         End Get
     End Property
+
+    Public Sub Destroy()
+        WorldData.LocationType.Clear(Id)
+    End Sub
 End Class

@@ -15,4 +15,12 @@
     Public Function ReadName(locationTypeId As Long) As String
         Return Store.ReadColumnString(TableName, LocationTypeNameColumn, (LocationTypeIdColumn, locationTypeId))
     End Function
+
+    Public Function Create(newName As String) As Long
+        Return Store.CreateRecord(TableName, (LocationTypeNameColumn, newName))
+    End Function
+
+    Public Sub Clear(locationTypeId As Long)
+        Store.ClearForColumnValue(TableName, (LocationTypeIdColumn, locationTypeId))
+    End Sub
 End Class
