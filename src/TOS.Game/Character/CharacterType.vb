@@ -45,6 +45,12 @@
         WorldData.CharacterType.Clear(Id)
     End Sub
 
+    Public ReadOnly Property EquipSlots As IEnumerable(Of EquipSlot)
+        Get
+            Return WorldData.CharacterTypeEquipSlot.ReadForCharacterType(Id).Select(Function(x) EquipSlot.FromId(WorldData, x))
+        End Get
+    End Property
+
     Public Property Statistic(statisticType As StatisticType) As Long?
         Get
             Return WorldData.CharacterTypeStatistic.Read(Id, statisticType.Id)

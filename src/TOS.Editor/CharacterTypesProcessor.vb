@@ -31,6 +31,13 @@
                     AnsiConsole.MarkupLine($"  * {statistic.Item1.Name}({statistic.Item1.DisplayName}): {statistic.Item2}")
                 Next
             End If
+            Dim equipSlots = characterType.EquipSlots
+            If equipSlots.Any Then
+                AnsiConsole.MarkupLine($"* Equip Slots:")
+                For Each equipSlot In equipSlots
+                    AnsiConsole.MarkupLine($"  * {equipSlot.Name}({equipSlot.DisplayName})")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)
