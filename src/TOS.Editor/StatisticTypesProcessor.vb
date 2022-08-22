@@ -35,16 +35,34 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeDisplayNameText
-                    'RunChangeDisplayName(CharacterType)
+                    RunChangeDisplayName(statisticType)
                 Case ChangeNameText
-                    'RunChangeName(CharacterType)
+                    RunChangeName(statisticType)
                 Case DeleteText
-                    'RunDelete(CharacterType)
+                    RunDelete(statisticType)
                     Exit Do
                 Case GoBackText
                     Exit Do
             End Select
         Loop
+    End Sub
+
+    Private Sub RunChangeDisplayName(statisticType As StatisticType)
+        Dim newName = AnsiConsole.Ask("[olive]New Display Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            statisticType.DisplayName = newName
+        End If
+    End Sub
+
+    Private Sub RunChangeName(statisticType As StatisticType)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            statisticType.Name = newName
+        End If
+    End Sub
+
+    Private Sub RunDelete(statisticType As StatisticType)
+        statisticType.Destroy()
     End Sub
 
 End Module

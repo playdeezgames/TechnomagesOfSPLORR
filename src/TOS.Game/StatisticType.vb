@@ -7,15 +7,21 @@
     Friend Shared Function FromId(worldData As WorldData, id As Long) As StatisticType
         Return New StatisticType(worldData, id)
     End Function
-    Public ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.StatisticType.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.StatisticType.WriteName(Id, value)
+        End Set
     End Property
-    Public ReadOnly Property DisplayName As String
+    Public Property DisplayName As String
         Get
             Return WorldData.StatisticType.ReadDisplayName(Id)
         End Get
+        Set(value As String)
+            WorldData.StatisticType.WriteDisplayName(Id, value)
+        End Set
     End Property
 
     Public ReadOnly Property UniqueName As String
@@ -29,4 +35,8 @@
             WorldData.LocationTypeStatistic.CountForStatisticType(Id) = 0 AndAlso
             WorldData.ItemTypeStatistic.CountForStatisticType(Id) = 0
     End Function
+
+    Public Sub Destroy()
+        WorldData.StatisticType.Clear(Id)
+    End Sub
 End Class
