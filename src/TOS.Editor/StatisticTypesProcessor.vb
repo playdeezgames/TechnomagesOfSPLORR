@@ -14,8 +14,37 @@
                 Case NewText
                     'RunNew(world)
                 Case Else
-                    'RunEdit(world, table(answer))
+                    RunEdit(world, table(answer))
             End Select
         Loop
     End Sub
+
+    Private Sub RunEdit(world As World, statisticType As StatisticType)
+        Do
+            AnsiConsole.Clear()
+            AnsiConsole.MarkupLine("Statistic Type:")
+            AnsiConsole.MarkupLine($"* Id: {statisticType.Id}")
+            AnsiConsole.MarkupLine($"* Name: {statisticType.Name}")
+            AnsiConsole.MarkupLine($"* Display Name: {statisticType.DisplayName}")
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
+            prompt.AddChoice(GoBackText)
+            prompt.AddChoice(ChangeNameText)
+            prompt.AddChoice(ChangeDisplayNameText)
+            If statisticType.CanDelete Then
+                prompt.AddChoice(DeleteText)
+            End If
+            Select Case AnsiConsole.Prompt(prompt)
+                Case ChangeDisplayNameText
+                    'RunChangeDisplayName(CharacterType)
+                Case ChangeNameText
+                    'RunChangeName(CharacterType)
+                Case DeleteText
+                    'RunDelete(CharacterType)
+                    Exit Do
+                Case GoBackText
+                    Exit Do
+            End Select
+        Loop
+    End Sub
+
 End Module

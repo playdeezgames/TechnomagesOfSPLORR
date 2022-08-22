@@ -15,10 +15,12 @@ Public Class WorldData
     Public ReadOnly ItemEquipSlot As ItemEquipSlotData
     Public ReadOnly ItemStatistic As ItemStatisticData
     Public ReadOnly ItemType As ItemTypeData
+    Public ReadOnly ItemTypeStatistic As ItemTypeStatisticData
     Public ReadOnly Location As LocationData
     Public ReadOnly LocationCharacter As LocationCharacterData
     Public ReadOnly LocationStatistic As LocationStatisticData
     Public ReadOnly LocationType As LocationTypeData
+    Public ReadOnly LocationTypeStatistic As LocationTypeStatisticData
     Public ReadOnly Route As RouteData
     Public ReadOnly StatisticType As StatisticTypeData
     Public ReadOnly Team As TeamData
@@ -43,10 +45,12 @@ Public Class WorldData
         ItemEquipSlot = New ItemEquipSlotData(store)
         ItemStatistic = New ItemStatisticData(store)
         ItemType = New ItemTypeData(store)
+        ItemTypeStatistic = New ItemTypeStatisticData(store)
         Location = New LocationData(store)
         LocationCharacter = New LocationCharacterData(store)
         LocationStatistic = New LocationStatisticData(store)
         LocationType = New LocationTypeData(store)
+        LocationTypeStatistic = New LocationTypeStatisticData(store)
         Route = New RouteData(store)
         StatisticType = New StatisticTypeData(store)
         Team = New TeamData(store)

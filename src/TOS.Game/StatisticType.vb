@@ -23,4 +23,10 @@
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public Function CanDelete() As Boolean
+        Return WorldData.CharacterTypeStatistic.CountForStatisticType(Id) = 0 AndAlso
+            WorldData.LocationTypeStatistic.CountForStatisticType(Id) = 0 AndAlso
+            WorldData.ItemTypeStatistic.CountForStatisticType(Id) = 0
+    End Function
 End Class

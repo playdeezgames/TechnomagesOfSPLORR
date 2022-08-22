@@ -1,6 +1,7 @@
 ﻿Module Constants
     Friend Const AddChangeStatisticText = "Add/Change Statistic"
     Friend Const BoilerplateDb = "boilerplate.db"
+    Friend Const ChangeDisplayNameText = "Change Display Name"
     Friend Const ChangeNameText = "Change Name"
     Friend Const CharacterTypesText = "Character Types"
     Friend Const DeleteText = "Delete"
