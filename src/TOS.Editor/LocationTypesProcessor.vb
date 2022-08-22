@@ -43,7 +43,7 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    'RunAddChangeStatistic(world, locationType)
+                    RunAddChangeStatistic(world, locationType)
                 Case ChangeNameText
                     RunChangeName(locationType)
                 Case DeleteText
@@ -52,7 +52,7 @@
                 Case GoBackText
                     Exit Do
                 Case RemoveStatisticText
-                    'RunRemoveStatistic(world, locationType)
+                    RunRemoveStatistic(world, locationType)
             End Select
         Loop
     End Sub
@@ -68,6 +68,33 @@
         If Not String.IsNullOrWhiteSpace(newName) Then
             locationType.Name = newName
         End If
+    End Sub
+    Private Sub RunAddChangeStatistic(world As World, locationType As LocationType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Add/Change which statistic?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                Dim statisticValue = AnsiConsole.Ask(Of Long)("[olive]Statistic Value: [/]")
+                locationType.Statistic(table(answer)) = statisticValue
+        End Select
+    End Sub
+    Private Sub RunRemoveStatistic(world As World, locationType As LocationType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Remove which statistic?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                locationType.Statistic(table(answer)) = Nothing
+        End Select
     End Sub
 
 End Module

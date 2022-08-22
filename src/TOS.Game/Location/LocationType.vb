@@ -43,4 +43,17 @@
     Public Sub Destroy()
         WorldData.LocationType.Clear(Id)
     End Sub
+
+    Public Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.LocationTypeStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.LocationTypeStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.LocationTypeStatistic.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
 End Class

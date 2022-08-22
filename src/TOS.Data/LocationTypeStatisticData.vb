@@ -27,4 +27,26 @@
             (LocationTypeIdColumn, locationTypeId))
     End Function
 
+    Public Function Read(locationTypeId As Long, statisticTypeId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long, Long)(
+            TableName,
+            StatisticDeltaColumn,
+            (LocationTypeIdColumn, locationTypeId),
+            (StatisticTypeIdColumn, statisticTypeId))
+    End Function
+
+    Public Sub Write(locationTypeId As Long, statisticTypeId As Long, value As Long)
+        Store.ReplaceRecord(
+            TableName,
+            (LocationTypeIdColumn, locationTypeId),
+            (StatisticTypeIdColumn, statisticTypeId),
+            (StatisticDeltaColumn, value))
+    End Sub
+
+    Public Sub Clear(locationTypeId As Long, statisticTypeId As Long)
+        Store.ClearForColumnValues(
+            TableName,
+            (LocationTypeIdColumn, locationTypeId),
+            (StatisticTypeIdColumn, statisticTypeId))
+    End Sub
 End Class
