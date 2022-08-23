@@ -1,5 +1,6 @@
 ﻿Public Class EquipSlotData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "EquipSlots"
     Friend Const EquipSlotIdColumn = "EquipSlotId"
     Friend Const EquipSlotDisplayNameColumn = "EquipSlotDisplayName"
@@ -25,7 +26,7 @@
         Store.WriteColumnValue(TableName, (EquipSlotNameColumn, name), (EquipSlotIdColumn, equipSlotId))
     End Sub
 
-    Public Function All() As IEnumerable(Of Long)
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(TableName, EquipSlotIdColumn)
     End Function
 

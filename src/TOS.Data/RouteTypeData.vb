@@ -1,5 +1,6 @@
 ﻿Public Class RouteTypeData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "RouteTypes"
     Friend Const RouteTypeIdColumn = "RouteTypeId"
     Friend Const RouteTypeNameColumn = "RouteTypeName"
@@ -8,7 +9,7 @@
         MyBase.New(store)
     End Sub
 
-    Public Function All() As IEnumerable(Of Long)
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(TableName, RouteTypeIdColumn)
     End Function
 

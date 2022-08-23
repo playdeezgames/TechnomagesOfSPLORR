@@ -1,5 +1,6 @@
 ﻿Public Class VergeData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "Verges"
     Friend Const VergeIdColumn = "VergeId"
     Friend Const VergeNameColumn = "VergeName"
@@ -21,7 +22,7 @@
         Return Store.ReadColumnString(TableName, VergeNameColumn, (VergeIdColumn, vergeId))
     End Function
 
-    Public Function All() As IEnumerable(Of Long)
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(TableName, VergeIdColumn)
     End Function
 

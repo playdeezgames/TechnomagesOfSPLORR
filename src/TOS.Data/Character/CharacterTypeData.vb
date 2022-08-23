@@ -1,5 +1,6 @@
 ﻿Public Class CharacterTypeData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "CharacterTypes"
     Friend Const CharacterTypeIdColumn = "CharacterTypeId"
     Friend Const CharacterTypeNameColumn = "CharacterTypeName"
@@ -22,7 +23,7 @@
             (CharacterTypeIdColumn, characterTypeId))
     End Sub
 
-    Public Function All() As IEnumerable(Of Long)
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(
             TableName,
             CharacterTypeIdColumn)
