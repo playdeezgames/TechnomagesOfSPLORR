@@ -17,4 +17,12 @@
     Public Function ReadName(vergeTypeId As Long) As String
         Return Store.ReadColumnString(TableName, VergeTypeNameColumn, (VergeTypeIdColumn, vergeTypeId))
     End Function
+
+    Public Sub WriteName(vergeTypeId As Long, value As String)
+        Store.WriteColumnValue(TableName, (VergeTypeNameColumn, value), (VergeTypeIdColumn, vergeTypeId))
+    End Sub
+
+    Public Sub Clear(vergeTypeId As Long)
+        Store.ClearForColumnValue(TableName, (VergeTypeIdColumn, vergeTypeId))
+    End Sub
 End Class

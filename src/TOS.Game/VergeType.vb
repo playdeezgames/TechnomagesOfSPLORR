@@ -8,10 +8,13 @@
         Return New VergeType(worldData, id)
     End Function
 
-    Public ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.VergeType.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.VergeType.WriteName(Id, value)
+        End Set
     End Property
 
     Public ReadOnly Property UniqueName() As String
@@ -19,4 +22,14 @@
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return WorldData.Verge.CountForVergeType(Id) = 0
+        End Get
+    End Property
+
+    Public Sub Destroy()
+        WorldData.VergeType.Clear(Id)
+    End Sub
 End Class

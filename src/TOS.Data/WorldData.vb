@@ -29,6 +29,7 @@ Public Class WorldData
     Public ReadOnly TeamCharacter As TeamCharacterData
     Public ReadOnly TeamEquipSlot As TeamEquipSlotData
     Public ReadOnly TeamItem As TeamItemData
+    Public ReadOnly Verge As VergeData
     Public ReadOnly VergeType As VergeTypeData
 
     Public Sub New(store As Store)
@@ -62,6 +63,7 @@ Public Class WorldData
         TeamCharacter = New TeamCharacterData(store)
         TeamEquipSlot = New TeamEquipSlotData(store)
         TeamItem = New TeamItemData(store)
+        Verge = New VergeData(store)
         VergeType = New VergeTypeData(store)
     End Sub
 
