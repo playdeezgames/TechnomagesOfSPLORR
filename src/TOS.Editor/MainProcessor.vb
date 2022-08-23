@@ -1,4 +1,15 @@
 ﻿Module MainProcessor
+    Private ReadOnly table As IReadOnlyDictionary(Of String, Action(Of World)) =
+        New Dictionary(Of String, Action(Of World)) From
+        {
+            {CharacterTypesText, AddressOf CharacterTypesProcessor.Run},
+            {EquipSlotsText, AddressOf EquipSlotsProcessor.Run},
+            {LocationTypesText, AddressOf LocationTypesProcessor.Run},
+            {RouteTypesText, AddressOf RouteTypesProcessor.Run},
+            {StatisticTypesText, AddressOf StatisticTypesProcessor.Run},
+            {VergesText, AddressOf VergesProcessor.Run},
+            {VergeTypesText, AddressOf VergeTypesProcessor.Run}
+        }
     Friend Sub Run()
         AnsiConsole.Clear()
         Dim world As New World(BoilerplateDb)
@@ -13,28 +24,17 @@
             prompt.AddChoice(VergeTypesText)
             prompt.AddChoice(SaveAndQuitText)
             prompt.AddChoice(QuitText)
-            Select Case AnsiConsole.Prompt(prompt)
-                Case CharacterTypesText
-                    CharacterTypesProcessor.Run(world)
-                Case EquipSlotsText
-                    EquipSlotsProcessor.Run(world)
-                Case LocationTypesText
-                    LocationTypesProcessor.Run(world)
+            Dim answer = AnsiConsole.Prompt(prompt)
+            Select Case answer
                 Case QuitText
                     If ConfirmProcessor.Run("Are you sure you want to quit without saving?") Then
                         Exit Do
                     End If
-                Case RouteTypesText
-                    RouteTypesProcessor.Run(world)
                 Case SaveAndQuitText
                     world.Save(BoilerplateDb)
                     Exit Do
-                Case StatisticTypesText
-                    StatisticTypesProcessor.Run(world)
-                Case VergesText
-                    VergesProcessor.Run(world)
-                Case VergeTypesText
-                    VergeTypesProcessor.Run(world)
+                Case Else
+                    table(answer).Invoke(world)
             End Select
         Loop
     End Sub
