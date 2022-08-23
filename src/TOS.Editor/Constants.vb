@@ -9,6 +9,7 @@
     Friend Const DeleteText = "Delete"
     Friend Const EquipSlotsText = "Equip Slots"
     Friend Const GoBackText = "Go Back"
+    Friend Const ItemTypesText = "Item Types"
     Friend Const LocationTypesText = "Location Types"
     Friend Const NeverMindText = "Never Mind"
     Friend Const NewText = "New"

@@ -11,4 +11,10 @@
     Public Function ReadItemType(itemId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(TableName, ItemTypeIdColumn, (ItemIdColumn, itemId))
     End Function
+
+    Public Function CountForItemType(itemTypeId As Long) As Long
+        Return Store.ReadCountForColumnValue(
+            TableName,
+            (ItemTypeIdColumn, itemTypeId))
+    End Function
 End Class

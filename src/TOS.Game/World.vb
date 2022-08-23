@@ -13,6 +13,10 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Public Function ItemTypes() As IEnumerable(Of ItemType)
+        Return FetchAll(WorldData.ItemType, AddressOf ItemType.FromId)
+    End Function
+
     Private Function FetchAll(Of TThingie)(
                                           allProvider As IProvidesAll,
                                           conversion As Func(Of WorldData, Long, TThingie)) As IEnumerable(Of TThingie)

@@ -8,7 +8,21 @@
         Return New ItemType(worldData, id)
     End Function
 
-    Public Function Name() As String
-        Return WorldData.ItemType.ReadName(Id)
-    End Function
+    Public ReadOnly Property Name() As String
+        Get
+            Return WorldData.ItemType.ReadName(Id)
+        End Get
+    End Property
+
+    Public ReadOnly Property UniqueName() As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
+
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return WorldData.Item.CountForItemType(Id) = 0
+        End Get
+    End Property
 End Class

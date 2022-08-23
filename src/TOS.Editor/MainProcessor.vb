@@ -4,6 +4,7 @@
         {
             {CharacterTypesText, AddressOf CharacterTypesProcessor.Run},
             {EquipSlotsText, AddressOf EquipSlotsProcessor.Run},
+            {ItemTypesText, AddressOf ItemTypesProcessor.Run},
             {LocationTypesText, AddressOf LocationTypesProcessor.Run},
             {RouteTypesText, AddressOf RouteTypesProcessor.Run},
             {StatisticTypesText, AddressOf StatisticTypesProcessor.Run},
@@ -15,13 +16,7 @@
         Dim world As New World(BoilerplateDb)
         Do
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Main Menu:[/]"}
-            prompt.AddChoice(CharacterTypesText)
-            prompt.AddChoice(EquipSlotsText)
-            prompt.AddChoice(LocationTypesText)
-            prompt.AddChoice(RouteTypesText)
-            prompt.AddChoice(StatisticTypesText)
-            prompt.AddChoice(VergesText)
-            prompt.AddChoice(VergeTypesText)
+            prompt.AddChoices(table.Keys)
             prompt.AddChoice(SaveAndQuitText)
             prompt.AddChoice(QuitText)
             Dim answer = AnsiConsole.Prompt(prompt)

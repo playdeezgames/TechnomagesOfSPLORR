@@ -1,5 +1,6 @@
 ﻿Public Class ItemTypeData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "ItemTypes"
     Friend Const ItemTypeIdColumn = "ItemTypeId"
     Friend Const ItemTypeNameColumn = "ItemTypeName"
@@ -13,5 +14,9 @@
             TableName,
             ItemTypeNameColumn,
             (ItemTypeIdColumn, itemTypeId))
+    End Function
+
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
+        Return Store.ReadRecords(Of Long)(TableName, ItemTypeIdColumn)
     End Function
 End Class
