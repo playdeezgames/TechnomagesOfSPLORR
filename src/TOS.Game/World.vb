@@ -13,27 +13,33 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Private Function FetchAll(Of TThingie)(
+                                          allProvider As IProvidesAll,
+                                          conversion As Func(Of WorldData, Long, TThingie)) As IEnumerable(Of TThingie)
+        Return allProvider.All.Select(Function(x) conversion(WorldData, x))
+    End Function
+
     Public ReadOnly Property Verges As IEnumerable(Of Verge)
         Get
-            Return WorldData.Verge.All.Select(Function(x) Verge.FromId(WorldData, x))
+            Return FetchAll(WorldData.Verge, AddressOf Verge.FromId)
         End Get
     End Property
 
     Public ReadOnly Property RouteTypes As IEnumerable(Of RouteType)
         Get
-            Return WorldData.RouteType.All.Select(Function(x) RouteType.FromId(WorldData, x))
+            Return FetchAll(WorldData.RouteType, AddressOf RouteType.FromId)
         End Get
     End Property
 
     Public ReadOnly Property EquipSlots() As IEnumerable(Of EquipSlot)
         Get
-            Return WorldData.EquipSlot.All.Select(Function(x) EquipSlot.FromId(WorldData, x))
+            Return FetchAll(WorldData.EquipSlot, AddressOf EquipSlot.FromId)
         End Get
     End Property
 
     Public ReadOnly Property CharacterTypes As IEnumerable(Of CharacterType)
         Get
-            Return WorldData.CharacterType.All.Select(Function(x) CharacterType.FromId(WorldData, x))
+            Return FetchAll(WorldData.CharacterType, AddressOf CharacterType.FromId)
         End Get
     End Property
 
@@ -56,7 +62,7 @@ Public Class World
 
     Public ReadOnly Property StatisticTypes As IEnumerable(Of StatisticType)
         Get
-            Return WorldData.StatisticType.All.Select(Function(x) StatisticType.FromId(WorldData, x))
+            Return FetchAll(WorldData.StatisticType, AddressOf StatisticType.FromId)
         End Get
     End Property
 
@@ -66,13 +72,13 @@ Public Class World
 
     Public ReadOnly Property LocationTypes As IEnumerable(Of LocationType)
         Get
-            Return WorldData.LocationType.All.Select(Function(x) LocationType.FromId(WorldData, x))
+            Return FetchAll(WorldData.LocationType, AddressOf LocationType.FromId)
         End Get
     End Property
 
     Public ReadOnly Property VergeTypes As IEnumerable(Of VergeType)
         Get
-            Return WorldData.VergeType.All.Select(Function(x) VergeType.FromId(WorldData, x))
+            Return FetchAll(WorldData.VergeType, AddressOf VergeType.FromId)
         End Get
     End Property
 
