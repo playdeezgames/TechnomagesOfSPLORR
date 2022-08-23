@@ -64,6 +64,10 @@ Public Class World
         Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))
     End Function
 
+    Public Function CreateVergeType(newName As String) As VergeType
+        Return VergeType.FromId(WorldData, WorldData.VergeType.Create(newName))
+    End Function
+
     Public Function CreateEquipSlot(newName As String, newDisplayName As String) As EquipSlot
         Return EquipSlot.FromId(WorldData, WorldData.EquipSlot.Create(newName, newDisplayName))
     End Function

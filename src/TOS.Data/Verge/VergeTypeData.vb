@@ -25,4 +25,8 @@
     Public Sub Clear(vergeTypeId As Long)
         Store.ClearForColumnValue(TableName, (VergeTypeIdColumn, vergeTypeId))
     End Sub
+
+    Public Function Create(newName As String) As Long
+        Return Store.CreateRecord(TableName, (VergeTypeNameColumn, newName))
+    End Function
 End Class

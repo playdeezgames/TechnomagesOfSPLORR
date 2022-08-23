@@ -12,7 +12,7 @@
                 Case GoBackText
                     Exit Do
                 Case NewText
-                    'RunNew(world)
+                    RunNew(world)
                 Case Else
                     RunEdit(world, table(answer))
             End Select
@@ -45,6 +45,12 @@
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
             vergeType.Name = newName
+        End If
+    End Sub
+    Private Sub RunNew(world As World)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            RunEdit(world, world.CreateVergeType(newName))
         End If
     End Sub
 End Module
