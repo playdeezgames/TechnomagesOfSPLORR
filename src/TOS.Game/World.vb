@@ -54,6 +54,12 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property VergeTypes As IEnumerable(Of VergeType)
+        Get
+            Return WorldData.VergeType.All.Select(Function(x) VergeType.FromId(WorldData, x))
+        End Get
+    End Property
+
     Public Function CreateLocationType(newName As String) As LocationType
         Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))
     End Function

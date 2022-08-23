@@ -29,6 +29,7 @@ Public Class WorldData
     Public ReadOnly TeamCharacter As TeamCharacterData
     Public ReadOnly TeamEquipSlot As TeamEquipSlotData
     Public ReadOnly TeamItem As TeamItemData
+    Public ReadOnly VergeType As VergeTypeData
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -61,6 +62,7 @@ Public Class WorldData
         TeamCharacter = New TeamCharacterData(store)
         TeamEquipSlot = New TeamEquipSlotData(store)
         TeamItem = New TeamItemData(store)
+        VergeType = New VergeTypeData(store)
     End Sub
 
     Sub Load(filename As String)

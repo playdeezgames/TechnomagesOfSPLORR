@@ -8,6 +8,7 @@
             prompt.AddChoice(EquipSlotsText)
             prompt.AddChoice(LocationTypesText)
             prompt.AddChoice(StatisticTypesText)
+            prompt.AddChoice(VergeTypesText)
             prompt.AddChoice(SaveAndQuitText)
             prompt.AddChoice(QuitText)
             Select Case AnsiConsole.Prompt(prompt)
@@ -26,6 +27,8 @@
                     Exit Do
                 Case StatisticTypesText
                     StatisticTypesProcessor.Run(world)
+                Case VergeTypesText
+                    VergeTypesProcessor.Run(world)
             End Select
         Loop
     End Sub

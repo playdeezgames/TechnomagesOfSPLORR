@@ -17,5 +17,6 @@
     Friend Const RemoveStatisticText = "Remove Statistic"
     Friend Const SaveAndQuitText = "Save and Quit"
     Friend Const StatisticTypesText = "Statistic Types"
+    Friend Const VergeTypesText = "Verge Types"
     Friend Const YesText = "Yes"
 End Module
