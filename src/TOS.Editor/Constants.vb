@@ -4,6 +4,7 @@
     Friend Const BoilerplateDb = "boilerplate.db"
     Friend Const ChangeDisplayNameText = "Change Display Name"
     Friend Const ChangeNameText = "Change Name"
+    Friend Const ChangeVergeTypeText = "Change Verge Type"
     Friend Const CharacterTypesText = "Character Types"
     Friend Const DeleteText = "Delete"
     Friend Const EquipSlotsText = "Equip Slots"
@@ -18,6 +19,7 @@
     Friend Const RouteTypesText = "Route Types"
     Friend Const SaveAndQuitText = "Save and Quit"
     Friend Const StatisticTypesText = "Statistic Types"
+    Friend Const VergesText = "Verges"
     Friend Const VergeTypesText = "Verge Types"
     Friend Const YesText = "Yes"
 End Module

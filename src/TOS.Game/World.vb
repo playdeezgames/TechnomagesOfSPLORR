@@ -13,6 +13,12 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Public ReadOnly Property Verges As IEnumerable(Of Verge)
+        Get
+            Return WorldData.Verge.All.Select(Function(x) Verge.FromId(WorldData, x))
+        End Get
+    End Property
+
     Public ReadOnly Property RouteTypes As IEnumerable(Of RouteType)
         Get
             Return WorldData.RouteType.All.Select(Function(x) RouteType.FromId(WorldData, x))
@@ -30,6 +36,10 @@ Public Class World
             Return WorldData.CharacterType.All.Select(Function(x) CharacterType.FromId(WorldData, x))
         End Get
     End Property
+
+    Public Function CreateVerge(name As String, vergeType As VergeType) As Verge
+        Return Verge.FromId(WorldData, WorldData.Verge.Create(name, vergeType.Id))
+    End Function
 
     Sub Save(filename As String)
         WorldData.Save(filename)

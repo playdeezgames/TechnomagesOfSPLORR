@@ -6,6 +6,7 @@
     Friend Const FromLocationIdColumn = "FromLocationId"
     Friend Const ToLocationIdColumn = "ToLocationId"
     Friend Const RouteTypeIdColumn = RouteTypeData.RouteTypeIdColumn
+    Friend Const VergeIdColumn = VergeData.VergeIdColumn
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -23,6 +24,10 @@
             TableName,
             RouteIdColumn,
             (FromLocationIdColumn, fromLocationId))
+    End Function
+
+    Public Function CountForVerge(vergeId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (VergeIdColumn, vergeId))
     End Function
 
     Public Function CountForRouteType(routeTypeId As Long) As Long

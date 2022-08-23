@@ -9,6 +9,7 @@
             prompt.AddChoice(LocationTypesText)
             prompt.AddChoice(RouteTypesText)
             prompt.AddChoice(StatisticTypesText)
+            prompt.AddChoice(VergesText)
             prompt.AddChoice(VergeTypesText)
             prompt.AddChoice(SaveAndQuitText)
             prompt.AddChoice(QuitText)
@@ -30,6 +31,8 @@
                     Exit Do
                 Case StatisticTypesText
                     StatisticTypesProcessor.Run(world)
+                Case VergesText
+                    VergesProcessor.Run(world)
                 Case VergeTypesText
                     VergeTypesProcessor.Run(world)
             End Select
