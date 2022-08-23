@@ -5,6 +5,7 @@
     Friend Const RouteNameColumn = "RouteName"
     Friend Const FromLocationIdColumn = "FromLocationId"
     Friend Const ToLocationIdColumn = "ToLocationId"
+    Friend Const RouteTypeIdColumn = RouteTypeData.RouteTypeIdColumn
 
     Public Sub New(store As Store)
         MyBase.New(store)
@@ -24,11 +25,15 @@
             (FromLocationIdColumn, fromLocationId))
     End Function
 
+    Public Function CountForRouteType(routeTypeId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (RouteTypeIdColumn, routeTypeId))
+    End Function
+
     Public Function ReadToLocationId(routeId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(TableName, ToLocationIdColumn, (RouteIdColumn, routeId))
     End Function
 
-    Public Function ReadCountForLocation(fromLocationId As Long) As Long
+    Public Function CountForLocation(fromLocationId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (FromLocationIdColumn, fromLocationId))
     End Function
 End Class

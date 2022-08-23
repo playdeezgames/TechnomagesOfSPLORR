@@ -24,6 +24,7 @@ Public Class WorldData
     Public ReadOnly LocationType As LocationTypeData
     Public ReadOnly LocationTypeStatistic As LocationTypeStatisticData
     Public ReadOnly Route As RouteData
+    Public ReadOnly RouteType As RouteTypeData
     Public ReadOnly StatisticType As StatisticTypeData
     Public ReadOnly Team As TeamData
     Public ReadOnly TeamCharacter As TeamCharacterData
@@ -58,6 +59,7 @@ Public Class WorldData
         LocationType = New LocationTypeData(store)
         LocationTypeStatistic = New LocationTypeStatisticData(store)
         Route = New RouteData(store)
+        RouteType = New RouteTypeData(store)
         StatisticType = New StatisticTypeData(store)
         Team = New TeamData(store)
         TeamCharacter = New TeamCharacterData(store)

@@ -67,7 +67,7 @@
     End Property
 
     Public Function HasRoutes() As Boolean
-        Return WorldData.Route.ReadCountForLocation(Id) > 0
+        Return WorldData.Route.CountForLocation(Id) > 0
     End Function
 
     Public Function HasInventory() As Boolean

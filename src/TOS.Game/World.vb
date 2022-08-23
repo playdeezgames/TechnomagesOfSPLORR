@@ -13,6 +13,12 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Public ReadOnly Property RouteTypes As IEnumerable(Of RouteType)
+        Get
+            Return WorldData.RouteType.All.Select(Function(x) RouteType.FromId(WorldData, x))
+        End Get
+    End Property
+
     Public ReadOnly Property EquipSlots() As IEnumerable(Of EquipSlot)
         Get
             Return WorldData.EquipSlot.All.Select(Function(x) EquipSlot.FromId(WorldData, x))
@@ -59,6 +65,10 @@ Public Class World
             Return WorldData.VergeType.All.Select(Function(x) VergeType.FromId(WorldData, x))
         End Get
     End Property
+
+    Public Function CreateRouteType(newName As String) As RouteType
+        Return RouteType.FromId(WorldData, WorldData.RouteType.Create(newName))
+    End Function
 
     Public Function CreateLocationType(newName As String) As LocationType
         Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))

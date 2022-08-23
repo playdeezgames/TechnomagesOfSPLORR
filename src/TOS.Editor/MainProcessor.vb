@@ -7,6 +7,7 @@
             prompt.AddChoice(CharacterTypesText)
             prompt.AddChoice(EquipSlotsText)
             prompt.AddChoice(LocationTypesText)
+            prompt.AddChoice(RouteTypesText)
             prompt.AddChoice(StatisticTypesText)
             prompt.AddChoice(VergeTypesText)
             prompt.AddChoice(SaveAndQuitText)
@@ -22,6 +23,8 @@
                     If ConfirmProcessor.Run("Are you sure you want to quit without saving?") Then
                         Exit Do
                     End If
+                Case RouteTypesText
+                    RouteTypesProcessor.Run(world)
                 Case SaveAndQuitText
                     world.Save(BoilerplateDb)
                     Exit Do
