@@ -28,7 +28,12 @@
                 Next
             End If
 
-            AnsiConsole.MarkupLine($"* Equip Slots:")
+            If itemType.HasEquipSlots Then
+                AnsiConsole.MarkupLine($"* Equip Slots:")
+                For Each entry In itemType.EquipSlots
+                    AnsiConsole.MarkupLine($"  * {entry.Item1}:{entry.Item2.UniqueName}")
+                Next
+            End If
 
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
@@ -41,9 +46,15 @@
             If itemType.HasStatistics Then
                 prompt.AddChoice(RemoveStatisticText)
             End If
+            prompt.AddChoice(AddEquipSlotText)
+            If itemType.HasEquipSlots Then
+                prompt.AddChoice(RemoveEquipSlotText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
                     RunAddChangeStatistic(world, itemType)
+                Case AddEquipSlotText
+                    RunAddEquipSlotText(world, itemType)
                 Case ChangeNameText
                     RunChangeName(itemType)
                 Case DeleteText
@@ -51,10 +62,41 @@
                     Exit Do
                 Case GoBackText
                     Exit Do
+                Case RemoveEquipSlotText
+                    RunRemoveEquipSlot(itemType)
                 Case RemoveStatisticText
                     RunRemoveStatistic(itemType)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunRemoveEquipSlot(itemType As ItemType)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Equip Slot?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = itemType.EquipSlots.ToDictionary(Function(x) $"{x.Item1}:{x.Item2.UniqueName}", Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                itemType.RemoveEquipSlot(table(answer).Item1, table(answer).Item2)
+        End Select
+    End Sub
+
+    Private Sub RunAddEquipSlotText(world As World, itemType As ItemType)
+        Dim alternative = AnsiConsole.Ask(Of Long)("[olive]Which Alternative?[/]")
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Equip Slot?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.EquipSlots.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                itemType.AddEquipSlot(alternative, table(answer))
+        End Select
     End Sub
 
     Private Sub RunRemoveStatistic(itemType As ItemType)

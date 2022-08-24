@@ -60,4 +60,23 @@
             End If
         End Set
     End Property
+    Public ReadOnly Property HasEquipSlots As Boolean
+        Get
+            Return WorldData.ItemTypeEquipSlot.CountForItemType(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property EquipSlots As IEnumerable(Of (Long, EquipSlot))
+        Get
+            Return WorldData.ItemTypeEquipSlot.ReadForItemType(Id).Select(Function(x) (x.Item1, EquipSlot.FromId(WorldData, x.Item2)))
+        End Get
+    End Property
+
+    Public Sub RemoveEquipSlot(alternative As Long, equipSlot As EquipSlot)
+        WorldData.ItemTypeEquipSlot.Clear(Id, alternative, equipSlot.Id)
+    End Sub
+
+    Public Sub AddEquipSlot(alternative As Long, equipSlot As EquipSlot)
+        WorldData.ItemTypeEquipSlot.Write(Id, alternative, equipSlot.Id)
+    End Sub
 End Class

@@ -252,6 +252,26 @@ Public Class Store
                                                                    secondColumnValue As (String, TSecondColumn))
         ClearForColumnValues(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Sub
+    Public Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn, TThirdColumn)(
+                                                                   initializer As Action,
+                                                                   tableName As String,
+                                                                   firstColumnValue As (String, TFirstColumn),
+                                                                   secondColumnValue As (String, TSecondColumn),
+                                                                   thirdColumnValue As (String, TThirdColumn))
+        initializer()
+        ExecuteNonQuery(
+            $"DELETE FROM [{tableName}] WHERE [{firstColumnValue.Item1}]=@{firstColumnValue.Item1} AND [{secondColumnValue.Item1}]=@{secondColumnValue.Item1} AND [{thirdColumnValue.Item1}]=@{thirdColumnValue.Item1};",
+            MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
+            MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2),
+            MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2))
+    End Sub
+    Public Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn, TThirdColumn)(
+                                                                   tableName As String,
+                                                                   firstColumnValue As (String, TFirstColumn),
+                                                                   secondColumnValue As (String, TSecondColumn),
+                                                                   thirdColumnValue As (String, TThirdColumn))
+        ClearForColumnValues(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue, thirdColumnValue)
+    End Sub
     Public Sub ReplaceRecord(Of TColumn)(tableName As String, columnValue As (String, TColumn))
         ReplaceRecord(AddressOf NoInitializer, tableName, columnValue)
     End Sub
