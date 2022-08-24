@@ -15,3 +15,4 @@ YYY Technomages of SPLORR!! #RPGManiaJam  #Niche4LIFE
 * 007 - 20220821
 * 008 - 20220822
 * 009 - 20220823
+* 010 - 20220824
