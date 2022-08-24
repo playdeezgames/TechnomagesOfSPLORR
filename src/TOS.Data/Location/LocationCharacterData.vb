@@ -16,4 +16,8 @@
     Public Function ReadCharacters(locationId As Long, isOnTeam As Boolean) As IEnumerable(Of Long)
         Return Store.ReadRecordsWithColumnValues(Of Long, Long, Long)(ViewName, CharacterIdColumn, (LocationIdColumn, locationId), (IsOnTeamColumn, If(isOnTeam, 1L, 0L)))
     End Function
+
+    Public Function ReadCharacters(locationId As Long) As IEnumerable(Of Long)
+        Return Store.ReadRecordsWithColumnValue(Of Long, Long)(ViewName, CharacterIdColumn, (LocationIdColumn, locationId))
+    End Function
 End Class

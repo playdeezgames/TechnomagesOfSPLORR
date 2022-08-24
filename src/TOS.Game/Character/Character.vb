@@ -7,7 +7,11 @@
     Shared Function FromId(worldData As WorldData, characterId As Long) As Character
         Return New Character(worldData, characterId)
     End Function
-
+    Public ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
     Public ReadOnly Property HasEquipment As Boolean
         Get
             Return WorldData.CharacterEquipSlot.ReadCount(Id) > 0

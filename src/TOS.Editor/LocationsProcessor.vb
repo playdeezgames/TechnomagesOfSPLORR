@@ -29,6 +29,12 @@
                     AnsiConsole.MarkupLine($"  * {route.UniqueName} <- {route.Verge.UniqueName} <- {route.FromLocation.UniqueName}")
                 Next
             End If
+            If location.HasCharacters Then
+                AnsiConsole.MarkupLine("* Characters:")
+                For Each character In location.Characters
+                    AnsiConsole.MarkupLine($"  * {character.UniqueName}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)

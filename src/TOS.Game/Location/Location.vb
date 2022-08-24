@@ -40,6 +40,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property HasCharacters As Boolean
+        Get
+            Return WorldData.Character.CountForLocation(Id) > 0
+        End Get
+    End Property
+
     Public Sub Destroy()
         WorldData.Location.Clear(Id)
     End Sub
@@ -69,9 +75,17 @@
         Return WorldData.LocationCharacter.ReadCharacterCount(Id, False) > 0
     End Function
 
-    Public Function OtherCharacters() As IEnumerable(Of Character)
-        Return WorldData.LocationCharacter.ReadCharacters(Id, False).Select(Function(x) Character.FromId(WorldData, x))
-    End Function
+    Public ReadOnly Property OtherCharacters As IEnumerable(Of Character)
+        Get
+            Return WorldData.LocationCharacter.ReadCharacters(Id, False).Select(Function(x) Character.FromId(WorldData, x))
+        End Get
+    End Property
+
+    Public ReadOnly Property Characters As IEnumerable(Of Character)
+        Get
+            Return WorldData.LocationCharacter.ReadCharacters(Id).Select(Function(x) Character.FromId(WorldData, x))
+        End Get
+    End Property
 
     Public Function OtherCharacterNames() As String
         Return String.Join(", ", OtherCharacters.Select(Function(x) x.FullName))

@@ -35,4 +35,8 @@
             (LocationIdColumn, locationId),
             (CharacterIdColumn, characterId))
     End Sub
+
+    Public Function CountForLocation(locationId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (LocationIdColumn, locationId))
+    End Function
 End Class
