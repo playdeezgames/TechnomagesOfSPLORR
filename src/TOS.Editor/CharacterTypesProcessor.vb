@@ -57,7 +57,7 @@
                 Case RemoveEquipSlotText
                     RunRemoveEquipSlot(characterType)
                 Case RemoveStatisticText
-                    RunRemoveStatistic(world, characterType)
+                    RunRemoveStatistic(characterType)
             End Select
         Loop
     End Sub
@@ -90,10 +90,10 @@
         End Select
     End Sub
 
-    Private Sub RunRemoveStatistic(world As World, characterType As CharacterType)
+    Private Sub RunRemoveStatistic(characterType As CharacterType)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Remove which statistic?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        Dim table = characterType.Statistics.ToDictionary(Of String, StatisticType)(Function(x) x.Item1.UniqueName, Function(x) x.Item1)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer

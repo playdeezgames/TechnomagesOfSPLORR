@@ -47,4 +47,17 @@
     Public Sub Destroy()
         WorldData.ItemType.Clear(Id)
     End Sub
+
+    Public Property Statistic(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.ItemTypeStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.ItemTypeStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.ItemTypeStatistic.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
 End Class
