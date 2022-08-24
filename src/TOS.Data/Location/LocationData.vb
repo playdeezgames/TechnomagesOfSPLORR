@@ -1,5 +1,6 @@
 ﻿Public Class LocationData
     Inherits BaseData
+    Implements IProvidesAll
     Friend Const TableName = "Locations"
     Friend Const LocationIdColumn = "LocationId"
     Friend Const LocationNameColumn = "LocationName"
@@ -41,7 +42,7 @@
         MyBase.New(store)
     End Sub
 
-    Public Function All() As IEnumerable(Of Long)
+    Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(
             TableName,
             LocationIdColumn)

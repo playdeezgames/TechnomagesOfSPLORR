@@ -51,6 +51,12 @@ Public Class World
         End Get
     End Property
 
+    Public ReadOnly Property Locations As IEnumerable(Of Location)
+        Get
+            Return FetchAll(WorldData.Location, AddressOf Location.FromId)
+        End Get
+    End Property
+
     Public Function CreateVerge(name As String, vergeType As VergeType) As Verge
         Return Verge.FromId(WorldData, WorldData.Verge.Create(name, vergeType.Id))
     End Function
