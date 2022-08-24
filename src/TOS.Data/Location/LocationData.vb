@@ -38,6 +38,10 @@
             (LocationIdColumn, locationId))
     End Sub
 
+    Public Sub Clear(locationId As Long)
+        Store.ClearForColumnValue(TableName, (LocationIdColumn, locationId))
+    End Sub
+
     Public Sub New(store As Store)
         MyBase.New(store)
     End Sub

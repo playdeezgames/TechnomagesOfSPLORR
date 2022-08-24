@@ -23,9 +23,22 @@
     End Property
     Public ReadOnly Property Routes As IEnumerable(Of Route)
         Get
-            Return WorldData.Route.ReadForLocationId(Id).Select(Function(x) Route.FromId(WorldData, x))
+            Return WorldData.Route.ReadForFromLocation(Id).Select(Function(x) Route.FromId(WorldData, x))
         End Get
     End Property
+
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return WorldData.Route.CountForFromLocation(Id) = 0 AndAlso
+                WorldData.Route.CountForToLocation(Id) = 0 AndAlso
+                WorldData.Inventory.ReadCountForLocation(Id) = 0
+        End Get
+    End Property
+
+    Public Sub Destroy()
+        WorldData.Location.Clear(Id)
+    End Sub
+
     Public ReadOnly Property RouteNames As String
         Get
             Return String.Join(", ", Routes.Select(Function(x) x.Name))

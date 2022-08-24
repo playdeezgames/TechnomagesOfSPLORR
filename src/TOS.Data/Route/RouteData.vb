@@ -19,7 +19,7 @@
             (RouteIdColumn, routeId))
     End Function
 
-    Public Function ReadForLocationId(fromLocationId As Long) As IEnumerable(Of Long)
+    Public Function ReadForFromLocation(fromLocationId As Long) As IEnumerable(Of Long)
         Return Store.ReadRecordsWithColumnValue(Of Long, Long)(
             TableName,
             RouteIdColumn,
@@ -28,6 +28,14 @@
 
     Public Function CountForVerge(vergeId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (VergeIdColumn, vergeId))
+    End Function
+
+    Public Function CountForToLocation(locationId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (ToLocationIdColumn, locationId))
+    End Function
+
+    Public Function CountForFromLocation(locationId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (FromLocationIdColumn, locationId))
     End Function
 
     Public Function CountForRouteType(routeTypeId As Long) As Long
