@@ -17,6 +17,10 @@ Public Class World
         Return FetchAll(WorldData.ItemType, AddressOf ItemType.FromId)
     End Function
 
+    Public Function CreateItemType(newName As String) As ItemType
+        Return ItemType.FromId(WorldData, WorldData.ItemType.Create(newName))
+    End Function
+
     Private Function FetchAll(Of TThingie)(
                                           allProvider As IProvidesAll,
                                           conversion As Func(Of WorldData, Long, TThingie)) As IEnumerable(Of TThingie)
