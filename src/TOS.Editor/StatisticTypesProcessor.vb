@@ -1,22 +1,12 @@
 ﻿Module StatisticTypesProcessor
     Friend Sub Run(world As World)
-        Do
-            AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Statistic Type?[/]"}
-            prompt.AddChoice(GoBackText)
-            prompt.AddChoice(NewText)
-            Dim table = world.StatisticTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
-            prompt.AddChoices(table.Keys)
-            Dim answer = AnsiConsole.Prompt(prompt)
-            Select Case answer
-                Case GoBackText
-                    Exit Do
-                Case NewText
-                    RunNew(world)
-                Case Else
-                    RunEdit(world, table(answer))
-            End Select
-        Loop
+        RunList(
+            world,
+            "Which Statistic Type?",
+            Function(x) x.StatisticTypes,
+            Function(x) x.UniqueName,
+            AddressOf RunNew,
+            AddressOf RunEdit)
     End Sub
 
     Private Sub RunEdit(world As World, statisticType As StatisticType)

@@ -1,22 +1,12 @@
 ﻿Module RouteTypesProcessor
     Friend Sub Run(world As World)
-        Do
-            AnsiConsole.Clear()
-            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Route Type?[/]"}
-            prompt.AddChoice(GoBackText)
-            prompt.AddChoice(NewText)
-            Dim table = world.RouteTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
-            prompt.AddChoices(table.Keys)
-            Dim answer = AnsiConsole.Prompt(prompt)
-            Select Case answer
-                Case GoBackText
-                    Exit Do
-                Case NewText
-                    RunNew(world)
-                Case Else
-                    RunEdit(world, table(answer))
-            End Select
-        Loop
+        RunList(
+            world,
+            "Which Route Type?",
+            Function(x) x.RouteTypes,
+            Function(x) x.UniqueName,
+            AddressOf RunNew,
+            AddressOf RunEdit)
     End Sub
     Private Sub RunEdit(world As World, routeType As RouteType)
         Do
