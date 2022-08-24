@@ -35,7 +35,7 @@
         AnsiConsole.MarkupLine($"Team: {team.CharacterNames}")
         Dim location = team.Location
         AnsiConsole.MarkupLine($"Location: {location.Name}")
-        If location.HasRoutes Then
+        If location.HasExits Then
             prompt.AddChoice(MoveText)
             AnsiConsole.MarkupLine($"Exits: {location.RouteNames}")
         End If

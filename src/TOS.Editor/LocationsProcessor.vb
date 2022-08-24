@@ -17,6 +17,18 @@
             AnsiConsole.MarkupLine("Location:")
             AnsiConsole.MarkupLine($"* Id: {location.Id}")
             AnsiConsole.MarkupLine($"* Name: {location.Name}")
+            If location.HasExits Then
+                AnsiConsole.MarkupLine("* Exits:")
+                For Each route In location.Exits
+                    AnsiConsole.MarkupLine($"  * {route.UniqueName} -> {route.Verge.UniqueName} -> {route.ToLocation.UniqueName}")
+                Next
+            End If
+            If location.HasEntrances Then
+                AnsiConsole.MarkupLine("* Entrances:")
+                For Each route In location.Entrances
+                    AnsiConsole.MarkupLine($"  * {route.UniqueName} <- {route.Verge.UniqueName} <- {route.FromLocation.UniqueName}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)

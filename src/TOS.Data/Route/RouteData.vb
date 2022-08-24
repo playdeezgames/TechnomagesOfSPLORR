@@ -26,6 +26,13 @@
             (FromLocationIdColumn, fromLocationId))
     End Function
 
+    Public Function ReadForToLocation(fromLocationId As Long) As IEnumerable(Of Long)
+        Return Store.ReadRecordsWithColumnValue(Of Long, Long)(
+            TableName,
+            RouteIdColumn,
+            (ToLocationIdColumn, fromLocationId))
+    End Function
+
     Public Function CountForVerge(vergeId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (VergeIdColumn, vergeId))
     End Function
@@ -46,7 +53,11 @@
         Return Store.ReadColumnValue(Of Long, Long)(TableName, ToLocationIdColumn, (RouteIdColumn, routeId))
     End Function
 
-    Public Function CountForLocation(fromLocationId As Long) As Long
-        Return Store.ReadCountForColumnValue(TableName, (FromLocationIdColumn, fromLocationId))
+    Public Function ReadFromLocationId(routeId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(TableName, FromLocationIdColumn, (RouteIdColumn, routeId))
+    End Function
+
+    Public Function ReadVergeId(routeId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(TableName, VergeIdColumn, (RouteIdColumn, routeId))
     End Function
 End Class

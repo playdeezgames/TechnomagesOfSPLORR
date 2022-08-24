@@ -21,9 +21,14 @@
             WorldData.Location.WriteName(Id, value)
         End Set
     End Property
-    Public ReadOnly Property Routes As IEnumerable(Of Route)
+    Public ReadOnly Property Exits As IEnumerable(Of Route)
         Get
             Return WorldData.Route.ReadForFromLocation(Id).Select(Function(x) Route.FromId(WorldData, x))
+        End Get
+    End Property
+    Public ReadOnly Property Entrances As IEnumerable(Of Route)
+        Get
+            Return WorldData.Route.ReadForToLocation(Id).Select(Function(x) Route.FromId(WorldData, x))
         End Get
     End Property
 
@@ -41,7 +46,7 @@
 
     Public ReadOnly Property RouteNames As String
         Get
-            Return String.Join(", ", Routes.Select(Function(x) x.Name))
+            Return String.Join(", ", Exits.Select(Function(x) x.Name))
         End Get
     End Property
     Public ReadOnly Property ItemStackNames As String
@@ -86,9 +91,17 @@
         End Set
     End Property
 
-    Public Function HasRoutes() As Boolean
-        Return WorldData.Route.CountForLocation(Id) > 0
-    End Function
+    Public ReadOnly Property HasExits As Boolean
+        Get
+            Return WorldData.Route.CountForFromLocation(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property HasEntrances As Boolean
+        Get
+            Return WorldData.Route.CountForToLocation(Id) > 0
+        End Get
+    End Property
 
     Public Function HasInventory() As Boolean
         Return WorldData.Inventory.ReadCountForLocation(Id) > 0

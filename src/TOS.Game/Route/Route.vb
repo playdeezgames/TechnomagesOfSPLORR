@@ -13,7 +13,28 @@
         End Get
     End Property
 
-    Friend Function ToLocation() As Location
-        Return Location.FromId(WorldData, WorldData.Route.ReadToLocationId(Id).Value)
-    End Function
+    Public ReadOnly Property ToLocation As Location
+        Get
+            Return Location.FromId(WorldData, WorldData.Route.ReadToLocationId(Id).Value)
+        End Get
+    End Property
+
+    Public ReadOnly Property FromLocation As Location
+        Get
+            Return Location.FromId(WorldData, WorldData.Route.ReadFromLocationId(Id).Value)
+        End Get
+    End Property
+
+    Public ReadOnly Property Verge As Verge
+        Get
+            Return Verge.FromId(WorldData, WorldData.Route.ReadVergeId(Id).Value)
+        End Get
+    End Property
+
+
+    Public ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
 End Class

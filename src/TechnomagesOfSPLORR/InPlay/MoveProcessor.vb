@@ -1,7 +1,7 @@
 ﻿Module MoveProcessor
     Friend Sub Run(world As World)
         Dim leader = world.Team.Leader
-        Dim routeTable = leader.Location.Routes.ToDictionary(Function(x) x.Name, Function(x) x)
+        Dim routeTable = leader.Location.Exits.ToDictionary(Function(x) x.Name, Function(x) x)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Move Which Way?[/]"}
         prompt.AddChoice(NeverMindText)
         prompt.AddChoices(routeTable.Keys)
