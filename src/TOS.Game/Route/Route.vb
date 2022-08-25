@@ -12,6 +12,11 @@
             Return WorldData.Route.ReadName(Id)
         End Get
     End Property
+    Public ReadOnly Property RouteType As RouteType
+        Get
+            Return RouteType.FromId(WorldData, WorldData.Route.ReadRouteType(Id).Value)
+        End Get
+    End Property
 
     Public ReadOnly Property ToLocation As Location
         Get

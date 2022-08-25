@@ -1,0 +1,20 @@
+﻿Module RouteProcessor
+    Friend Sub Run(route As Route)
+        Do
+            AnsiConsole.Clear()
+            AnsiConsole.MarkupLine("Route:")
+            AnsiConsole.MarkupLine($"Id: {route.Id}")
+            AnsiConsole.MarkupLine($"Name: {route.Name}")
+            AnsiConsole.MarkupLine($"Type: {route.RouteType.UniqueName}")
+            AnsiConsole.MarkupLine($"From Location: {route.FromLocation.UniqueName}")
+            AnsiConsole.MarkupLine($"Verge: {route.Verge.UniqueName}")
+            AnsiConsole.MarkupLine($"To Location: {route.ToLocation.UniqueName}")
+            Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
+            prompt.AddChoice(GoBackText)
+            Select Case AnsiConsole.Prompt(prompt)
+                Case GoBackText
+                    Exit Do
+            End Select
+        Loop
+    End Sub
+End Module

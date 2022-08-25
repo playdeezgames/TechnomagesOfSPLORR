@@ -54,10 +54,12 @@
             End If
             prompt.AddChoice(AddExitText)
             If location.HasExits Then
+                prompt.AddChoice(EditExitText)
                 prompt.AddChoice(RemoveExitText)
             End If
             prompt.AddChoice(AddEntranceText)
             If location.HasEntrances Then
+                prompt.AddChoice(EditEntranceText)
                 prompt.AddChoice(RemoveEntranceText)
             End If
             prompt.AddChoice(AddItemText)
@@ -76,6 +78,10 @@
                 Case DeleteText
                     location.Destroy()
                     Exit Do
+                Case EditEntranceText
+                    RunEditEntrance(location)
+                Case EditExitText
+                    RunEditExit(location)
                 Case GoBackText
                     Exit Do
                 Case RemoveEntranceText
@@ -86,6 +92,20 @@
                     RunRemoveItem(location)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunEditExit(location As Location)
+        Dim route = PickThingie("Which Exit?", location.Exits, Function(x) x.UniqueName, True)
+        If route IsNot Nothing Then
+            RouteProcessor.Run(route)
+        End If
+    End Sub
+
+    Private Sub RunEditEntrance(location As Location)
+        Dim route = PickThingie("Which Exit?", location.Entrances, Function(x) x.UniqueName, True)
+        If route IsNot Nothing Then
+            RouteProcessor.Run(route)
+        End If
     End Sub
 
     Private Sub RunRemoveExit(location As Location)
@@ -120,7 +140,7 @@
         End If
         Dim routeType = PickThingie(Of RouteType)("Route Type:", world.RouteTypes, Function(x) x.UniqueName, False)
         Dim verge = PickThingie(Of Verge)("Verge:", world.Verges, Function(x) x.UniqueName, False)
-        Dim fromLocation = PickThingie(Of Location)("To Location:", world.Locations, Function(x) x.UniqueName, False)
+        Dim fromLocation = PickThingie(Of Location)("From Location:", world.Locations, Function(x) x.UniqueName, False)
         world.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
     End Sub
 

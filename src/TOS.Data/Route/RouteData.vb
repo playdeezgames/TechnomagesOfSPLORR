@@ -19,6 +19,10 @@
             (RouteIdColumn, routeId))
     End Function
 
+    Public Function ReadRouteType(routeId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(TableName, RouteTypeIdColumn, (RouteIdColumn, routeId))
+    End Function
+
     Public Function ReadForFromLocation(fromLocationId As Long) As IEnumerable(Of Long)
         Return Store.ReadRecordsWithColumnValue(Of Long, Long)(
             TableName,

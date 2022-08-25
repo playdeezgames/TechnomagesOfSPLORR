@@ -10,6 +10,8 @@
     Friend Const ChangeVergeTypeText = "Change Verge Type"
     Friend Const CharacterTypesText = "Character Types"
     Friend Const DeleteText = "Delete"
+    Friend Const EditEntranceText = "Edit Entrance"
+    Friend Const EditExitText = "Edit Exit"
     Friend Const EquipSlotsText = "Equip Slots"
     Friend Const GoBackText = "Go Back"
     Friend Const ItemTypesText = "Item Types"
