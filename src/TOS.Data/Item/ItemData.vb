@@ -17,4 +17,8 @@
             TableName,
             (ItemTypeIdColumn, itemTypeId))
     End Function
+
+    Public Sub Clear(itemId As Long)
+        Store.ClearForColumnValue(TableName, (ItemIdColumn, itemId))
+    End Sub
 End Class

@@ -17,6 +17,7 @@
     Friend Const NoText = "No"
     Friend Const QuitText = "Quit"
     Friend Const RemoveEquipSlotText = "Remove Equip Slot"
+    Friend Const RemoveItemText = "Remove Item"
     Friend Const RemoveStatisticText = "Remove Statistic"
     Friend Const RouteTypesText = "Route Types"
     Friend Const SaveAndQuitText = "Save and Quit"

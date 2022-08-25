@@ -13,6 +13,11 @@
             Return ItemType.Name
         End Get
     End Property
+    Public ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
     Public ReadOnly Property ItemType As ItemType
         Get
             Return ItemType.FromId(WorldData, WorldData.Item.ReadItemType(Id).Value)
@@ -48,4 +53,9 @@
             Return WorldData.ItemStatistic.Read(Id, statisticType.Id)
         End Get
     End Property
+
+    Public Sub Destroy()
+        WorldData.InventoryItem.ClearForItem(Id)
+        WorldData.Item.Clear(Id)
+    End Sub
 End Class
