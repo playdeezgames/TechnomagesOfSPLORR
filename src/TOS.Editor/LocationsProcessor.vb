@@ -62,6 +62,9 @@
                 prompt.AddChoice(EditEntranceText)
                 prompt.AddChoice(RemoveEntranceText)
             End If
+            If location.HasCharacters Then
+                prompt.AddChoice(EditCharacterText)
+            End If
             prompt.AddChoice(AddItemText)
             If location.HasItems Then
                 prompt.AddChoice(RemoveItemText)
@@ -78,6 +81,8 @@
                 Case DeleteText
                     location.Destroy()
                     Exit Do
+                Case EditCharacterText
+                    RunEditCharcter(world, location)
                 Case EditEntranceText
                     RunEditEntrance(world, location)
                 Case EditExitText
@@ -92,6 +97,13 @@
                     RunRemoveItem(location)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunEditCharcter(world As World, location As Location)
+        Dim character = PickThingie("Which Character?", location.Characters, Function(x) x.UniqueName, True)
+        If character IsNot Nothing Then
+            CharacterProcessor.Run(world, character)
+        End If
     End Sub
 
     Private Sub RunEditExit(world As World, location As Location)
