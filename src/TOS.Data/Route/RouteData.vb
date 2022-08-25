@@ -12,6 +12,10 @@
         MyBase.New(store)
     End Sub
 
+    Public Sub WriteName(routeId As Long, name As String)
+        Store.WriteColumnValue(TableName, (RouteNameColumn, name), (RouteIdColumn, routeId))
+    End Sub
+
     Public Function ReadName(routeId As Long) As String
         Return Store.ReadColumnString(
             TableName,

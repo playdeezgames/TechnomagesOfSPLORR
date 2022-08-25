@@ -7,10 +7,13 @@
     Public Shared Function FromId(worldData As WorldData, id As Long) As Route
         Return New Route(worldData, id)
     End Function
-    Public ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.Route.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.Route.WriteName(Id, value)
+        End Set
     End Property
     Public ReadOnly Property RouteType As RouteType
         Get

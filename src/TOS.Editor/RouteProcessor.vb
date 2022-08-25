@@ -26,6 +26,9 @@
         Loop
     End Sub
     Private Sub RunChangeName(route As Route)
-
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If Not String.IsNullOrWhiteSpace(newName) Then
+            route.Name = newName
+        End If
     End Sub
 End Module
