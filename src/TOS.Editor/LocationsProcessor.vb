@@ -102,21 +102,21 @@
     Private Sub RunEditCharcter(world As World, location As Location)
         Dim character = PickThingie("Which Character?", location.Characters, Function(x) x.UniqueName, True)
         If character IsNot Nothing Then
-            CharacterProcessor.Run(world, character)
+            CharacterProcessor.RunEdit(world, character)
         End If
     End Sub
 
     Private Sub RunEditExit(world As World, location As Location)
         Dim route = PickThingie("Which Exit?", location.Exits, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.Run(world, route)
+            RouteProcessor.RunEdit(world, route)
         End If
     End Sub
 
     Private Sub RunEditEntrance(world As World, location As Location)
         Dim route = PickThingie("Which Exit?", location.Entrances, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.Run(world, route)
+            RouteProcessor.RunEdit(world, route)
         End If
     End Sub
 

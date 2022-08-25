@@ -1,5 +1,5 @@
 ﻿Module RouteProcessor
-    Friend Sub Run(world As World, route As Route)
+    Friend Sub RunEdit(world As World, route As Route)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Route:")

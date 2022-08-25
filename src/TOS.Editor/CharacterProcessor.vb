@@ -1,5 +1,5 @@
 ﻿Module CharacterProcessor
-    Friend Sub Run(world As World, character As Character)
+    Friend Sub RunEdit(world As World, character As Character)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character:")
