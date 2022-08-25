@@ -96,6 +96,10 @@ Public Class World
         End Get
     End Property
 
+    Public Function CreateItem(itemType As ItemType) As Item
+        Return Item.FromId(WorldData, WorldData.Item.Create(itemType.Id))
+    End Function
+
     Public Function CreateRouteType(newName As String) As RouteType
         Return RouteType.FromId(WorldData, WorldData.RouteType.Create(newName))
     End Function

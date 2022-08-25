@@ -47,10 +47,13 @@
             If location.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
+            prompt.AddChoice(AddItemText)
             If location.HasItems Then
                 prompt.AddChoice(RemoveItemText)
             End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddItemText
+                    RunAddItem(world, location)
                 Case ChangeNameText
                     RunChangeName(location)
                 Case DeleteText
@@ -62,6 +65,20 @@
                     RunRemoveItem(location)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunAddItem(world As World, location As Location)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]What Item Type?[/]"}
+        prompt.AddChoice(NeverMindText)
+        Dim table = world.ItemTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                'do nothing
+            Case Else
+                location.Inventory.Add(world.CreateItem(table(answer)))
+        End Select
     End Sub
 
     Private Sub RunRemoveItem(location As Location)

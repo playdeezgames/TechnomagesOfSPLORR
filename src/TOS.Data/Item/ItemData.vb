@@ -21,4 +21,8 @@
     Public Sub Clear(itemId As Long)
         Store.ClearForColumnValue(TableName, (ItemIdColumn, itemId))
     End Sub
+
+    Public Function Create(itemTypeId As Long) As Long
+        Return Store.CreateRecord(TableName, (ItemTypeIdColumn, itemTypeId))
+    End Function
 End Class
