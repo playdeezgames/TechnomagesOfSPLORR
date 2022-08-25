@@ -37,6 +37,18 @@
             (RouteIdColumn, routeId))
     End Function
 
+    Public Sub WriteFromLocation(routeId As Long, fromLocationId As Long)
+        Store.WriteColumnValue(TableName, (FromLocationIdColumn, fromLocationId), (RouteIdColumn, routeId))
+    End Sub
+
+    Public Sub WriteToLocation(routeId As Long, toLocationId As Long)
+        Store.WriteColumnValue(TableName, (ToLocationIdColumn, toLocationId), (RouteIdColumn, routeId))
+    End Sub
+
+    Public Sub WriteVerge(routeId As Long, vergeId As Long)
+        Store.WriteColumnValue(TableName, (VergeIdColumn, vergeId), (RouteIdColumn, routeId))
+    End Sub
+
     Public Function ReadForFromLocation(fromLocationId As Long) As IEnumerable(Of Long)
         Return Store.ReadRecordsWithColumnValue(Of Long, Long)(
             TableName,

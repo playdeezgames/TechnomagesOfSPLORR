@@ -24,22 +24,31 @@
         End Set
     End Property
 
-    Public ReadOnly Property ToLocation As Location
+    Public Property ToLocation As Location
         Get
             Return Location.FromId(WorldData, WorldData.Route.ReadToLocationId(Id).Value)
         End Get
+        Set(value As Location)
+            WorldData.Route.WriteToLocation(Id, value.Id)
+        End Set
     End Property
 
-    Public ReadOnly Property FromLocation As Location
+    Public Property FromLocation As Location
         Get
             Return Location.FromId(WorldData, WorldData.Route.ReadFromLocationId(Id).Value)
         End Get
+        Set(value As Location)
+            WorldData.Route.WriteFromLocation(Id, value.Id)
+        End Set
     End Property
 
-    Public ReadOnly Property Verge As Verge
+    Public Property Verge As Verge
         Get
             Return Verge.FromId(WorldData, WorldData.Route.ReadVergeId(Id).Value)
         End Get
+        Set(value As Verge)
+            WorldData.Route.WriteVerge(Id, value.Id)
+        End Set
     End Property
 
 

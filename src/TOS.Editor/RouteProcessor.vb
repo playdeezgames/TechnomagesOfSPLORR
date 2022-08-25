@@ -18,14 +18,41 @@
                 ChangeVergeText,
                 ChangeToLocationText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case ChangeFromLocationText
+                    RunChangeFromLocation(world, route)
                 Case ChangeNameText
                     RunChangeName(route)
                 Case ChangeRouteTypeText
                     RunChangeRouteType(world, route)
+                Case ChangeToLocationText
+                    RunChangeToLocation(world, route)
+                Case ChangeVergeText
+                    RunChangeVerge(world, route)
                 Case GoBackText
                     Exit Do
             End Select
         Loop
+    End Sub
+
+    Private Sub RunChangeVerge(world As World, route As Route)
+        Dim verge = PickThingie("Which Verge?", world.Verges, Function(x) x.UniqueName, True)
+        If verge IsNot Nothing Then
+            route.Verge = verge
+        End If
+    End Sub
+
+    Private Sub RunChangeFromLocation(world As World, route As Route)
+        Dim location = PickThingie("Which From Location?", world.Locations, Function(x) x.UniqueName, True)
+        If location IsNot Nothing Then
+            route.FromLocation = location
+        End If
+    End Sub
+
+    Private Sub RunChangeToLocation(world As World, route As Route)
+        Dim location = PickThingie("Which To Location?", world.Locations, Function(x) x.UniqueName, True)
+        If location IsNot Nothing Then
+            route.ToLocation = location
+        End If
     End Sub
 
     Private Sub RunChangeRouteType(world As World, route As Route)
