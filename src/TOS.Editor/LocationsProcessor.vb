@@ -35,6 +35,9 @@
                     AnsiConsole.MarkupLine($"  * {character.UniqueName}")
                 Next
             End If
+            If location.HasItems Then
+
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)

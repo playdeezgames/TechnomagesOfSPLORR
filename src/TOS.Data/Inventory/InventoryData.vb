@@ -36,6 +36,10 @@
             (CharacterIdColumn, characterId))
     End Function
 
+    Public Sub Clear(inventoryId As Long)
+        Store.ClearForColumnValue(TableName, (InventoryIdColumn, inventoryId))
+    End Sub
+
     Public Function ReadForCharacter(characterId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(
             TableName,

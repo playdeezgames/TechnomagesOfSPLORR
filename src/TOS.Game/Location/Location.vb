@@ -34,9 +34,9 @@
 
     Public ReadOnly Property CanDelete As Boolean
         Get
-            Return WorldData.Route.CountForFromLocation(Id) = 0 AndAlso
-                WorldData.Route.CountForToLocation(Id) = 0 AndAlso
-                WorldData.Inventory.ReadCountForLocation(Id) = 0
+            Return Not HasExits AndAlso
+                Not HasEntrances AndAlso
+                Not HasItems()
         End Get
     End Property
 
@@ -47,6 +47,9 @@
     End Property
 
     Public Sub Destroy()
+        If HasInventory() Then
+            Inventory.Destroy()
+        End If
         WorldData.Location.Clear(Id)
     End Sub
 
@@ -132,9 +135,11 @@
         End Get
     End Property
 
-    Public Function HasItems() As Boolean
-        Return HasInventory AndAlso Inventory.HasItems
-    End Function
+    Public ReadOnly Property HasItems As Boolean
+        Get
+            Return HasInventory() AndAlso Inventory.HasItems
+        End Get
+    End Property
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
             Return WorldData.LocationStatistic.Read(Id, statisticType.Id)

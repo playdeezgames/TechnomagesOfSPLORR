@@ -31,4 +31,8 @@
             Add(item)
         Next
     End Sub
+
+    Friend Sub Destroy()
+        WorldData.Inventory.Clear(Id)
+    End Sub
 End Class
