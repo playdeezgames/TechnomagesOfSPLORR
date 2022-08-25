@@ -10,11 +10,22 @@
             AnsiConsole.MarkupLine($"Verge: {route.Verge.UniqueName}")
             AnsiConsole.MarkupLine($"To Location: {route.ToLocation.UniqueName}")
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
-            prompt.AddChoice(GoBackText)
+            prompt.AddChoices(
+                GoBackText,
+                ChangeNameText,
+                ChangeRouteTypeText,
+                ChangeFromLocationText,
+                ChangeVergeText,
+                ChangeToLocationText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case GoBackText
                     Exit Do
+                Case ChangeNameText
+                    RunChangeName(route)
             End Select
         Loop
+    End Sub
+    Private Sub RunChangeName(route As Route)
+
     End Sub
 End Module
