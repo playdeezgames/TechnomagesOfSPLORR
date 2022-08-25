@@ -79,9 +79,9 @@
                     location.Destroy()
                     Exit Do
                 Case EditEntranceText
-                    RunEditEntrance(location)
+                    RunEditEntrance(world, location)
                 Case EditExitText
-                    RunEditExit(location)
+                    RunEditExit(world, location)
                 Case GoBackText
                     Exit Do
                 Case RemoveEntranceText
@@ -94,17 +94,17 @@
         Loop
     End Sub
 
-    Private Sub RunEditExit(location As Location)
+    Private Sub RunEditExit(world As World, location As Location)
         Dim route = PickThingie("Which Exit?", location.Exits, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.Run(route)
+            RouteProcessor.Run(world, route)
         End If
     End Sub
 
-    Private Sub RunEditEntrance(location As Location)
+    Private Sub RunEditEntrance(world As World, location As Location)
         Dim route = PickThingie("Which Exit?", location.Entrances, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.Run(route)
+            RouteProcessor.Run(world, route)
         End If
     End Sub
 

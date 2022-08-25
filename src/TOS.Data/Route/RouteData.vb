@@ -23,8 +23,18 @@
             (RouteIdColumn, routeId))
     End Function
 
+    Public Sub WriteRouteType(routeId As Long, routeTypeId As Long)
+        Store.WriteColumnValue(
+            TableName,
+            (RouteTypeIdColumn, routeTypeId),
+            (RouteIdColumn, routeId))
+    End Sub
+
     Public Function ReadRouteType(routeId As Long) As Long?
-        Return Store.ReadColumnValue(Of Long, Long)(TableName, RouteTypeIdColumn, (RouteIdColumn, routeId))
+        Return Store.ReadColumnValue(Of Long, Long)(
+            TableName,
+            RouteTypeIdColumn,
+            (RouteIdColumn, routeId))
     End Function
 
     Public Function ReadForFromLocation(fromLocationId As Long) As IEnumerable(Of Long)

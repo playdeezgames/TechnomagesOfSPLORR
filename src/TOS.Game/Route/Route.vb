@@ -15,10 +15,13 @@
             WorldData.Route.WriteName(Id, value)
         End Set
     End Property
-    Public ReadOnly Property RouteType As RouteType
+    Public Property RouteType As RouteType
         Get
             Return RouteType.FromId(WorldData, WorldData.Route.ReadRouteType(Id).Value)
         End Get
+        Set(value As RouteType)
+            WorldData.Route.WriteRouteType(Id, value.Id)
+        End Set
     End Property
 
     Public ReadOnly Property ToLocation As Location
