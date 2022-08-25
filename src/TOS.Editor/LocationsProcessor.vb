@@ -53,7 +53,13 @@
                 prompt.AddChoice(DeleteText)
             End If
             prompt.AddChoice(AddExitText)
+            If location.HasExits Then
+                prompt.AddChoice(RemoveExitText)
+            End If
             prompt.AddChoice(AddEntranceText)
+            If location.HasEntrances Then
+                prompt.AddChoice(RemoveEntranceText)
+            End If
             prompt.AddChoice(AddItemText)
             If location.HasItems Then
                 prompt.AddChoice(RemoveItemText)
@@ -72,10 +78,28 @@
                     Exit Do
                 Case GoBackText
                     Exit Do
+                Case RemoveEntranceText
+                    RunRemoveEntrance(location)
+                Case RemoveExitText
+                    RunRemoveExit(location)
                 Case RemoveItemText
                     RunRemoveItem(location)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunRemoveExit(location As Location)
+        Dim route = PickThingie("Which Exit?", location.Exits, Function(x) x.UniqueName, True)
+        If route IsNot Nothing Then
+            route.Destroy()
+        End If
+    End Sub
+
+    Private Sub RunRemoveEntrance(location As Location)
+        Dim route = PickThingie("Which Entrace?", location.Entrances, Function(x) x.UniqueName, True)
+        If route IsNot Nothing Then
+            route.Destroy()
+        End If
     End Sub
 
     Private Sub RunAddExit(world As World, fromLocation As Location)

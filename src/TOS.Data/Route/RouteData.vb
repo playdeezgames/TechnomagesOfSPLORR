@@ -33,6 +33,10 @@
             (ToLocationIdColumn, fromLocationId))
     End Function
 
+    Public Sub Clear(routeId As Long)
+        Store.ClearForColumnValue(TableName, (RouteIdColumn, routeId))
+    End Sub
+
     Public Function CountForVerge(vergeId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (VergeIdColumn, vergeId))
     End Function

@@ -37,4 +37,8 @@
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public Sub Destroy()
+        WorldData.Route.Clear(Id)
+    End Sub
 End Class
