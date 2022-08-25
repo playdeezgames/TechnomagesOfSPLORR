@@ -60,4 +60,14 @@
     Public Function ReadVergeId(routeId As Long) As Long?
         Return Store.ReadColumnValue(Of Long, Long)(TableName, VergeIdColumn, (RouteIdColumn, routeId))
     End Function
+
+    Public Function Create(name As String, routeTypeId As Long, fromLocationId As Long, vergeId As Long, toLocationId As Long) As Long
+        Return Store.CreateRecord(
+            TableName,
+            (RouteNameColumn, name),
+            (RouteTypeIdColumn, routeTypeId),
+            (FromLocationIdColumn, fromLocationId),
+            (VergeIdColumn, vergeId),
+            (ToLocationIdColumn, toLocationId))
+    End Function
 End Class

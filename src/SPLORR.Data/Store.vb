@@ -537,6 +537,16 @@ Public Class Store
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2))
         Return LastInsertRowId
     End Function
+    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn)) As Long
+        Return CreateRecord(
+            AddressOf NoInitializer,
+            tableName,
+            firstColumnValue,
+            secondColumnValue,
+            thirdColumnValue,
+            fourthColumnValue)
+    End Function
+
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn)) As Long
         initializer()
         ExecuteNonQuery(
@@ -546,6 +556,9 @@ Public Class Store
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2),
             MakeParameter($"@{fourthColumnValue.Item1}", fourthColumnValue.Item2))
         Return LastInsertRowId
+    End Function
+    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn, TFifthColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn), fifthColumnValue As (String, TFifthColumn)) As Long
+        Return CreateRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue, thirdColumnValue, fourthColumnValue, fifthColumnValue)
     End Function
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn, TFifthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn), fifthColumnValue As (String, TFifthColumn)) As Long
         initializer()

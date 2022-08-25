@@ -24,5 +24,23 @@
             End Select
         Loop
     End Sub
-
+    Friend Function PickThingie(Of TThingie)(
+                                            title As String,
+                                            thingies As IEnumerable(Of TThingie),
+                                            keySource As Func(Of TThingie, String),
+                                            cancelable As Boolean) As TThingie
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = $"[olive]{title}[/]"}
+        If cancelable Then
+            prompt.AddChoice(NeverMindText)
+        End If
+        Dim table = thingies.ToDictionary(Function(x) keySource(x), Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                Return Nothing
+            Case Else
+                Return table(answer)
+        End Select
+    End Function
 End Module

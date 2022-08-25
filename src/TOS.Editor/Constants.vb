@@ -1,6 +1,8 @@
 ﻿Module Constants
     Friend Const AddChangeStatisticText = "Add/Change Statistic"
+    Friend Const AddEntranceText = "Add Entrance"
     Friend Const AddEquipSlotText = "Add Equip Slot"
+    Friend Const AddExitText = "Add Exit"
     Friend Const AddItemText = "Add Item"
     Friend Const BoilerplateDb = "boilerplate.db"
     Friend Const ChangeDisplayNameText = "Change Display Name"

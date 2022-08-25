@@ -13,10 +13,7 @@
         If String.IsNullOrWhiteSpace(newName) Then
             Return
         End If
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Location Type:[/]"}
-        Dim table = world.LocationTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
-        prompt.AddChoices(table.Keys)
-        Dim locationType = table(AnsiConsole.Prompt(prompt))
+        Dim locationType = PickThingie(Of LocationType)("Location Type:", world.LocationTypes, Function(x) x.UniqueName, False)
         RunEdit(world, world.CreateLocation(newName, locationType))
     End Sub
     Private Sub RunEdit(world As World, location As Location)
@@ -55,11 +52,17 @@
             If location.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
+            prompt.AddChoice(AddExitText)
+            prompt.AddChoice(AddEntranceText)
             prompt.AddChoice(AddItemText)
             If location.HasItems Then
                 prompt.AddChoice(RemoveItemText)
             End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddEntranceText
+                    RunAddEntrance(world, location)
+                Case AddExitText
+                    RunAddExit(world, location)
                 Case AddItemText
                     RunAddItem(world, location)
                 Case ChangeNameText
@@ -75,32 +78,40 @@
         Loop
     End Sub
 
+    Private Sub RunAddExit(world As World, fromLocation As Location)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim routeType = PickThingie(Of RouteType)("Route Type:", world.RouteTypes, Function(x) x.UniqueName, False)
+        Dim verge = PickThingie(Of Verge)("Verge:", world.Verges, Function(x) x.UniqueName, False)
+        Dim toLocation = PickThingie(Of Location)("To Location:", world.Locations, Function(x) x.UniqueName, False)
+        world.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
+    End Sub
+
+    Private Sub RunAddEntrance(world As World, toLocation As Location)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim routeType = PickThingie(Of RouteType)("Route Type:", world.RouteTypes, Function(x) x.UniqueName, False)
+        Dim verge = PickThingie(Of Verge)("Verge:", world.Verges, Function(x) x.UniqueName, False)
+        Dim fromLocation = PickThingie(Of Location)("To Location:", world.Locations, Function(x) x.UniqueName, False)
+        world.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
+    End Sub
+
     Private Sub RunAddItem(world As World, location As Location)
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]What Item Type?[/]"}
-        prompt.AddChoice(NeverMindText)
-        Dim table = world.ItemTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
-        prompt.AddChoices(table.Keys)
-        Dim answer = AnsiConsole.Prompt(prompt)
-        Select Case answer
-            Case NeverMindText
-                'do nothing
-            Case Else
-                location.Inventory.Add(world.CreateItem(table(answer)))
-        End Select
+        Dim itemType = PickThingie(Of ItemType)("What Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+        If itemType IsNot Nothing Then
+            location.Inventory.Add(world.CreateItem(itemType))
+        End If
     End Sub
 
     Private Sub RunRemoveItem(location As Location)
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Item?[/]"}
-        prompt.AddChoice(NeverMindText)
-        Dim table = location.Items.ToDictionary(Function(x) x.UniqueName, Function(x) x)
-        prompt.AddChoices(table.Keys)
-        Dim answer = AnsiConsole.Prompt(prompt)
-        Select Case answer
-            Case NeverMindText
-                'do nothing
-            Case Else
-                table(answer).Destroy()
-        End Select
+        Dim item = PickThingie(Of Item)("Which Item?", location.Items, Function(x) x.UniqueName, True)
+        If item IsNot Nothing Then
+            item.Destroy()
+        End If
     End Sub
 
     Private Sub RunChangeName(location As Location)

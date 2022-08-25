@@ -104,6 +104,10 @@ Public Class World
         Return Item.FromId(WorldData, WorldData.Item.Create(itemType.Id))
     End Function
 
+    Public Function CreateRoute(name As String, routeType As RouteType, fromLocation As Location, verge As Verge, toLocation As Location) As Route
+        Return Route.FromId(WorldData, WorldData.Route.Create(name, routeType.Id, fromLocation.Id, verge.Id, toLocation.Id))
+    End Function
+
     Public Function CreateRouteType(newName As String) As RouteType
         Return RouteType.FromId(WorldData, WorldData.RouteType.Create(newName))
     End Function
