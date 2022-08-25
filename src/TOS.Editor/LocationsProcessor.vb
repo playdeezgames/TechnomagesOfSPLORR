@@ -9,7 +9,15 @@
             AddressOf RunEdit)
     End Sub
     Private Sub RunNew(world As World)
-        'Throw New NotImplementedException
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Location Type:[/]"}
+        Dim table = world.LocationTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        prompt.AddChoices(table.Keys)
+        Dim locationType = table(AnsiConsole.Prompt(prompt))
+        RunEdit(world, world.CreateLocation(newName, locationType))
     End Sub
     Private Sub RunEdit(world As World, location As Location)
         Do

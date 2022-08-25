@@ -38,6 +38,10 @@
             (LocationIdColumn, locationId))
     End Sub
 
+    Public Function Create(name As String, locationTypeId As Long) As Long
+        Return Store.CreateRecord(TableName, (LocationTypeIdColumn, locationTypeId), (LocationNameColumn, name))
+    End Function
+
     Public Sub Clear(locationId As Long)
         Store.ClearForColumnValue(TableName, (LocationIdColumn, locationId))
     End Sub

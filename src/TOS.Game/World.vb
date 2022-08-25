@@ -27,6 +27,10 @@ Public Class World
         Return allProvider.All.Select(Function(x) conversion(WorldData, x))
     End Function
 
+    Public Function CreateLocation(newName As String, locationType As LocationType) As Location
+        Return Location.FromId(WorldData, WorldData.Location.Create(newName, locationType.Id))
+    End Function
+
     Public ReadOnly Property Verges As IEnumerable(Of Verge)
         Get
             Return FetchAll(WorldData.Verge, AddressOf Verge.FromId)
