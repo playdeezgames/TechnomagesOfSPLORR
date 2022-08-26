@@ -2,6 +2,7 @@
     Private ReadOnly table As IReadOnlyDictionary(Of String, Action(Of World)) =
         New Dictionary(Of String, Action(Of World)) From
         {
+            {CharactersText, AddressOf CharacterProcessor.Run},
             {CharacterTypesText, AddressOf CharacterTypesProcessor.Run},
             {EquipSlotsText, AddressOf EquipSlotsProcessor.Run},
             {ItemTypesText, AddressOf ItemTypesProcessor.Run},

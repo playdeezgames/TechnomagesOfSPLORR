@@ -83,10 +83,13 @@
         End Get
     End Property
 
-    ReadOnly Property Name As String
+    Public Property Name As String
         Get
             Return WorldData.Character.ReadName(Id)
         End Get
+        Set(value As String)
+            WorldData.Character.WriteName(Id, value)
+        End Set
     End Property
     ReadOnly Property FullName As String
         Get
@@ -110,10 +113,13 @@
         End Get
     End Property
 
-    ReadOnly Property CharacterType As CharacterType
+    Public Property CharacterType As CharacterType
         Get
             Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)
         End Get
+        Set(value As CharacterType)
+            WorldData.Character.WriteCharacterType(Id, value.Id)
+        End Set
     End Property
 
     Public Sub Leave()

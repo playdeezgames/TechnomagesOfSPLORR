@@ -48,6 +48,11 @@ Public Class World
             Return FetchAll(WorldData.EquipSlot, AddressOf EquipSlot.FromId)
         End Get
     End Property
+    Public ReadOnly Property Characters As IEnumerable(Of Character)
+        Get
+            Return FetchAll(WorldData.Character, AddressOf Character.FromId)
+        End Get
+    End Property
 
     Public ReadOnly Property CharacterTypes As IEnumerable(Of CharacterType)
         Get

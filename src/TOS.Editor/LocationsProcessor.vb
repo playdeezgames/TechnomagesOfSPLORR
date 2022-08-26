@@ -82,7 +82,7 @@
                     location.Destroy()
                     Exit Do
                 Case EditCharacterText
-                    RunEditCharcter(world, location)
+                    RunEditCharacter(world, location)
                 Case EditEntranceText
                     RunEditEntrance(world, location)
                 Case EditExitText
@@ -99,7 +99,7 @@
         Loop
     End Sub
 
-    Private Sub RunEditCharcter(world As World, location As Location)
+    Private Sub RunEditCharacter(world As World, location As Location)
         Dim character = PickThingie("Which Character?", location.Characters, Function(x) x.UniqueName, True)
         If character IsNot Nothing Then
             CharacterProcessor.RunEdit(world, character)
