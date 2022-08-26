@@ -13,6 +13,12 @@
                 AnsiConsole.MarkupLine($"  * On Team: {character.OnTheTeam}")
                 AnsiConsole.MarkupLine($"  * Can Leave: {character.CanLeave}")
             End If
+            If character.HasInventory Then
+                AnsiConsole.MarkupLine($"* Items:")
+                For Each item In character.Items
+                    AnsiConsole.MarkupLine($"  * {item.UniqueName}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoices(
                 GoBackText,
@@ -31,10 +37,13 @@
             If character.CanJoin AndAlso character.OnTheTeam Then
                 prompt.AddChoice(ToggleCanLeaveText)
             End If
+            prompt.AddChoice(AddItemText)
             If character.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddItemText
+                    RunAddItem(world, character)
                 Case ChangeCharacterTypeText
                     RunChangeCharacterType(world, character)
                 Case ChangeLocationText
@@ -56,6 +65,12 @@
                     character.CanLeave = Not character.CanLeave
             End Select
         Loop
+    End Sub
+    Private Sub RunAddItem(world As World, character As Character)
+        Dim itemType = PickThingie(Of ItemType)("What Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+        If itemType IsNot Nothing Then
+            character.Inventory.Add(world.CreateItem(itemType))
+        End If
     End Sub
 
     Private Sub RunChangeCharacterType(world As World, character As Character)

@@ -68,8 +68,16 @@
     End Sub
 
     Public Sub Destroy()
+        If HasInventory() Then
+            Inventory.Destroy()
+        End If
         WorldData.Character.Clear(Id)
     End Sub
+    Public ReadOnly Property Items As IEnumerable(Of Item)
+        Get
+            Return If(HasInventory(), Inventory.Items, Array.Empty(Of Item))
+        End Get
+    End Property
 
     Public Sub Join()
         If CanJoin AndAlso Not OnTheTeam Then
