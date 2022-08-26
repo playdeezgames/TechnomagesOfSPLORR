@@ -13,7 +13,7 @@
                 AnsiConsole.MarkupLine($"  * On Team: {character.OnTheTeam}")
                 AnsiConsole.MarkupLine($"  * Can Leave: {character.CanLeave}")
             End If
-            If character.HasInventory Then
+            If character.HasItems Then
                 AnsiConsole.MarkupLine($"* Items:")
                 For Each item In character.Items
                     AnsiConsole.MarkupLine($"  * {item.UniqueName}")
@@ -38,6 +38,9 @@
                 prompt.AddChoice(ToggleCanLeaveText)
             End If
             prompt.AddChoice(AddItemText)
+            If character.HasItems Then
+                prompt.AddChoice(RemoveItemText)
+            End If
             If character.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
@@ -59,6 +62,8 @@
                     character.Leave()
                 Case JoinTeamText
                     character.Join()
+                Case RemoveItemText
+                    RunRemoveItem(character)
                 Case ToggleCanJoinText
                     character.CanJoin = Not character.CanJoin
                 Case ToggleCanLeaveText
@@ -66,6 +71,14 @@
             End Select
         Loop
     End Sub
+
+    Private Sub RunRemoveItem(character As Character)
+        Dim item = PickThingie(Of Item)("Which Item?", character.Items, Function(x) x.UniqueName, True)
+        If item IsNot Nothing Then
+            item.Destroy()
+        End If
+    End Sub
+
     Private Sub RunAddItem(world As World, character As Character)
         Dim itemType = PickThingie(Of ItemType)("What Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then

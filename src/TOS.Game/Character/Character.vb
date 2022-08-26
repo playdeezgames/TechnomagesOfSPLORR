@@ -181,6 +181,11 @@
     Public Function HasInventory() As Boolean
         Return WorldData.Inventory.ReadCountForCharacter(Id) > 0
     End Function
+    Public ReadOnly Property HasItems As Boolean
+        Get
+            Return HasInventory() AndAlso Inventory.HasItems
+        End Get
+    End Property
 
     Public ReadOnly Property Inventory As Inventory
         Get
