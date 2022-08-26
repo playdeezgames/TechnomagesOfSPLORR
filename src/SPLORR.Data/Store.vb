@@ -537,6 +537,9 @@ Public Class Store
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2))
         Return LastInsertRowId
     End Function
+    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn)) As Long
+        Return CreateRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue, thirdColumnValue)
+    End Function
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn)) As Long
         Return CreateRecord(
             AddressOf NoInitializer,

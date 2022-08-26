@@ -60,4 +60,12 @@
             (CharacterTypeIdColumn, characterTypeId),
             (CharacterIdColumn, characterId))
     End Sub
+
+    Public Function Create(name As String, characterTypeId As Long, locationId As Long) As Long
+        Return Store.CreateRecord(
+            TableName,
+            (CharacterNameColumn, name),
+            (CharacterTypeIdColumn, characterTypeId),
+            (LocationIdColumn, locationId))
+    End Function
 End Class

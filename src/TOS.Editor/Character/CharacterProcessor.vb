@@ -84,6 +84,12 @@
     End Sub
 
     Private Sub RunNew(world As World)
-
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim characterType = PickThingie("Character Type:", world.CharacterTypes, Function(x) x.UniqueName, False)
+        Dim location = PickThingie("Location:", world.Locations, Function(x) x.UniqueName, False)
+        RunEdit(world, world.CreateCharacter(newName, characterType, location))
     End Sub
 End Module

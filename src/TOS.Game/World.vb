@@ -113,6 +113,10 @@ Public Class World
         Return Route.FromId(WorldData, WorldData.Route.Create(name, routeType.Id, fromLocation.Id, verge.Id, toLocation.Id))
     End Function
 
+    Public Function CreateCharacter(name As String, characterType As CharacterType, location As Location) As Character
+        Return Character.FromId(WorldData, WorldData.Character.Create(name, characterType.Id, location.Id))
+    End Function
+
     Public Function CreateRouteType(newName As String) As RouteType
         Return RouteType.FromId(WorldData, WorldData.RouteType.Create(newName))
     End Function
