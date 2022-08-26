@@ -61,6 +61,10 @@
             (CharacterIdColumn, characterId))
     End Sub
 
+    Public Sub Clear(characterId As Long)
+        Store.ClearForColumnValue(TableName, (CharacterIdColumn, characterId))
+    End Sub
+
     Public Function Create(name As String, characterTypeId As Long, locationId As Long) As Long
         Return Store.CreateRecord(
             TableName,

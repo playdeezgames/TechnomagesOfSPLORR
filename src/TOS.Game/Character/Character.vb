@@ -51,6 +51,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return Not OnTheTeam AndAlso Not CanJoin AndAlso Not HasInventory() AndAlso Not HasEquipment
+        End Get
+    End Property
+
     Private Sub UnequipEquipSlots(equipSlots As IEnumerable(Of EquipSlot))
         For Each slot In equipSlots
             Dim item = EquipSlot(slot)
@@ -59,6 +65,10 @@
                 Inventory.Add(item)
             End If
         Next
+    End Sub
+
+    Public Sub Destroy()
+        WorldData.Character.Clear(Id)
     End Sub
 
     Public Sub Join()

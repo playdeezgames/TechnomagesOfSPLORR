@@ -31,6 +31,9 @@
             If character.CanJoin AndAlso character.OnTheTeam Then
                 prompt.AddChoice(ToggleCanLeaveText)
             End If
+            If character.CanDelete Then
+                prompt.AddChoice(DeleteText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeCharacterTypeText
                     RunChangeCharacterType(world, character)
@@ -38,6 +41,9 @@
                     RunChangeLocation(world, character)
                 Case ChangeNameText
                     RunChangeName(character)
+                Case DeleteText
+                    character.Destroy()
+                    Exit Do
                 Case GoBackText
                     Exit Do
                 Case LeaveTeamText
