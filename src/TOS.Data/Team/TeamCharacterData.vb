@@ -20,4 +20,17 @@
             TableName,
             (CharacterIdColumn, characterId)) > 0
     End Function
+
+    Public Sub Write(characterId As Long, canLeave As Boolean)
+        Store.ReplaceRecord(
+            TableName,
+            (CharacterIdColumn, characterId),
+            (CanLeaveColumn, If(canLeave, 1L, 0L)))
+    End Sub
+
+    Public Sub Clear(characterId As Long)
+        Store.ClearForColumnValue(
+            TableName,
+            (CharacterIdColumn, characterId))
+    End Sub
 End Class

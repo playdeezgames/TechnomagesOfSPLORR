@@ -77,10 +77,13 @@
         WorldData.Team.ClearForCharacterId(Id)
     End Sub
 
-    Public ReadOnly Property CanLeave() As Boolean
+    Public Property CanLeave() As Boolean
         Get
             Return WorldData.TeamCharacter.ReadCanLeave(Id).Value > 0
         End Get
+        Set(value As Boolean)
+            WorldData.TeamCharacter.Write(Id, value)
+        End Set
     End Property
 
     Public Property Name As String
@@ -107,10 +110,17 @@
         Return item.CanBeEquipped(AvailableEquipSlots)
     End Function
 
-    Public ReadOnly Property CanJoin As Boolean
+    Public Property CanJoin As Boolean
         Get
             Return WorldData.TeamCharacter.Exists(Id)
         End Get
+        Set(value As Boolean)
+            If value Then
+                WorldData.TeamCharacter.Write(Id, False)
+            Else
+                WorldData.TeamCharacter.Clear(Id)
+            End If
+        End Set
     End Property
 
     Public Property CharacterType As CharacterType

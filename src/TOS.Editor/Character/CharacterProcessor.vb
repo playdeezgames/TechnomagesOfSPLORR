@@ -3,16 +3,34 @@
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character:")
-            AnsiConsole.MarkupLine($"Id: {character.Id}")
-            AnsiConsole.MarkupLine($"Name: {character.Name}")
-            AnsiConsole.MarkupLine($"Type: {character.CharacterType.UniqueName}")
-            AnsiConsole.MarkupLine($"Location: {character.Location.UniqueName}")
+            AnsiConsole.MarkupLine($"* Id: {character.Id}")
+            AnsiConsole.MarkupLine($"* Name: {character.Name}")
+            AnsiConsole.MarkupLine($"* Type: {character.CharacterType.UniqueName}")
+            AnsiConsole.MarkupLine($"* Location: {character.Location.UniqueName}")
+            AnsiConsole.MarkupLine($"* Team:")
+            AnsiConsole.MarkupLine($"  * Can Join: {character.CanJoin}")
+            If character.CanJoin Then
+                AnsiConsole.MarkupLine($"  * On Team: {character.OnTheTeam}")
+                AnsiConsole.MarkupLine($"  * Can Leave: {character.CanLeave}")
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoices(
                 GoBackText,
                 ChangeNameText,
                 ChangeCharacterTypeText,
                 ChangeLocationText)
+            If character.OnTheTeam AndAlso character.CanLeave Then
+                prompt.AddChoice(LeaveTeamText)
+            End If
+            If Not character.OnTheTeam AndAlso character.CanJoin Then
+                prompt.AddChoice(JoinTeamText)
+            End If
+            If (character.CanJoin AndAlso Not character.OnTheTeam) OrElse Not character.CanJoin Then
+                prompt.AddChoice(ToggleCanJoinText)
+            End If
+            If character.CanJoin AndAlso character.OnTheTeam Then
+                prompt.AddChoice(ToggleCanLeaveText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeCharacterTypeText
                     RunChangeCharacterType(world, character)
@@ -22,6 +40,14 @@
                     RunChangeName(character)
                 Case GoBackText
                     Exit Do
+                Case LeaveTeamText
+                    character.Leave()
+                Case JoinTeamText
+                    character.Join()
+                Case ToggleCanJoinText
+                    character.CanJoin = Not character.CanJoin
+                Case ToggleCanLeaveText
+                    character.CanLeave = Not character.CanLeave
             End Select
         Loop
     End Sub
