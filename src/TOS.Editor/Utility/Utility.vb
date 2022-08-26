@@ -1,4 +1,9 @@
 ﻿Module Utility
+    Friend Sub OkPrompt()
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = ""}
+        prompt.AddChoice(OkText)
+        AnsiConsole.Prompt(prompt)
+    End Sub
     Friend Sub RunList(Of TThingie)(
                                    world As World,
                                    title As String,

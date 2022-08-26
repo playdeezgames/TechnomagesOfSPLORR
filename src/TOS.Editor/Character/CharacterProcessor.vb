@@ -19,6 +19,12 @@
                     AnsiConsole.MarkupLine($"  * {item.UniqueName}")
                 Next
             End If
+            If character.HasEquipment Then
+                AnsiConsole.MarkupLine($"* Equipment:")
+                For Each item In character.EquippedItems
+                    AnsiConsole.MarkupLine($"  * {item.UniqueName}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoices(
                 GoBackText,
@@ -41,6 +47,10 @@
             If character.HasItems Then
                 prompt.AddChoice(RemoveItemText)
             End If
+            prompt.AddChoice(EquipItemText)
+            If character.HasEquipment Then
+                prompt.AddChoice(UnequipItemText)
+            End If
             If character.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
@@ -56,6 +66,8 @@
                 Case DeleteText
                     character.Destroy()
                     Exit Do
+                Case EquipItemText
+                    RunEquipItem(world, character)
                 Case GoBackText
                     Exit Do
                 Case LeaveTeamText
@@ -70,6 +82,21 @@
                     character.CanLeave = Not character.CanLeave
             End Select
         Loop
+    End Sub
+
+    Private Sub RunEquipItem(world As World, character As Character)
+        Dim itemType = PickThingie("Which Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+        If itemType Is Nothing Then
+            Return
+        End If
+        Dim item = world.CreateItem(itemType)
+        If character.CanEquip(item) Then
+            character.Equip(item)
+        Else
+            AnsiConsole.MarkupLine($"You cannot equip {itemType.UniqueName} on {character.UniqueName}.")
+            item.Destroy()
+            OkPrompt()
+        End If
     End Sub
 
     Private Sub RunRemoveItem(character As Character)
