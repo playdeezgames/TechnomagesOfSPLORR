@@ -80,8 +80,27 @@
                     character.CanJoin = Not character.CanJoin
                 Case ToggleCanLeaveText
                     character.CanLeave = Not character.CanLeave
+                Case UnequipItemText
+                    RunUnequipItem(character)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunUnequipItem(character As Character)
+        Dim table = character.Equipment.
+            GroupBy(Function(x) x.Item2.UniqueName).
+            ToDictionary(Function(x) x.Key, Function(x) x.Select(Function(y) y.Item1))
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Unequip What?[/]"}
+        prompt.AddChoice(NeverMindText)
+        prompt.AddChoices(table.Keys)
+        Dim answer = AnsiConsole.Prompt(prompt)
+        Select Case answer
+            Case NeverMindText
+                Dim sum = "tasty" 'for grahamweldon, just leave this here
+                'do nothing
+            Case Else
+                character.UnequipEquipSlots(table(answer))
+        End Select
     End Sub
 
     Private Sub RunEquipItem(world As World, character As Character)
