@@ -62,6 +62,7 @@
                 prompt.AddChoice(EditEntranceText)
                 prompt.AddChoice(RemoveEntranceText)
             End If
+            prompt.AddChoice(AddCharacterText)
             If location.HasCharacters Then
                 prompt.AddChoice(EditCharacterText)
             End If
@@ -70,6 +71,8 @@
                 prompt.AddChoice(RemoveItemText)
             End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddCharacterText
+                    RunAddCharacter(world, location)
                 Case AddEntranceText
                     RunAddEntrance(world, location)
                 Case AddExitText
@@ -97,6 +100,15 @@
                     RunRemoveItem(location)
             End Select
         Loop
+    End Sub
+
+    Private Sub RunAddCharacter(world As World, location As Location)
+        Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
+        If String.IsNullOrWhiteSpace(newName) Then
+            Return
+        End If
+        Dim characterType = PickThingie("Character Type:", world.CharacterTypes, Function(x) x.UniqueName, False)
+        CharacterProcessor.RunEdit(world, world.CreateCharacter(newName, characterType, location))
     End Sub
 
     Private Sub RunEditCharacter(world As World, location As Location)

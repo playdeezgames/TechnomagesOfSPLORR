@@ -1,5 +1,6 @@
 ﻿Module Constants
     Friend Const AddChangeStatisticText = "Add/Change Statistic"
+    Friend Const AddCharacterText = "Add Chararacter"
     Friend Const AddEntranceText = "Add Entrance"
     Friend Const AddEquipSlotText = "Add Equip Slot"
     Friend Const AddExitText = "Add Exit"
