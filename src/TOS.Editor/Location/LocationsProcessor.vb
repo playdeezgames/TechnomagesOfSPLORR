@@ -46,6 +46,12 @@
                     AnsiConsole.MarkupLine($"  * {item.UniqueName}")
                 Next
             End If
+            If location.HasStatisticDeltas Then
+                AnsiConsole.MarkupLine($"* Statistic Deltas:")
+                For Each delta In location.StatisticDeltas
+                    AnsiConsole.MarkupLine($"  * {delta.Item1.UniqueName}: {delta.Item2}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(GoBackText)
             prompt.AddChoice(ChangeNameText)
@@ -70,7 +76,13 @@
             If location.HasItems Then
                 prompt.AddChoice(RemoveItemText)
             End If
+            prompt.AddChoice(AddChangeStatisticText)
+            If location.HasStatisticDeltas Then
+                prompt.AddChoice(RemoveStatisticText)
+            End If
             Select Case AnsiConsole.Prompt(prompt)
+                Case AddChangeStatisticText
+                    RunAddChangeStatistic(world, location)
                 Case AddCharacterText
                     RunAddCharacter(world, location)
                 Case AddEntranceText
@@ -98,8 +110,25 @@
                     RunRemoveExit(location)
                 Case RemoveItemText
                     RunRemoveItem(location)
+                Case RemoveStatisticText
+                    RunRemoveStatistic(location)
             End Select
         Loop
+    End Sub
+    Private Sub RunAddChangeStatistic(world As World, location As Location)
+        Dim statisticType = PickThingie("Which Statistic?", world.StatisticTypes, Function(x) x.UniqueName, True)
+        If statisticType Is Nothing Then
+            Return
+        End If
+        Dim delta = AnsiConsole.Ask(Of Long)("[olive]Statistic Delta?[/]")
+        location.StatisticDelta(statisticType) = delta
+    End Sub
+
+    Private Sub RunRemoveStatistic(location As Location)
+        Dim statisticType = PickThingie("Which Statistic?", location.StatisticDeltas.Select(Function(x) x.Item1), Function(x) x.UniqueName, True)
+        If statisticType IsNot Nothing Then
+            location.StatisticDelta(statisticType) = Nothing
+        End If
     End Sub
 
     Private Sub RunAddCharacter(world As World, location As Location)

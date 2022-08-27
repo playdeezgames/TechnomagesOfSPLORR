@@ -68,6 +68,33 @@
             Return Inventory.ItemStacks
         End Get
     End Property
+
+    Public ReadOnly Property HasStatisticDeltas As Boolean
+        Get
+            Return WorldData.LocationStatistic.CountForLocation(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property StatisticDeltas() As IEnumerable(Of (StatisticType, Long))
+        Get
+            Return WorldData.LocationStatistic.
+                ReadForLocation(Id).Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+        End Get
+    End Property
+
+    Public Property StatisticDelta(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.LocationStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.LocationStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.LocationStatistic.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
+
     Public ReadOnly Property ItemNames As String
         Get
             Return String.Join(", ", Items.Select(Function(x) x.Name))
