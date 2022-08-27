@@ -220,4 +220,29 @@
             Return result
         End Get
     End Property
+    Public ReadOnly Property HasStatisticDeltas As Boolean
+        Get
+            Return WorldData.CharacterStatistic.CountForCharacter(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property StatisticDeltas() As IEnumerable(Of (StatisticType, Long))
+        Get
+            Return WorldData.CharacterStatistic.
+                ReadForCharacter(Id).Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+        End Get
+    End Property
+
+    Public Property StatisticDelta(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.CharacterStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.CharacterStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.CharacterStatistic.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
 End Class
