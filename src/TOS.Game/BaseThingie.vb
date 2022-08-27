@@ -1,5 +1,5 @@
 ﻿Public MustInherit Class BaseThingie
-    Protected ReadOnly World As World
+    Public ReadOnly World As World
     Protected ReadOnly Property WorldData As WorldData
         Get
             Return World.WorldData

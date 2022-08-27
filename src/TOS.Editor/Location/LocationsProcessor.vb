@@ -137,13 +137,13 @@
             Return
         End If
         Dim characterType = PickThingie("Character Type:", world.CharacterTypes, Function(x) x.UniqueName, False)
-        CharacterProcessor.RunEdit(world, world.CreateCharacter(newName, characterType, location))
+        CharacterProcessor.RunEdit(world.CreateCharacter(newName, characterType, location))
     End Sub
 
     Private Sub RunEditCharacter(world As World, location As Location)
         Dim character = PickThingie("Which Character?", location.Characters, Function(x) x.UniqueName, True)
         If character IsNot Nothing Then
-            CharacterProcessor.RunEdit(world, character)
+            CharacterProcessor.RunEdit(character)
         End If
     End Sub
 

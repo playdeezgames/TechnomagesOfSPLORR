@@ -1,5 +1,5 @@
 ﻿Module CharacterProcessor
-    Friend Sub RunEdit(world As World, character As Character)
+    Friend Sub RunEdit(character As Character)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Character:")
@@ -66,20 +66,20 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    RunAddChangeStatistic(world, character)
+                    RunAddChangeStatistic(character)
                 Case AddItemText
-                    RunAddItem(world, character)
+                    RunAddItem(character)
                 Case ChangeCharacterTypeText
-                    RunChangeCharacterType(world, character)
+                    RunChangeCharacterType(character)
                 Case ChangeLocationText
-                    RunChangeLocation(world, character)
+                    RunChangeLocation(character)
                 Case ChangeNameText
                     RunChangeName(character)
                 Case DeleteText
                     character.Destroy()
                     Exit Do
                 Case EquipItemText
-                    RunEquipItem(world, character)
+                    RunEquipItem(character)
                 Case GoBackText
                     Exit Do
                 Case LeaveTeamText
@@ -99,8 +99,8 @@
             End Select
         Loop
     End Sub
-    Private Sub RunAddChangeStatistic(world As World, character As Character)
-        Dim statisticType = PickThingie("Which Statistic?", world.StatisticTypes, Function(x) x.UniqueName, True)
+    Private Sub RunAddChangeStatistic(character As Character)
+        Dim statisticType = PickThingie("Which Statistic?", character.World.StatisticTypes, Function(x) x.UniqueName, True)
         If statisticType Is Nothing Then
             Return
         End If
@@ -132,12 +132,12 @@
         End Select
     End Sub
 
-    Private Sub RunEquipItem(world As World, character As Character)
-        Dim itemType = PickThingie("Which Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+    Private Sub RunEquipItem(character As Character)
+        Dim itemType = PickThingie("Which Item Type?", character.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType Is Nothing Then
             Return
         End If
-        Dim item = world.CreateItem(itemType)
+        Dim item = character.World.CreateItem(itemType)
         If character.CanEquip(item) Then
             character.Equip(item)
         Else
@@ -154,22 +154,22 @@
         End If
     End Sub
 
-    Private Sub RunAddItem(world As World, character As Character)
-        Dim itemType = PickThingie(Of ItemType)("What Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+    Private Sub RunAddItem(character As Character)
+        Dim itemType = PickThingie(Of ItemType)("What Item Type?", character.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then
-            character.Inventory.Add(world.CreateItem(itemType))
+            character.Inventory.Add(character.World.CreateItem(itemType))
         End If
     End Sub
 
-    Private Sub RunChangeCharacterType(world As World, character As Character)
-        Dim characterType = PickThingie("Which Character Type?", world.CharacterTypes, Function(x) x.UniqueName, True)
+    Private Sub RunChangeCharacterType(character As Character)
+        Dim characterType = PickThingie("Which Character Type?", character.World.CharacterTypes, Function(x) x.UniqueName, True)
         If characterType IsNot Nothing Then
             character.CharacterType = characterType
         End If
     End Sub
 
-    Private Sub RunChangeLocation(world As World, character As Character)
-        Dim location = PickThingie("Which Location?", world.Locations, Function(x) x.UniqueName, True)
+    Private Sub RunChangeLocation(character As Character)
+        Dim location = PickThingie("Which Location?", character.World.Locations, Function(x) x.UniqueName, True)
         If location IsNot Nothing Then
             character.Location = location
         End If
@@ -189,7 +189,7 @@
             Function(x) x.Characters,
             Function(x) x.UniqueName,
             AddressOf RunNew,
-            AddressOf RunEdit)
+            Sub(x, y) RunEdit(y))
     End Sub
 
     Private Sub RunNew(world As World)
@@ -199,6 +199,6 @@
         End If
         Dim characterType = PickThingie("Character Type:", world.CharacterTypes, Function(x) x.UniqueName, False)
         Dim location = PickThingie("Location:", world.Locations, Function(x) x.UniqueName, False)
-        RunEdit(world, world.CreateCharacter(newName, characterType, location))
+        RunEdit(world.CreateCharacter(newName, characterType, location))
     End Sub
 End Module
