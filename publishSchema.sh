@@ -1,0 +1,1 @@
+cp ./src/TOS.Editor/boilerplate.db ./src/TechnomagesOfSPLORR/boilerplate.db
