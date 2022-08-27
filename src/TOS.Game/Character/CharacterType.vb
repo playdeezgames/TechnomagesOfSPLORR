@@ -1,11 +1,11 @@
 ﻿Public Class CharacterType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world As World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, characterTypeId As Long) As CharacterType
-        Return New CharacterType(worldData, characterTypeId)
+    Public Shared Function FromId(world As World, characterTypeId As Long) As CharacterType
+        Return New CharacterType(world, characterTypeId)
     End Function
     Property Name As String
         Get
@@ -19,7 +19,7 @@
     Public ReadOnly Property Statistics As IEnumerable(Of (StatisticType, Long))
         Get
             Return WorldData.CharacterTypeStatistic.ReadForCharacterType(Id).
-                Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+                Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
         End Get
     End Property
 
@@ -47,7 +47,7 @@
 
     Public ReadOnly Property EquipSlots As IEnumerable(Of EquipSlot)
         Get
-            Return WorldData.CharacterTypeEquipSlot.ReadForCharacterType(Id).Select(Function(x) EquipSlot.FromId(WorldData, x))
+            Return WorldData.CharacterTypeEquipSlot.ReadForCharacterType(Id).Select(Function(x) EquipSlot.FromId(World, x))
         End Get
     End Property
 

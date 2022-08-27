@@ -1,11 +1,11 @@
 ﻿Public Class ItemType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world as World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, id As Long) As ItemType
-        Return New ItemType(worldData, id)
+    Public Shared Function FromId(world As World, id As Long) As ItemType
+        Return New ItemType(world, id)
     End Function
 
     Public Property Name() As String
@@ -40,7 +40,7 @@
     Public ReadOnly Property Statistics As IEnumerable(Of (StatisticType, Long))
         Get
             Return WorldData.ItemTypeStatistic.ReadForItemType(Id).
-                Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+                Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
         End Get
     End Property
 
@@ -68,7 +68,7 @@
 
     Public ReadOnly Property EquipSlots As IEnumerable(Of (Long, EquipSlot))
         Get
-            Return WorldData.ItemTypeEquipSlot.ReadForItemType(Id).Select(Function(x) (x.Item1, EquipSlot.FromId(WorldData, x.Item2)))
+            Return WorldData.ItemTypeEquipSlot.ReadForItemType(Id).Select(Function(x) (x.Item1, EquipSlot.FromId(World, x.Item2)))
         End Get
     End Property
 

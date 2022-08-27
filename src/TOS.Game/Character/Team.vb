@@ -1,16 +1,16 @@
 ﻿Public Class Team
-    Private WorldData As WorldData
-    Sub New(worldData As WorldData)
-        Me.WorldData = worldData
+    Private World As World
+    Sub New(world As World)
+        Me.World = world
     End Sub
     ReadOnly Property Characters As IEnumerable(Of Character)
         Get
-            Return WorldData.Team.ReadCharacterIds().Select(Function(x) Character.FromId(WorldData, x))
+            Return World.WorldData.Team.ReadCharacterIds().Select(Function(x) Character.FromId(World, x))
         End Get
     End Property
     ReadOnly Property CharacterCount As Long
         Get
-            Return WorldData.Team.ReadCount()
+            Return World.WorldData.Team.ReadCount()
         End Get
     End Property
     ReadOnly Property Leader As Character
@@ -43,13 +43,13 @@
 
     Public ReadOnly Property HasItems() As Boolean
         Get
-            Return WorldData.TeamItem.ReadCount() > 0
+            Return World.WorldData.TeamItem.ReadCount() > 0
         End Get
     End Property
 
     Public ReadOnly Property HasEquipment() As Boolean
         Get
-            Return WorldData.TeamEquipSlot.ReadCount() > 0
+            Return World.WorldData.TeamEquipSlot.ReadCount() > 0
         End Get
     End Property
 End Class

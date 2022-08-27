@@ -1,11 +1,11 @@
 ﻿Public Class LocationType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, locationTypeId As Long)
-        MyBase.New(worldData, locationTypeId)
+    Public Sub New(world as World, locationTypeId As Long)
+        MyBase.New(world, locationTypeId)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, locationTypeId As Long) As LocationType
-        Return New LocationType(worldData, locationTypeId)
+    Public Shared Function FromId(world As World, locationTypeId As Long) As LocationType
+        Return New LocationType(world, locationTypeId)
     End Function
 
     Public Property Name As String
@@ -36,7 +36,7 @@
     Public ReadOnly Property Statistics As IEnumerable(Of (StatisticType, Long))
         Get
             Return WorldData.LocationTypeStatistic.ReadForLocationType(Id).
-                Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+                Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
         End Get
     End Property
 

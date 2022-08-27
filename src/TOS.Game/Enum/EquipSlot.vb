@@ -1,11 +1,11 @@
 ﻿Public Class EquipSlot
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world As World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, id As Long) As EquipSlot
-        Return New EquipSlot(worldData, id)
+    Public Shared Function FromId(world As World, id As Long) As EquipSlot
+        Return New EquipSlot(world, id)
     End Function
     Public Property DisplayName As String
         Get

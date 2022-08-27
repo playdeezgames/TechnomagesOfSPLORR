@@ -1,10 +1,10 @@
 ﻿Public Class Location
     Inherits BaseThingie
-    Sub New(worldData As WorldData, locationId As Long)
-        MyBase.New(worldData, locationId)
+    Sub New(world as World, locationId As Long)
+        MyBase.New(world, locationId)
     End Sub
-    Shared Function FromId(data As WorldData, locationId As Long) As Location
-        Return New Location(data, locationId)
+    Shared Function FromId(world As World, locationId As Long) As Location
+        Return New Location(world, locationId)
     End Function
 
     Public ReadOnly Property UniqueName As String
@@ -23,12 +23,12 @@
     End Property
     Public ReadOnly Property Exits As IEnumerable(Of Route)
         Get
-            Return WorldData.Route.ReadForFromLocation(Id).Select(Function(x) Route.FromId(WorldData, x))
+            Return WorldData.Route.ReadForFromLocation(Id).Select(Function(x) Route.FromId(World, x))
         End Get
     End Property
     Public ReadOnly Property Entrances As IEnumerable(Of Route)
         Get
-            Return WorldData.Route.ReadForToLocation(Id).Select(Function(x) Route.FromId(WorldData, x))
+            Return WorldData.Route.ReadForToLocation(Id).Select(Function(x) Route.FromId(World, x))
         End Get
     End Property
 
@@ -78,7 +78,7 @@
     Public ReadOnly Property StatisticDeltas() As IEnumerable(Of (StatisticType, Long))
         Get
             Return WorldData.LocationStatistic.
-                ReadForLocation(Id).Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+                ReadForLocation(Id).Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
         End Get
     End Property
 
@@ -107,13 +107,13 @@
 
     Public ReadOnly Property OtherCharacters As IEnumerable(Of Character)
         Get
-            Return WorldData.LocationCharacter.ReadCharacters(Id, False).Select(Function(x) Character.FromId(WorldData, x))
+            Return WorldData.LocationCharacter.ReadCharacters(Id, False).Select(Function(x) Character.FromId(World, x))
         End Get
     End Property
 
     Public ReadOnly Property Characters As IEnumerable(Of Character)
         Get
-            Return WorldData.LocationCharacter.ReadCharacters(Id).Select(Function(x) Character.FromId(WorldData, x))
+            Return WorldData.LocationCharacter.ReadCharacters(Id).Select(Function(x) Character.FromId(World, x))
         End Get
     End Property
 
@@ -128,7 +128,7 @@
     End Property
     Public Property LocationType As LocationType
         Get
-            Return LocationType.FromId(WorldData, WorldData.Location.ReadLocationType(Id).Value)
+            Return LocationType.FromId(World, WorldData.Location.ReadLocationType(Id).Value)
         End Get
         Set(value As LocationType)
             WorldData.Location.WriteLocationType(Id, value.Id)
@@ -155,10 +155,10 @@
         Get
             Dim inventoryId = WorldData.Inventory.ReadForLocation(Id)
             If inventoryId.HasValue Then
-                Return Inventory.FromId(WorldData, inventoryId.Value)
+                Return Inventory.FromId(World, inventoryId.Value)
             End If
             inventoryId = WorldData.Inventory.CreateForLocation(Id)
-            Return Inventory.FromId(WorldData, inventoryId.Value)
+            Return Inventory.FromId(World, inventoryId.Value)
         End Get
     End Property
 

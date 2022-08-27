@@ -1,11 +1,11 @@
 ﻿Public Class VergeType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world as World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, id As Long) As VergeType
-        Return New VergeType(worldData, id)
+    Public Shared Function FromId(world As World, id As Long) As VergeType
+        Return New VergeType(world, id)
     End Function
 
     Public Property Name As String

@@ -1,11 +1,11 @@
 ﻿Public Class StatisticType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world as World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Friend Shared Function FromId(worldData As WorldData, id As Long) As StatisticType
-        Return New StatisticType(worldData, id)
+    Friend Shared Function FromId(world As World, id As Long) As StatisticType
+        Return New StatisticType(world, id)
     End Function
     Public Property Name As String
         Get

@@ -1,11 +1,11 @@
 ﻿Public Class Character
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, characterId As Long)
-        MyBase.New(worldData, characterId)
+    Public Sub New(world As World, characterId As Long)
+        MyBase.New(world, characterId)
     End Sub
-    Shared Function FromId(worldData As WorldData, characterId As Long) As Character
-        Return New Character(worldData, characterId)
+    Shared Function FromId(world As World, characterId As Long) As Character
+        Return New Character(world, characterId)
     End Function
     Public ReadOnly Property UniqueName As String
         Get
@@ -24,7 +24,7 @@
                 CharacterEquipSlot.
                 ReadForCharacter(Id).
                 Select(
-                    Function(x) (Game.EquipSlot.FromId(WorldData, x.Item1), Item.FromId(WorldData, x.Item2)))
+                    Function(x) (Game.EquipSlot.FromId(World, x.Item1), Item.FromId(World, x.Item2)))
         End Get
     End Property
 
@@ -47,7 +47,7 @@
 
     Private ReadOnly Property EquipSlot(slot As EquipSlot) As Item
         Get
-            Return Item.FromId(WorldData, WorldData.CharacterEquipSlot.Read(Id, slot.Id))
+            Return Item.FromId(World, WorldData.CharacterEquipSlot.Read(Id, slot.Id))
         End Get
     End Property
 
@@ -120,7 +120,7 @@
 
     ReadOnly Property AvailableEquipSlots As IEnumerable(Of EquipSlot)
         Get
-            Return WorldData.CharacterAvailableEquipSlot.ReadForCharacter(Id).Select(Function(x) Game.EquipSlot.FromId(WorldData, x))
+            Return WorldData.CharacterAvailableEquipSlot.ReadForCharacter(Id).Select(Function(x) Game.EquipSlot.FromId(World, x))
         End Get
     End Property
 
@@ -143,7 +143,7 @@
 
     Public Property CharacterType As CharacterType
         Get
-            Return CharacterType.FromId(WorldData, WorldData.Character.ReadCharacterType(Id).Value)
+            Return CharacterType.FromId(World, WorldData.Character.ReadCharacterType(Id).Value)
         End Get
         Set(value As CharacterType)
             WorldData.Character.WriteCharacterType(Id, value.Id)
@@ -156,7 +156,7 @@
 
     Property Location As Location
         Get
-            Return Location.FromId(WorldData, WorldData.Character.ReadLocation(Id).Value)
+            Return Location.FromId(World, WorldData.Character.ReadLocation(Id).Value)
         End Get
         Set(value As Location)
             WorldData.Character.WriteLocation(Id, value.Id)
@@ -164,7 +164,7 @@
     End Property
     ReadOnly Property Team As Team
         Get
-            Return If(WorldData.Team.Exists(Id), New Team(WorldData), Nothing)
+            Return If(WorldData.Team.Exists(Id), New Team(World), Nothing)
         End Get
     End Property
 
@@ -191,21 +191,21 @@
         Get
             Dim inventoryId = WorldData.Inventory.ReadForCharacter(Id)
             If inventoryId.HasValue Then
-                Return Inventory.FromId(WorldData, inventoryId.Value)
+                Return Inventory.FromId(World, inventoryId.Value)
             End If
             inventoryId = WorldData.Inventory.CreateForCharacter(Id)
-            Return Inventory.FromId(WorldData, inventoryId.Value)
+            Return Inventory.FromId(World, inventoryId.Value)
         End Get
     End Property
 
     Public ReadOnly Property Statistics As IEnumerable(Of StatisticType)
         Get
-            Return WorldData.CharacterBaseStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
+            Return WorldData.CharacterBaseStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(World, x))
         End Get
     End Property
     Public ReadOnly Property EquippedItems As IEnumerable(Of Item)
         Get
-            Return WorldData.CharacterEquippedItem.ForCharacter(Id).Select(Function(x) Item.FromId(WorldData, x))
+            Return WorldData.CharacterEquippedItem.ForCharacter(Id).Select(Function(x) Item.FromId(World, x))
         End Get
     End Property
 
@@ -229,7 +229,7 @@
     Public ReadOnly Property StatisticDeltas() As IEnumerable(Of (StatisticType, Long))
         Get
             Return WorldData.CharacterStatistic.
-                ReadForCharacter(Id).Select(Function(x) (StatisticType.FromId(WorldData, x.Item1), x.Item2))
+                ReadForCharacter(Id).Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
         End Get
     End Property
 

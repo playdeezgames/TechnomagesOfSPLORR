@@ -1,11 +1,11 @@
 ﻿Public Class RouteType
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world as World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, id As Long) As RouteType
-        Return New RouteType(worldData, id)
+    Public Shared Function FromId(world As World, id As Long) As RouteType
+        Return New RouteType(world, id)
     End Function
 
     Public Property Name As String

@@ -1,7 +1,7 @@
 Public Class World
-    Private ReadOnly WorldData As WorldData
-    Sub New(worldData As WorldData)
-        Me.WorldData = worldData
+    Friend ReadOnly WorldData As WorldData
+    Sub New(world As World)
+        Me.WorldData = WorldData
     End Sub
 
     Public Function CanContinue() As Boolean
@@ -18,17 +18,17 @@ Public Class World
     End Function
 
     Public Function CreateItemType(newName As String) As ItemType
-        Return ItemType.FromId(WorldData, WorldData.ItemType.Create(newName))
+        Return ItemType.FromId(Me, WorldData.ItemType.Create(newName))
     End Function
 
     Private Function FetchAll(Of TThingie)(
                                           allProvider As IProvidesAll,
-                                          conversion As Func(Of WorldData, Long, TThingie)) As IEnumerable(Of TThingie)
-        Return allProvider.All.Select(Function(x) conversion(WorldData, x))
+                                          conversion As Func(Of World, Long, TThingie)) As IEnumerable(Of TThingie)
+        Return allProvider.All.Select(Function(x) conversion(Me, x))
     End Function
 
     Public Function CreateLocation(newName As String, locationType As LocationType) As Location
-        Return Location.FromId(WorldData, WorldData.Location.Create(newName, locationType.Id))
+        Return Location.FromId(Me, WorldData.Location.Create(newName, locationType.Id))
     End Function
 
     Public ReadOnly Property Verges As IEnumerable(Of Verge)
@@ -67,7 +67,7 @@ Public Class World
     End Property
 
     Public Function CreateVerge(name As String, vergeType As VergeType) As Verge
-        Return Verge.FromId(WorldData, WorldData.Verge.Create(name, vergeType.Id))
+        Return Verge.FromId(Me, WorldData.Verge.Create(name, vergeType.Id))
     End Function
 
     Sub Save(filename As String)
@@ -75,12 +75,12 @@ Public Class World
     End Sub
     ReadOnly Property Team As Team
         Get
-            Return New Team(WorldData)
+            Return New Team(Me)
         End Get
     End Property
 
     Public Function CreateCharacterType(newName As String) As CharacterType
-        Return CharacterType.FromId(WorldData, WorldData.CharacterType.Create(newName))
+        Return CharacterType.FromId(Me, WorldData.CharacterType.Create(newName))
     End Function
 
     Public ReadOnly Property StatisticTypes As IEnumerable(Of StatisticType)
@@ -90,7 +90,7 @@ Public Class World
     End Property
 
     Public Function CreateStatisticType(newName As String, newDisplayName As String) As StatisticType
-        Return StatisticType.FromId(WorldData, WorldData.StatisticType.Create(newName, newDisplayName))
+        Return StatisticType.FromId(Me, WorldData.StatisticType.Create(newName, newDisplayName))
     End Function
 
     Public ReadOnly Property LocationTypes As IEnumerable(Of LocationType)
@@ -106,30 +106,30 @@ Public Class World
     End Property
 
     Public Function CreateItem(itemType As ItemType) As Item
-        Return Item.FromId(WorldData, WorldData.Item.Create(itemType.Id))
+        Return Item.FromId(Me, WorldData.Item.Create(itemType.Id))
     End Function
 
     Public Function CreateRoute(name As String, routeType As RouteType, fromLocation As Location, verge As Verge, toLocation As Location) As Route
-        Return Route.FromId(WorldData, WorldData.Route.Create(name, routeType.Id, fromLocation.Id, verge.Id, toLocation.Id))
+        Return Route.FromId(Me, WorldData.Route.Create(name, routeType.Id, fromLocation.Id, verge.Id, toLocation.Id))
     End Function
 
     Public Function CreateCharacter(name As String, characterType As CharacterType, location As Location) As Character
-        Return Character.FromId(WorldData, WorldData.Character.Create(name, characterType.Id, location.Id))
+        Return Character.FromId(Me, WorldData.Character.Create(name, characterType.Id, location.Id))
     End Function
 
     Public Function CreateRouteType(newName As String) As RouteType
-        Return RouteType.FromId(WorldData, WorldData.RouteType.Create(newName))
+        Return RouteType.FromId(Me, WorldData.RouteType.Create(newName))
     End Function
 
     Public Function CreateLocationType(newName As String) As LocationType
-        Return LocationType.FromId(WorldData, WorldData.LocationType.Create(newName))
+        Return LocationType.FromId(Me, WorldData.LocationType.Create(newName))
     End Function
 
     Public Function CreateVergeType(newName As String) As VergeType
-        Return VergeType.FromId(WorldData, WorldData.VergeType.Create(newName))
+        Return VergeType.FromId(Me, WorldData.VergeType.Create(newName))
     End Function
 
     Public Function CreateEquipSlot(newName As String, newDisplayName As String) As EquipSlot
-        Return EquipSlot.FromId(WorldData, WorldData.EquipSlot.Create(newName, newDisplayName))
+        Return EquipSlot.FromId(Me, WorldData.EquipSlot.Create(newName, newDisplayName))
     End Function
 End Class

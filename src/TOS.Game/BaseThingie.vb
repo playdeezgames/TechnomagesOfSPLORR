@@ -1,8 +1,13 @@
 ﻿Public MustInherit Class BaseThingie
-    Protected ReadOnly WorldData As WorldData
+    Protected ReadOnly World As World
+    Protected ReadOnly Property WorldData As WorldData
+        Get
+            Return World.WorldData
+        End Get
+    End Property
     Public ReadOnly Id As Long
-    Sub New(worldData As WorldData, id As Long)
-        Me.WorldData = worldData
+    Sub New(world As World, id As Long)
+        Me.World = world
         Me.Id = id
     End Sub
 End Class

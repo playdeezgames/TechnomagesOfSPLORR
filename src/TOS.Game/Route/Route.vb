@@ -1,11 +1,11 @@
 ﻿Public Class Route
     Inherits BaseThingie
 
-    Public Sub New(worldData As WorldData, id As Long)
-        MyBase.New(worldData, id)
+    Public Sub New(world as World, id As Long)
+        MyBase.New(world, id)
     End Sub
-    Public Shared Function FromId(worldData As WorldData, id As Long) As Route
-        Return New Route(worldData, id)
+    Public Shared Function FromId(world As World, id As Long) As Route
+        Return New Route(world, id)
     End Function
     Public Property Name As String
         Get
@@ -17,7 +17,7 @@
     End Property
     Public Property RouteType As RouteType
         Get
-            Return RouteType.FromId(WorldData, WorldData.Route.ReadRouteType(Id).Value)
+            Return RouteType.FromId(World, WorldData.Route.ReadRouteType(Id).Value)
         End Get
         Set(value As RouteType)
             WorldData.Route.WriteRouteType(Id, value.Id)
@@ -26,7 +26,7 @@
 
     Public Property ToLocation As Location
         Get
-            Return Location.FromId(WorldData, WorldData.Route.ReadToLocationId(Id).Value)
+            Return Location.FromId(World, WorldData.Route.ReadToLocationId(Id).Value)
         End Get
         Set(value As Location)
             WorldData.Route.WriteToLocation(Id, value.Id)
@@ -35,7 +35,7 @@
 
     Public Property FromLocation As Location
         Get
-            Return Location.FromId(WorldData, WorldData.Route.ReadFromLocationId(Id).Value)
+            Return Location.FromId(World, WorldData.Route.ReadFromLocationId(Id).Value)
         End Get
         Set(value As Location)
             WorldData.Route.WriteFromLocation(Id, value.Id)
@@ -44,7 +44,7 @@
 
     Public Property Verge As Verge
         Get
-            Return Verge.FromId(WorldData, WorldData.Route.ReadVergeId(Id).Value)
+            Return Verge.FromId(World, WorldData.Route.ReadVergeId(Id).Value)
         End Get
         Set(value As Verge)
             WorldData.Route.WriteVerge(Id, value.Id)
