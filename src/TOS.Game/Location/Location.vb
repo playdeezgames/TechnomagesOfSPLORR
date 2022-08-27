@@ -142,7 +142,7 @@
     End Property
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
-            Return WorldData.LocationStatistic.Read(Id, statisticType.Id)
+            Return WorldData.LocationBaseStatistic.Read(Id, statisticType.Id)
         End Get
     End Property
 End Class

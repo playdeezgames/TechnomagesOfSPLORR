@@ -50,7 +50,7 @@
     End Function
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
-            Return WorldData.ItemStatistic.Read(Id, statisticType.Id)
+            Return WorldData.ItemBaseStatistic.Read(Id, statisticType.Id)
         End Get
     End Property
 

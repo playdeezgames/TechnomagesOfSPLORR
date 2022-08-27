@@ -200,7 +200,7 @@
 
     Public ReadOnly Property Statistics As IEnumerable(Of StatisticType)
         Get
-            Return WorldData.CharacterStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
+            Return WorldData.CharacterBaseStatistic.ForCharacter(Id).Select(Function(x) StatisticType.FromId(WorldData, x))
         End Get
     End Property
     Public ReadOnly Property EquippedItems As IEnumerable(Of Item)
@@ -211,7 +211,7 @@
 
     Public ReadOnly Property Statistic(statisticType As StatisticType) As Long?
         Get
-            Dim result = WorldData.CharacterStatistic.Read(Id, statisticType.Id)
+            Dim result = WorldData.CharacterBaseStatistic.Read(Id, statisticType.Id)
             result += If(Location.Statistic(statisticType), 0)
             Dim items = EquippedItems
             For Each item In items

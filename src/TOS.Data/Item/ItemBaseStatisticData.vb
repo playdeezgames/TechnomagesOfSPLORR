@@ -1,6 +1,6 @@
-﻿Public Class ItemStatisticData
+﻿Public Class ItemBaseStatisticData
     Inherits BaseData
-    Friend Const ViewName = "ItemStatistics"
+    Friend Const ViewName = "ItemBaseStatistics"
     Friend Const ItemIdColumn = ItemData.ItemIdColumn
     Friend Const StatisticTypeIdColumn = StatisticTypeData.StatisticTypeIdColumn
     Friend Const StatisticDeltaColumn = "StatisticDelta"

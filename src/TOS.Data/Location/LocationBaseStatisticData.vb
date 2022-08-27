@@ -1,6 +1,6 @@
-﻿Public Class LocationStatisticData
+﻿Public Class LocationBaseStatisticData
     Inherits BaseData
-    Friend Const ViewName = "LocationStatistics"
+    Friend Const ViewName = "LocationBaseStatistics"
     Friend Const LocationIdColumn = LocationData.LocationIdColumn
     Friend Const StatisticTypeIdColumn = StatisticTypeData.StatisticTypeIdColumn
     Friend Const StatisticDeltaColumn = "StatisticDelta"

@@ -1,6 +1,6 @@
-﻿Public Class CharacterStatisticData
+﻿Public Class CharacterBaseStatisticData
     Inherits BaseData
-    Friend Const ViewName = "CharacterStatistics"
+    Friend Const ViewName = "CharacterBaseStatistics"
     Friend Const CharacterIdColumn = CharacterData.CharacterIdColumn
     Friend Const StatisticTypeIdColumn = StatisticTypeData.StatisticTypeIdColumn
     Friend Const StatisticDeltaColumn = "StatisticDelta"
