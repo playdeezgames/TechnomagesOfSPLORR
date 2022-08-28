@@ -1,5 +1,5 @@
 ﻿Module RouteProcessor
-    Friend Sub RunEdit(world As World, route As Route)
+    Friend Sub RunEdit(route As Route)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Route:")
@@ -19,44 +19,44 @@
                 ChangeToLocationText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChangeFromLocationText
-                    RunChangeFromLocation(world, route)
+                    RunChangeFromLocation(route)
                 Case ChangeNameText
                     RunChangeName(route)
                 Case ChangeRouteTypeText
-                    RunChangeRouteType(world, route)
+                    RunChangeRouteType(route)
                 Case ChangeToLocationText
-                    RunChangeToLocation(world, route)
+                    RunChangeToLocation(route)
                 Case ChangeVergeText
-                    RunChangeVerge(world, route)
+                    RunChangeVerge(route)
                 Case GoBackText
                     Exit Do
             End Select
         Loop
     End Sub
 
-    Private Sub RunChangeVerge(world As World, route As Route)
-        Dim verge = PickThingie("Which Verge?", world.Verges, Function(x) x.UniqueName, True)
+    Private Sub RunChangeVerge(route As Route)
+        Dim verge = PickThingie("Which Verge?", route.World.Verges, Function(x) x.UniqueName, True)
         If verge IsNot Nothing Then
             route.Verge = verge
         End If
     End Sub
 
-    Private Sub RunChangeFromLocation(world As World, route As Route)
-        Dim location = PickThingie("Which From Location?", world.Locations, Function(x) x.UniqueName, True)
+    Private Sub RunChangeFromLocation(route As Route)
+        Dim location = PickThingie("Which From Location?", route.World.Locations, Function(x) x.UniqueName, True)
         If location IsNot Nothing Then
             route.FromLocation = location
         End If
     End Sub
 
-    Private Sub RunChangeToLocation(world As World, route As Route)
-        Dim location = PickThingie("Which To Location?", world.Locations, Function(x) x.UniqueName, True)
+    Private Sub RunChangeToLocation(route As Route)
+        Dim location = PickThingie("Which To Location?", route.World.Locations, Function(x) x.UniqueName, True)
         If location IsNot Nothing Then
             route.ToLocation = location
         End If
     End Sub
 
-    Private Sub RunChangeRouteType(world As World, route As Route)
-        Dim routeType = PickThingie("Which route type?", world.RouteTypes, Function(x) x.UniqueName, True)
+    Private Sub RunChangeRouteType(route As Route)
+        Dim routeType = PickThingie("Which route type?", route.World.RouteTypes, Function(x) x.UniqueName, True)
         If routeType IsNot Nothing Then
             route.RouteType = routeType
         End If

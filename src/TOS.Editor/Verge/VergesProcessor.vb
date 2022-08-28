@@ -16,9 +16,9 @@
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Verge Type?[/]"}
         Dim table = world.VergeTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
-        RunEdit(world, world.CreateVerge(newName, table(AnsiConsole.Prompt(prompt))))
+        RunEdit(world.CreateVerge(newName, table(AnsiConsole.Prompt(prompt))))
     End Sub
-    Private Sub RunEdit(world As World, verge As Verge)
+    Private Sub RunEdit(verge As Verge)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Verge:")
@@ -36,7 +36,7 @@
                 Case ChangeNameText
                     RunChangeName(verge)
                 Case ChangeVergeTypeText
-                    RunChangeVergeType(world, verge)
+                    RunChangeVergeType(verge)
                 Case DeleteText
                     verge.Destroy()
                     Exit Do
@@ -46,10 +46,10 @@
         Loop
     End Sub
 
-    Private Sub RunChangeVergeType(world As World, verge As Verge)
+    Private Sub RunChangeVergeType(verge As Verge)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Verge Type?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.VergeTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        Dim table = verge.World.VergeTypes.ToDictionary(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer

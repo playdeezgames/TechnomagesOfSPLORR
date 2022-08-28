@@ -9,7 +9,7 @@
             AddressOf RunEdit)
     End Sub
 
-    Private Sub RunEdit(world As World, equipSlot As EquipSlot)
+    Private Sub RunEdit(equipSlot As EquipSlot)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Equip Slot:")
@@ -64,7 +64,7 @@
         If String.IsNullOrWhiteSpace(newDisplayName) Then
             Return
         End If
-        RunEdit(world, world.CreateEquipSlot(newName, newDisplayName))
+        RunEdit(world.CreateEquipSlot(newName, newDisplayName))
     End Sub
 
 End Module

@@ -8,7 +8,7 @@
             AddressOf RunNew,
             AddressOf RunEdit)
     End Sub
-    Private Sub RunEdit(world As World, routeType As RouteType)
+    Private Sub RunEdit(routeType As RouteType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Route Type:")
@@ -40,7 +40,7 @@
     Private Sub RunNew(world As World)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
-            RunEdit(world, world.CreateRouteType(newName))
+            RunEdit(world.CreateRouteType(newName))
         End If
     End Sub
 End Module

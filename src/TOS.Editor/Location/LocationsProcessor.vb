@@ -14,9 +14,9 @@
             Return
         End If
         Dim locationType = PickThingie(Of LocationType)("Location Type:", world.LocationTypes, Function(x) x.UniqueName, False)
-        RunEdit(world, world.CreateLocation(newName, locationType))
+        RunEdit(world.CreateLocation(newName, locationType))
     End Sub
-    Private Sub RunEdit(world As World, location As Location)
+    Private Sub RunEdit(location As Location)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Location:")
@@ -82,26 +82,26 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    RunAddChangeStatistic(world, location)
+                    RunAddChangeStatistic(location)
                 Case AddCharacterText
-                    RunAddCharacter(world, location)
+                    RunAddCharacter(location)
                 Case AddEntranceText
-                    RunAddEntrance(world, location)
+                    RunAddEntrance(location)
                 Case AddExitText
-                    RunAddExit(world, location)
+                    RunAddExit(location)
                 Case AddItemText
-                    RunAddItem(world, location)
+                    RunAddItem(location)
                 Case ChangeNameText
                     RunChangeName(location)
                 Case DeleteText
                     location.Destroy()
                     Exit Do
                 Case EditCharacterText
-                    RunEditCharacter(world, location)
+                    RunEditCharacter(location)
                 Case EditEntranceText
-                    RunEditEntrance(world, location)
+                    RunEditEntrance(location)
                 Case EditExitText
-                    RunEditExit(world, location)
+                    RunEditExit(location)
                 Case GoBackText
                     Exit Do
                 Case RemoveEntranceText
@@ -115,8 +115,8 @@
             End Select
         Loop
     End Sub
-    Private Sub RunAddChangeStatistic(world As World, location As Location)
-        Dim statisticType = PickThingie("Which Statistic?", world.StatisticTypes, Function(x) x.UniqueName, True)
+    Private Sub RunAddChangeStatistic(location As Location)
+        Dim statisticType = PickThingie("Which Statistic?", location.World.StatisticTypes, Function(x) x.UniqueName, True)
         If statisticType Is Nothing Then
             Return
         End If
@@ -131,33 +131,33 @@
         End If
     End Sub
 
-    Private Sub RunAddCharacter(world As World, location As Location)
+    Private Sub RunAddCharacter(location As Location)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If String.IsNullOrWhiteSpace(newName) Then
             Return
         End If
-        Dim characterType = PickThingie("Character Type:", world.CharacterTypes, Function(x) x.UniqueName, False)
-        CharacterProcessor.RunEdit(world.CreateCharacter(newName, characterType, location))
+        Dim characterType = PickThingie("Character Type:", location.World.CharacterTypes, Function(x) x.UniqueName, False)
+        CharacterProcessor.RunEdit(location.World.CreateCharacter(newName, characterType, location))
     End Sub
 
-    Private Sub RunEditCharacter(world As World, location As Location)
+    Private Sub RunEditCharacter(location As Location)
         Dim character = PickThingie("Which Character?", location.Characters, Function(x) x.UniqueName, True)
         If character IsNot Nothing Then
             CharacterProcessor.RunEdit(character)
         End If
     End Sub
 
-    Private Sub RunEditExit(world As World, location As Location)
+    Private Sub RunEditExit(location As Location)
         Dim route = PickThingie("Which Exit?", location.Exits, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.RunEdit(world, route)
+            RouteProcessor.RunEdit(route)
         End If
     End Sub
 
-    Private Sub RunEditEntrance(world As World, location As Location)
+    Private Sub RunEditEntrance(location As Location)
         Dim route = PickThingie("Which Exit?", location.Entrances, Function(x) x.UniqueName, True)
         If route IsNot Nothing Then
-            RouteProcessor.RunEdit(world, route)
+            RouteProcessor.RunEdit(route)
         End If
     End Sub
 
@@ -175,32 +175,32 @@
         End If
     End Sub
 
-    Private Sub RunAddExit(world As World, fromLocation As Location)
+    Private Sub RunAddExit(fromLocation As Location)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If String.IsNullOrWhiteSpace(newName) Then
             Return
         End If
-        Dim routeType = PickThingie(Of RouteType)("Route Type:", world.RouteTypes, Function(x) x.UniqueName, False)
-        Dim verge = PickThingie(Of Verge)("Verge:", world.Verges, Function(x) x.UniqueName, False)
-        Dim toLocation = PickThingie(Of Location)("To Location:", world.Locations, Function(x) x.UniqueName, False)
-        world.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
+        Dim routeType = PickThingie(Of RouteType)("Route Type:", fromLocation.World.RouteTypes, Function(x) x.UniqueName, False)
+        Dim verge = PickThingie(Of Verge)("Verge:", fromLocation.World.Verges, Function(x) x.UniqueName, False)
+        Dim toLocation = PickThingie(Of Location)("To Location:", fromLocation.World.Locations, Function(x) x.UniqueName, False)
+        fromLocation.World.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
     End Sub
 
-    Private Sub RunAddEntrance(world As World, toLocation As Location)
+    Private Sub RunAddEntrance(toLocation As Location)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If String.IsNullOrWhiteSpace(newName) Then
             Return
         End If
-        Dim routeType = PickThingie(Of RouteType)("Route Type:", world.RouteTypes, Function(x) x.UniqueName, False)
-        Dim verge = PickThingie(Of Verge)("Verge:", world.Verges, Function(x) x.UniqueName, False)
-        Dim fromLocation = PickThingie(Of Location)("From Location:", world.Locations, Function(x) x.UniqueName, False)
-        world.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
+        Dim routeType = PickThingie(Of RouteType)("Route Type:", toLocation.World.RouteTypes, Function(x) x.UniqueName, False)
+        Dim verge = PickThingie(Of Verge)("Verge:", toLocation.World.Verges, Function(x) x.UniqueName, False)
+        Dim fromLocation = PickThingie(Of Location)("From Location:", toLocation.World.Locations, Function(x) x.UniqueName, False)
+        toLocation.World.CreateRoute(newName, routeType, fromLocation, verge, toLocation)
     End Sub
 
-    Private Sub RunAddItem(world As World, location As Location)
-        Dim itemType = PickThingie(Of ItemType)("What Item Type?", world.ItemTypes, Function(x) x.UniqueName, True)
+    Private Sub RunAddItem(location As Location)
+        Dim itemType = PickThingie(Of ItemType)("What Item Type?", location.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then
-            location.Inventory.Add(world.CreateItem(itemType))
+            location.Inventory.Add(location.World.CreateItem(itemType))
         End If
     End Sub
 

@@ -11,10 +11,10 @@
     Private Sub RunNew(world As World)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
-            RunEdit(world, world.CreateItemType(newName))
+            RunEdit(world.CreateItemType(newName))
         End If
     End Sub
-    Private Sub RunEdit(world As World, itemType As ItemType)
+    Private Sub RunEdit(itemType As ItemType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Item Type:")
@@ -52,9 +52,9 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    RunAddChangeStatistic(world, itemType)
+                    RunAddChangeStatistic(itemType)
                 Case AddEquipSlotText
-                    RunAddEquipSlotText(world, itemType)
+                    RunAddEquipSlotText(itemType)
                 Case ChangeNameText
                     RunChangeName(itemType)
                 Case DeleteText
@@ -84,11 +84,11 @@
         End Select
     End Sub
 
-    Private Sub RunAddEquipSlotText(world As World, itemType As ItemType)
+    Private Sub RunAddEquipSlotText(itemType As ItemType)
         Dim alternative = AnsiConsole.Ask(Of Long)("[olive]Which Alternative?[/]")
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Which Equip Slot?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.EquipSlots.ToDictionary(Function(x) x.UniqueName, Function(x) x)
+        Dim table = itemType.World.EquipSlots.ToDictionary(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
@@ -113,10 +113,10 @@
         End Select
     End Sub
 
-    Private Sub RunAddChangeStatistic(world As World, itemType As ItemType)
+    Private Sub RunAddChangeStatistic(itemType As ItemType)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Add/Change which statistic?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        Dim table = itemType.World.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer

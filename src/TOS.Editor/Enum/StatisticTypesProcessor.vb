@@ -9,7 +9,7 @@
             AddressOf RunEdit)
     End Sub
 
-    Private Sub RunEdit(world As World, statisticType As StatisticType)
+    Private Sub RunEdit(statisticType As StatisticType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Statistic Type:")
@@ -64,6 +64,6 @@
         If String.IsNullOrWhiteSpace(newDisplayName) Then
             Return
         End If
-        RunEdit(world, world.CreateStatisticType(newName, newDisplayName))
+        RunEdit(world.CreateStatisticType(newName, newDisplayName))
     End Sub
 End Module

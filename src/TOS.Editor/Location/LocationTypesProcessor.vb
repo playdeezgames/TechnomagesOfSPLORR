@@ -8,7 +8,7 @@
             AddressOf RunNew,
             AddressOf RunEdit)
     End Sub
-    Private Sub RunEdit(world As World, locationType As LocationType)
+    Private Sub RunEdit(locationType As LocationType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Location Type:")
@@ -33,7 +33,7 @@
             End If
             Select Case AnsiConsole.Prompt(prompt)
                 Case AddChangeStatisticText
-                    RunAddChangeStatistic(world, locationType)
+                    RunAddChangeStatistic(locationType)
                 Case ChangeNameText
                     RunChangeName(locationType)
                 Case DeleteText
@@ -42,14 +42,14 @@
                 Case GoBackText
                     Exit Do
                 Case RemoveStatisticText
-                    RunRemoveStatistic(world, locationType)
+                    RunRemoveStatistic(locationType)
             End Select
         Loop
     End Sub
     Private Sub RunNew(world As World)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
-            RunEdit(world, world.CreateLocationType(newName))
+            RunEdit(world.CreateLocationType(newName))
         End If
     End Sub
 
@@ -59,10 +59,10 @@
             locationType.Name = newName
         End If
     End Sub
-    Private Sub RunAddChangeStatistic(world As World, locationType As LocationType)
+    Private Sub RunAddChangeStatistic(locationType As LocationType)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Add/Change which statistic?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        Dim table = locationType.World.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
@@ -73,10 +73,10 @@
                 locationType.Statistic(table(answer)) = statisticValue
         End Select
     End Sub
-    Private Sub RunRemoveStatistic(world As World, locationType As LocationType)
+    Private Sub RunRemoveStatistic(locationType As LocationType)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Remove which statistic?[/]"}
         prompt.AddChoice(NeverMindText)
-        Dim table = world.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
+        Dim table = locationType.World.StatisticTypes.ToDictionary(Of String, StatisticType)(Function(x) x.UniqueName, Function(x) x)
         prompt.AddChoices(table.Keys)
         Dim answer = AnsiConsole.Prompt(prompt)
         Select Case answer
