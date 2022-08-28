@@ -72,10 +72,13 @@
         End Get
     End Property
 
-    Public ReadOnly Property ItemType As ItemType
+    Public Property ItemType As ItemType
         Get
             Return ItemType.FromId(World, WorldData.Item.ReadItemType(Id).Value)
         End Get
+        Set(value As ItemType)
+            WorldData.Item.WriteItemType(Id, value.Id)
+        End Set
     End Property
 
     Public Sub Unequip()

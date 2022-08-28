@@ -9,6 +9,7 @@
     Friend Const ChangeCharacterTypeText = "Change Character Type"
     Friend Const ChangeDisplayNameText = "Change Display Name"
     Friend Const ChangeFromLocationText = "Change From Location"
+    Friend Const ChangeItemTypeText = "Change Item Type"
     Friend Const ChangeLocationText = "Change Location"
     Friend Const ChangeNameText = "Change Name"
     Friend Const ChangeRouteTypeText = "Change Route Type"

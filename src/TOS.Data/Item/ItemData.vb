@@ -30,4 +30,8 @@
     Public Function All() As IEnumerable(Of Long) Implements IProvidesAll.All
         Return Store.ReadRecords(Of Long)(TableName, ItemIdColumn)
     End Function
+
+    Public Sub WriteItemType(itemId As Long, itemTypeId As Long)
+        Store.WriteColumnValue(TableName, (ItemTypeIdColumn, itemTypeId), (ItemIdColumn, itemId))
+    End Sub
 End Class

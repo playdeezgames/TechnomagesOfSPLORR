@@ -19,6 +19,7 @@
             End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(NeverMindText)
+            prompt.AddChoice(ChangeItemTypeText)
             If item.IsEquipped Then
                 prompt.AddChoice(UnequipItemText)
             Else
@@ -28,6 +29,8 @@
             prompt.AddChoice(SetCharacterText)
             Dim answer = AnsiConsole.Prompt(prompt)
             Select Case answer
+                Case ChangeItemTypeText
+                    RunChangeItemType(item)
                 Case EquipItemText
                     RunEquipItem(item)
                 Case NeverMindText
@@ -40,6 +43,12 @@
                     RunUnequipItem(item)
             End Select
         Loop
+    End Sub
+    Private Sub RunChangeItemType(item As Item)
+        Dim itemType = PickThingie("Which Item Type?", item.World.ItemTypes, Function(x) x.UniqueName, True)
+        If itemType IsNot Nothing Then
+            item.ItemType = itemType
+        End If
     End Sub
     Private Sub RunSetLocation(item As Item)
         Dim location = PickThingie("Which Location?", item.World.Locations, Function(x) x.UniqueName, True)
