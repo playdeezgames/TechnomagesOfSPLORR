@@ -18,11 +18,22 @@
             Return $"{Name}(#{Id})"
         End Get
     End Property
+
+    Public ReadOnly Property IsEquipped As Boolean
+        Get
+            Return WorldData.CharacterEquipSlot.CountForItem(Id) > 0
+        End Get
+    End Property
+
     Public ReadOnly Property ItemType As ItemType
         Get
             Return ItemType.FromId(World, WorldData.Item.ReadItemType(Id).Value)
         End Get
     End Property
+
+    Public Sub Unequip()
+        WorldData.CharacterEquipSlot.ClearForItem(Id)
+    End Sub
 
     Friend Function FindEquipConfiguration(availableEquipSlots As IEnumerable(Of EquipSlot)) As IEnumerable(Of EquipSlot)
         Dim available = New HashSet(Of Long)(availableEquipSlots.Select(Function(x) x.Id))

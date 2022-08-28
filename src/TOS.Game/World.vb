@@ -13,6 +13,12 @@ Public Class World
         WorldData.Load(filename)
     End Sub
 
+    Public ReadOnly Property Items As IEnumerable(Of Item)
+        Get
+            Return FetchAll(WorldData.Item, AddressOf Item.FromId)
+        End Get
+    End Property
+
     Public Function ItemTypes() As IEnumerable(Of ItemType)
         Return FetchAll(WorldData.ItemType, AddressOf ItemType.FromId)
     End Function

@@ -26,6 +26,7 @@
     Friend Const EquipItemText = "Equip Item"
     Friend Const EquipSlotsText = "Equip Slots"
     Friend Const GoBackText = "Go Back"
+    Friend Const ItemsText = "Items"
     Friend Const ItemTypesText = "Item Types"
     Friend Const JoinTeamText = "Join Team"
     Friend Const LeaveTeamText = "Leave Team"

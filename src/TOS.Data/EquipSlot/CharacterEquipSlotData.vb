@@ -17,6 +17,10 @@
         Return Store.ReadCountForColumnValue(TableName, (CharacterIdColumn, characterId))
     End Function
 
+    Public Function CountForItem(itemId As Long) As Long
+        Return Store.ReadCountForColumnValue(TableName, (ItemIdColumn, itemId))
+    End Function
+
     Public Function ReadForCharacter(characterId As Long) As IEnumerable(Of Tuple(Of Long, Long))
         Return Store.ReadRecordsWithColumnValue(
             Of Long, Long, Long)(

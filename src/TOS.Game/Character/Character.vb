@@ -57,7 +57,7 @@
         End Get
     End Property
 
-    Public Sub UnequipEquipSlots(equipSlots As IEnumerable(Of EquipSlot))
+    Private Sub UnequipEquipSlots(equipSlots As IEnumerable(Of EquipSlot))
         For Each slot In equipSlots
             Dim item = EquipSlot(slot)
             If item IsNot Nothing Then

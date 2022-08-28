@@ -5,6 +5,7 @@
             {CharactersText, AddressOf CharacterProcessor.Run},
             {CharacterTypesText, AddressOf CharacterTypesProcessor.Run},
             {EquipSlotsText, AddressOf EquipSlotsProcessor.Run},
+            {ItemsText, AddressOf ItemProcessor.Run},
             {ItemTypesText, AddressOf ItemTypesProcessor.Run},
             {LocationsText, AddressOf LocationsProcessor.Run},
             {LocationTypesText, AddressOf LocationTypesProcessor.Run},
