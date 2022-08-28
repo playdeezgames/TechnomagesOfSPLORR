@@ -22,6 +22,13 @@
             (InventoryIdColumn, inventoryId))
     End Function
 
+    Public Function ReadForItem(itemId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(
+            TableName,
+            InventoryIdColumn,
+            (ItemIdColumn, itemId))
+    End Function
+
     Public Sub Write(itemId As Long, inventoryId As Long)
         Store.ReplaceRecord(
             TableName,

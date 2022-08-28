@@ -4,8 +4,8 @@
     Public Sub New(world As World, characterId As Long)
         MyBase.New(world, characterId)
     End Sub
-    Shared Function FromId(world As World, characterId As Long) As Character
-        Return New Character(world, characterId)
+    Shared Function FromId(world As World, characterId As Long?) As Character
+        Return If(characterId.HasValue, New Character(world, characterId.Value), Nothing)
     End Function
     Public ReadOnly Property UniqueName As String
         Get

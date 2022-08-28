@@ -11,6 +11,12 @@
                     AnsiConsole.MarkupLine($"  * {entry.Item1.UniqueName}: {entry.item2.UniqueName}")
                 Next
             End If
+            If item.HasLocation Then
+                AnsiConsole.MarkupLine($"* Location: {item.Location.UniqueName}")
+            End If
+            If item.HasCharacter Then
+                AnsiConsole.MarkupLine($"* Character: {item.Character.UniqueName}")
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(NeverMindText)
             If item.IsEquipped Then

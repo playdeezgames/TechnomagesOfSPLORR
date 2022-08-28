@@ -3,8 +3,8 @@
     Sub New(world as World, locationId As Long)
         MyBase.New(world, locationId)
     End Sub
-    Shared Function FromId(world As World, locationId As Long) As Location
-        Return New Location(world, locationId)
+    Shared Function FromId(world As World, locationId As Long?) As Location
+        Return If(locationId.HasValue, New Location(world, locationId.Value), Nothing)
     End Function
 
     Public ReadOnly Property UniqueName As String

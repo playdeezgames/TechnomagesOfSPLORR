@@ -20,6 +20,46 @@
         End Get
     End Property
 
+    Public ReadOnly Property Location As Location
+        Get
+            Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
+            If Not inventoryId.HasValue Then
+                Return Nothing
+            End If
+            Return Location.FromId(World, WorldData.Inventory.ReadLocation(inventoryId.Value))
+        End Get
+    End Property
+
+    Public ReadOnly Property Character As Character
+        Get
+            Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
+            If Not inventoryId.HasValue Then
+                Return Nothing
+            End If
+            Return Character.FromId(World, WorldData.Inventory.ReadCharacter(inventoryId.Value))
+        End Get
+    End Property
+
+    Public ReadOnly Property HasLocation As Boolean
+        Get
+            Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
+            If Not inventoryId.HasValue Then
+                Return False
+            End If
+            Return WorldData.Inventory.ReadLocation(inventoryId.Value).HasValue
+        End Get
+    End Property
+
+    Public ReadOnly Property HasCharacter As Boolean
+        Get
+            Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
+            If Not inventoryId.HasValue Then
+                Return False
+            End If
+            Return WorldData.Inventory.ReadCharacter(inventoryId.Value).HasValue
+        End Get
+    End Property
+
     Public ReadOnly Property UniqueName As String
         Get
             Return $"{Name}(#{Id})"

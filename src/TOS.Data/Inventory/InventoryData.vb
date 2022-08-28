@@ -30,6 +30,14 @@
         Return Store.CreateRecord(TableName, (CharacterIdColumn, characterId))
     End Function
 
+    Public Function ReadLocation(inventoryId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(TableName, LocationIdColumn, (InventoryIdColumn, inventoryId))
+    End Function
+
+    Public Function ReadCharacter(inventoryId As Long) As Long?
+        Return Store.ReadColumnValue(Of Long, Long)(TableName, CharacterIdColumn, (InventoryIdColumn, inventoryId))
+    End Function
+
     Public Function ReadCountForCharacter(characterId As Long) As Long
         Return Store.ReadCountForColumnValue(
             TableName,
