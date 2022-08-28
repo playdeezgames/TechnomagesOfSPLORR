@@ -189,7 +189,7 @@
             Function(x) x.Characters,
             Function(x) x.UniqueName,
             AddressOf RunNew,
-            Sub(x, y) RunEdit(y))
+            AddressOf RunEdit)
     End Sub
 
     Private Sub RunNew(world As World)

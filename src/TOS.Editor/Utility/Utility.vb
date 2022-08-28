@@ -10,6 +10,15 @@
                                    source As Func(Of World, IEnumerable(Of TThingie)),
                                    keySource As Func(Of TThingie, String),
                                    newRunner As Action(Of World),
+                                   editRunner As Action(Of TThingie))
+        RunList(world, title, source, keySource, newRunner, Sub(x, y) editRunner(y))
+    End Sub
+    Friend Sub RunList(Of TThingie)(
+                                   world As World,
+                                   title As String,
+                                   source As Func(Of World, IEnumerable(Of TThingie)),
+                                   keySource As Func(Of TThingie, String),
+                                   newRunner As Action(Of World),
                                    editRunner As Action(Of World, TThingie))
         Do
             AnsiConsole.Clear()
