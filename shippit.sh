@@ -1,4 +1,3 @@
-./publishSchema.sh
 dotnet publish ./src/TechnomagesOfSPLORR/TechnomagesOfSPLORR.vbproj -o ./pub-linux -c Release --sc -r linux-x64
 dotnet publish ./src/TechnomagesOfSPLORR/TechnomagesOfSPLORR.vbproj -o ./pub-windows -c Release --sc -r win-x64
 dotnet publish ./src/TOS.Editor/TOS.Editor.vbproj -o ./pub-linux-editor -c Release --sc -r linux-x64
