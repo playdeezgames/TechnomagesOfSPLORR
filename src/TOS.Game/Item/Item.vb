@@ -42,7 +42,7 @@
 
     Public ReadOnly Property CanDelete As Boolean
         Get
-            Return Not IsEquipped AndAlso Not HasLocation AndAlso Not HasCharacter
+            Return Not IsEquipped
         End Get
     End Property
 
@@ -122,6 +122,7 @@
     End Property
 
     Public Sub Destroy()
+        WorldData.InventoryItem.ClearForItem(Id)
         WorldData.Item.Clear(Id)
     End Sub
 End Class
