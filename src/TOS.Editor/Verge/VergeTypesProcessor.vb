@@ -8,7 +8,7 @@
             AddressOf RunNew,
             AddressOf RunEdit)
     End Sub
-    Private Sub RunEdit(world As World, vergeType As VergeType)
+    Private Sub RunEdit(vergeType As VergeType)
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Verge Type:")
@@ -40,7 +40,7 @@
     Private Sub RunNew(world As World)
         Dim newName = AnsiConsole.Ask("[olive]New Name:[/]", "")
         If Not String.IsNullOrWhiteSpace(newName) Then
-            RunEdit(world, world.CreateVergeType(newName))
+            RunEdit(world.CreateVergeType(newName))
         End If
     End Sub
 End Module
