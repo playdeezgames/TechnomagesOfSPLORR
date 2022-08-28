@@ -74,6 +74,7 @@
             End If
             prompt.AddChoice(AddItemText)
             If location.HasItems Then
+                prompt.AddChoice(EditItemText)
                 prompt.AddChoice(RemoveItemText)
             End If
             prompt.AddChoice(AddChangeStatisticText)
@@ -102,6 +103,8 @@
                     RunEditEntrance(location)
                 Case EditExitText
                     RunEditExit(location)
+                Case EditItemText
+                    RunEditItem(location)
                 Case GoBackText
                     Exit Do
                 Case RemoveEntranceText
@@ -114,6 +117,12 @@
                     RunRemoveStatistic(location)
             End Select
         Loop
+    End Sub
+    Private Sub RunEditItem(location As Location)
+        Dim item = PickThingie("Which Item?", location.Items, Function(x) x.UniqueName, True)
+        If item IsNot Nothing Then
+            ItemProcessor.RunEdit(item)
+        End If
     End Sub
     Private Sub RunAddChangeStatistic(location As Location)
         Dim statisticType = PickThingie("Which Statistic?", location.World.StatisticTypes, Function(x) x.UniqueName, True)

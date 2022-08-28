@@ -51,10 +51,12 @@
             End If
             prompt.AddChoice(AddItemText)
             If character.HasItems Then
+                prompt.AddChoice(EditItemText)
                 prompt.AddChoice(RemoveItemText)
             End If
             prompt.AddChoice(EquipItemText)
             If character.HasEquipment Then
+                prompt.AddChoice(EditEquippedItemText)
                 prompt.AddChoice(UnequipItemText)
             End If
             prompt.AddChoice(AddChangeStatisticText)
@@ -78,6 +80,10 @@
                 Case DeleteText
                     character.Destroy()
                     Exit Do
+                Case EditEquippedItemText
+                    RunEditEquippedItem(character)
+                Case EditItemText
+                    RunEditItem(character)
                 Case EquipItemText
                     RunEquipItem(character)
                 Case GoBackText
@@ -98,6 +104,18 @@
                     RunUnequipItem(character)
             End Select
         Loop
+    End Sub
+    Private Sub RunEditItem(character As Character)
+        Dim item = PickThingie("Which Item?", character.Items, Function(x) x.UniqueName, True)
+        If item IsNot Nothing Then
+            ItemProcessor.RunEdit(item)
+        End If
+    End Sub
+    Private Sub RunEditEquippedItem(character As Character)
+        Dim item = PickThingie("Which Equipped Item?", character.EquippedItems, Function(x) x.UniqueName, True)
+        If item IsNot Nothing Then
+            ItemProcessor.RunEdit(item)
+        End If
     End Sub
     Private Sub RunAddChangeStatistic(character As Character)
         Dim statisticType = PickThingie("Which Statistic?", character.World.StatisticTypes, Function(x) x.UniqueName, True)
