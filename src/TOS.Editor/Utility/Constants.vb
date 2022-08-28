@@ -44,6 +44,8 @@
     Friend Const RemoveStatisticText = "Remove Statistic"
     Friend Const RouteTypesText = "Route Types"
     Friend Const SaveAndQuitText = "Save and Quit"
+    Friend Const SetCharacterText = "Set Character"
+    Friend Const SetLocationText = "Set Location"
     Friend Const StatisticTypesText = "Statistic Types"
     Friend Const ToggleCanJoinText = "Toggle Can Join"
     Friend Const ToggleCanLeaveText = "Toggle Can Leave"
