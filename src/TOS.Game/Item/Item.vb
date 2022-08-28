@@ -13,6 +13,13 @@
             Return ItemType.Name
         End Get
     End Property
+
+    Public ReadOnly Property EquippedOn As IEnumerable(Of (Character, EquipSlot))
+        Get
+            Return WorldData.CharacterEquipSlot.ReadForItem(Id).Select(Function(x) (Character.FromId(World, x.Item1), EquipSlot.FromId(World, x.Item2)))
+        End Get
+    End Property
+
     Public ReadOnly Property UniqueName As String
         Get
             Return $"{Name}(#{Id})"

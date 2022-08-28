@@ -3,8 +3,14 @@
         Do
             AnsiConsole.Clear()
             AnsiConsole.MarkupLine("Item:")
-            AnsiConsole.MarkupLine($"Id: {item.Id}")
-            AnsiConsole.MarkupLine($"Type: {item.ItemType.UniqueName}")
+            AnsiConsole.MarkupLine($"* Id: {item.Id}")
+            AnsiConsole.MarkupLine($"* Type: {item.ItemType.UniqueName}")
+            If item.IsEquipped Then
+                AnsiConsole.MarkupLine("* Equipped On:")
+                For Each entry In item.EquippedOn
+                    AnsiConsole.MarkupLine($"  * {entry.Item1.UniqueName}: {entry.item2.UniqueName}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(NeverMindText)
             If item.IsEquipped Then

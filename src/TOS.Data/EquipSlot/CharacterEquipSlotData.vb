@@ -13,6 +13,13 @@
         Store.ReplaceRecord(TableName, (CharacterIdColumn, characterId), (EquipSlotIdColumn, equipSlotId), (ItemIdColumn, itemId))
     End Sub
 
+    Public Function ReadForItem(itemId As Long) As IEnumerable(Of Tuple(Of Long, Long))
+        Return Store.ReadRecordsWithColumnValue(Of Long, Long, Long)(
+            TableName,
+            (CharacterIdColumn, EquipSlotIdColumn),
+            (ItemIdColumn, itemId))
+    End Function
+
     Public Function ReadCount(characterId As Long) As Long
         Return Store.ReadCountForColumnValue(TableName, (CharacterIdColumn, characterId))
     End Function
