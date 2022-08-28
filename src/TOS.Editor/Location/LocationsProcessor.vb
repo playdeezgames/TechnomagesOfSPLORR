@@ -75,7 +75,6 @@
             prompt.AddChoice(AddItemText)
             If location.HasItems Then
                 prompt.AddChoice(EditItemText)
-                prompt.AddChoice(RemoveItemText)
             End If
             prompt.AddChoice(AddChangeStatisticText)
             If location.HasStatisticDeltas Then
@@ -111,8 +110,6 @@
                     RunRemoveEntrance(location)
                 Case RemoveExitText
                     RunRemoveExit(location)
-                Case RemoveItemText
-                    RunRemoveItem(location)
                 Case RemoveStatisticText
                     RunRemoveStatistic(location)
             End Select
@@ -209,14 +206,9 @@
     Private Sub RunAddItem(location As Location)
         Dim itemType = PickThingie(Of ItemType)("What Item Type?", location.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then
-            location.Inventory.Add(location.World.CreateItem(itemType))
-        End If
-    End Sub
-
-    Private Sub RunRemoveItem(location As Location)
-        Dim item = PickThingie(Of Item)("Which Item?", location.Items, Function(x) x.UniqueName, True)
-        If item IsNot Nothing Then
-            item.Destroy()
+            Dim item = location.World.CreateItem(itemType)
+            location.Inventory.Add(item)
+            ItemProcessor.RunEdit(item)
         End If
     End Sub
 

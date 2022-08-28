@@ -40,6 +40,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property CanDelete As Boolean
+        Get
+            Return Not IsEquipped AndAlso Not HasLocation AndAlso Not HasCharacter
+        End Get
+    End Property
+
     Public ReadOnly Property HasLocation As Boolean
         Get
             Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
@@ -116,7 +122,6 @@
     End Property
 
     Public Sub Destroy()
-        WorldData.InventoryItem.ClearForItem(Id)
         WorldData.Item.Clear(Id)
     End Sub
 End Class

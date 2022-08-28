@@ -27,10 +27,16 @@
             End If
             prompt.AddChoice(SetLocationText)
             prompt.AddChoice(SetCharacterText)
+            If item.CanDelete Then
+                prompt.AddChoice(DeleteText)
+            End If
             Dim answer = AnsiConsole.Prompt(prompt)
             Select Case answer
                 Case ChangeItemTypeText
                     RunChangeItemType(item)
+                Case DeleteText
+                    item.Destroy()
+                    Exit Do
                 Case EquipItemText
                     RunEquipItem(item)
                 Case NeverMindText

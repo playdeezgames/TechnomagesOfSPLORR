@@ -52,12 +52,9 @@
             prompt.AddChoice(AddItemText)
             If character.HasItems Then
                 prompt.AddChoice(EditItemText)
-                prompt.AddChoice(RemoveItemText)
             End If
-            prompt.AddChoice(EquipItemText)
             If character.HasEquipment Then
                 prompt.AddChoice(EditEquippedItemText)
-                prompt.AddChoice(UnequipItemText)
             End If
             prompt.AddChoice(AddChangeStatisticText)
             If character.HasStatisticDeltas Then
@@ -84,24 +81,18 @@
                     RunEditEquippedItem(character)
                 Case EditItemText
                     RunEditItem(character)
-                Case EquipItemText
-                    RunEquipItem(character)
                 Case GoBackText
                     Exit Do
                 Case LeaveTeamText
                     character.Leave()
                 Case JoinTeamText
                     character.Join()
-                Case RemoveItemText
-                    RunRemoveItem(character)
                 Case RemoveStatisticText
                     RunRemoveStatistic(character)
                 Case ToggleCanJoinText
                     character.CanJoin = Not character.CanJoin
                 Case ToggleCanLeaveText
                     character.CanLeave = Not character.CanLeave
-                Case UnequipItemText
-                    RunUnequipItem(character)
             End Select
         Loop
     End Sub
@@ -141,32 +132,12 @@
         End If
     End Sub
 
-    Private Sub RunEquipItem(character As Character)
-        Dim itemType = PickThingie("Which Item Type?", character.World.ItemTypes, Function(x) x.UniqueName, True)
-        If itemType Is Nothing Then
-            Return
-        End If
-        Dim item = character.World.CreateItem(itemType)
-        If character.CanEquip(item) Then
-            character.Equip(item)
-        Else
-            AnsiConsole.MarkupLine($"You cannot equip {itemType.UniqueName} on {character.UniqueName}.")
-            item.Destroy()
-            OkPrompt()
-        End If
-    End Sub
-
-    Private Sub RunRemoveItem(character As Character)
-        Dim item = PickThingie(Of Item)("Which Item?", character.Items, Function(x) x.UniqueName, True)
-        If item IsNot Nothing Then
-            item.Destroy()
-        End If
-    End Sub
-
     Private Sub RunAddItem(character As Character)
         Dim itemType = PickThingie(Of ItemType)("What Item Type?", character.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then
-            character.Inventory.Add(character.World.CreateItem(itemType))
+            Dim item = character.World.CreateItem(itemType)
+            character.Inventory.Add(item)
+            ItemProcessor.RunEdit(item)
         End If
     End Sub
 
