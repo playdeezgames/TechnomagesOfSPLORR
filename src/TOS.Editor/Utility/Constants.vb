@@ -18,6 +18,7 @@
     Friend Const ChangeVergeTypeText = "Change Verge Type"
     Friend Const CharactersText = "Characters"
     Friend Const CharacterTypesText = "Character Types"
+    Friend Const ConditionTypesText = "Condition Types"
     Friend Const DeleteText = "Delete"
     Friend Const EditCharacterText = "Edit Character"
     Friend Const EditEntranceText = "Edit Entrance"

@@ -4,6 +4,7 @@
         {
             {CharactersText, AddressOf CharacterProcessor.Run},
             {CharacterTypesText, AddressOf CharacterTypesProcessor.Run},
+            {ConditionTypesText, AddressOf ConditionTypesProcessor.Run},
             {EquipSlotsText, AddressOf EquipSlotsProcessor.Run},
             {ItemsText, AddressOf ItemProcessor.Run},
             {ItemTypesText, AddressOf ItemTypesProcessor.Run},

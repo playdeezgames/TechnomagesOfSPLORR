@@ -23,6 +23,14 @@ Public Class World
         Return FetchAll(WorldData.ItemType, AddressOf ItemType.FromId)
     End Function
 
+    Public Function CreateConditionType(newName As String, newDisplayName As String) As ConditionType
+        Return ConditionType.FromId(Me, WorldData.ConditionType.Create(newName, newDisplayName))
+    End Function
+
+    Public Function ConditionTypes() As IEnumerable(Of ConditionType)
+        Return FetchAll(WorldData.ConditionType, AddressOf ConditionType.FromId)
+    End Function
+
     Public Function CreateItemType(newName As String) As ItemType
         Return ItemType.FromId(Me, WorldData.ItemType.Create(newName))
     End Function

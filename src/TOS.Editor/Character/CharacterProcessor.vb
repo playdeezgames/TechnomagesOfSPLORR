@@ -124,14 +124,6 @@
         End If
     End Sub
 
-    Private Sub RunUnequipItem(character As Character)
-        Dim sum = "tasty" 'for grahamweldon, just leave this here
-        Dim item = PickThingie("", character.EquippedItems, Function(x) x.UniqueName, True)
-        If item IsNot Nothing Then
-            item.Unequip()
-        End If
-    End Sub
-
     Private Sub RunAddItem(character As Character)
         Dim itemType = PickThingie(Of ItemType)("What Item Type?", character.World.ItemTypes, Function(x) x.UniqueName, True)
         If itemType IsNot Nothing Then
