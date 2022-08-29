@@ -30,6 +30,19 @@
         End Get
     End Property
 
+    Public ReadOnly Property StatisticDeltas() As IEnumerable(Of (StatisticType, Long))
+        Get
+            Return WorldData.ItemStatistic.
+                ReadForCharacter(Id).Select(Function(x) (StatisticType.FromId(World, x.Item1), x.Item2))
+        End Get
+    End Property
+
+    Public ReadOnly Property HasStatisticDeltas As Boolean
+        Get
+            Return WorldData.ItemStatistic.CountForItem(Id) > 0
+        End Get
+    End Property
+
     Public ReadOnly Property Character As Character
         Get
             Dim inventoryId = WorldData.InventoryItem.ReadForItem(Id)
@@ -84,6 +97,19 @@
         End Get
         Set(value As ItemType)
             WorldData.Item.WriteItemType(Id, value.Id)
+        End Set
+    End Property
+
+    Public Property StatisticDelta(statisticType As StatisticType) As Long?
+        Get
+            Return WorldData.ItemStatistic.Read(Id, statisticType.Id)
+        End Get
+        Set(value As Long?)
+            If value.HasValue Then
+                WorldData.ItemStatistic.Write(Id, statisticType.Id, value.Value)
+            Else
+                WorldData.ItemStatistic.Clear(Id, statisticType.Id)
+            End If
         End Set
     End Property
 

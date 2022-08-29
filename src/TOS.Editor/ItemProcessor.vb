@@ -17,6 +17,12 @@
             If item.HasCharacter Then
                 AnsiConsole.MarkupLine($"* Character: {item.Character.UniqueName}")
             End If
+            If item.HasStatisticDeltas Then
+                AnsiConsole.MarkupLine($"* Statistic Deltas:")
+                For Each delta In item.StatisticDeltas
+                    AnsiConsole.MarkupLine($"  * {delta.Item1.UniqueName}: {delta.Item2}")
+                Next
+            End If
             Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now What?[/]"}
             prompt.AddChoice(NeverMindText)
             prompt.AddChoice(ChangeItemTypeText)
@@ -27,11 +33,17 @@
             End If
             prompt.AddChoice(SetLocationText)
             prompt.AddChoice(SetCharacterText)
+            prompt.AddChoice(AddChangeStatisticText)
+            If item.HasStatisticDeltas Then
+                prompt.AddChoice(RemoveStatisticText)
+            End If
             If item.CanDelete Then
                 prompt.AddChoice(DeleteText)
             End If
             Dim answer = AnsiConsole.Prompt(prompt)
             Select Case answer
+                Case AddChangeStatisticText
+                    RunAddChangeStatistic(item)
                 Case ChangeItemTypeText
                     RunChangeItemType(item)
                 Case DeleteText
@@ -41,6 +53,8 @@
                     RunEquipItem(item)
                 Case NeverMindText
                     Exit Do
+                Case RemoveStatisticText
+                    RunRemoveStatistic(item)
                 Case SetCharacterText
                     RunSetCharacter(item)
                 Case SetLocationText
@@ -49,6 +63,21 @@
                     RunUnequipItem(item)
             End Select
         Loop
+    End Sub
+    Private Sub RunAddChangeStatistic(item As Item)
+        Dim statisticType = PickThingie("Which Statistic?", item.World.StatisticTypes, Function(x) x.UniqueName, True)
+        If statisticType Is Nothing Then
+            Return
+        End If
+        Dim delta = AnsiConsole.Ask(Of Long)("[olive]Statistic Delta?[/]")
+        item.StatisticDelta(statisticType) = delta
+    End Sub
+
+    Private Sub RunRemoveStatistic(item As Item)
+        Dim statisticType = PickThingie("Which Statistic?", item.StatisticDeltas.Select(Function(x) x.Item1), Function(x) x.UniqueName, True)
+        If statisticType IsNot Nothing Then
+            item.StatisticDelta(statisticType) = Nothing
+        End If
     End Sub
     Private Sub RunChangeItemType(item As Item)
         Dim itemType = PickThingie("Which Item Type?", item.World.ItemTypes, Function(x) x.UniqueName, True)

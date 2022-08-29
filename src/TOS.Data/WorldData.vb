@@ -16,6 +16,7 @@ Public Class WorldData
     Public ReadOnly Item As ItemData
     Public ReadOnly ItemBaseStatistic As ItemBaseStatisticData
     Public ReadOnly ItemEquipSlot As ItemEquipSlotData
+    Public ReadOnly ItemStatistic As ItemStatisticData
     Public ReadOnly ItemType As ItemTypeData
     Public ReadOnly ItemTypeEquipSlot As ItemTypeEquipSlotData
     Public ReadOnly ItemTypeStatistic As ItemTypeStatisticData
@@ -53,6 +54,7 @@ Public Class WorldData
         Item = New ItemData(store)
         ItemBaseStatistic = New ItemBaseStatisticData(store)
         ItemEquipSlot = New ItemEquipSlotData(store)
+        ItemStatistic = New ItemStatisticData(store)
         ItemType = New ItemTypeData(store)
         ItemTypeEquipSlot = New ItemTypeEquipSlotData(store)
         ItemTypeStatistic = New ItemTypeStatisticData(store)
