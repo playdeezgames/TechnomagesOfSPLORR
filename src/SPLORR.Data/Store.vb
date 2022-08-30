@@ -87,13 +87,13 @@ Public Class Store
         End If
         Return Nothing
     End Function
-    Public Function ReadColumnValues(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
+    Private Function ReadColumnValues(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
             $"SELECT [{outputColumnName}] FROM [{tableName}];")
     End Function
-    Public Function ReadColumnValue(Of TInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, inputColumnValue As (String, TInputColumn)) As TOutputColumn?
+    Private Function ReadColumnValue(Of TInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, inputColumnValue As (String, TInputColumn)) As TOutputColumn?
         initializer()
         Return ExecuteScalar(Of TOutputColumn)(
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{inputColumnValue.Item1}]=@{inputColumnValue.Item1};",
@@ -106,7 +106,7 @@ Public Class Store
             outputColumnName,
             inputColumnValue)
     End Function
-    Public Function ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As TOutputColumn?
+    Private Function ReadColumnValue(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As TOutputColumn?
         initializer()
         Return ExecuteScalar(Of TOutputColumn)(
             $"SELECT [{outputColumnName}] FROM [{tableName}] WHERE [{firstColumnValue.Item1}]=@{firstColumnValue.Item1} AND  [{secondColumnValue.Item1}]=@{secondColumnValue.Item1};",
@@ -124,7 +124,7 @@ Public Class Store
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2),
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2))
     End Function
-    Public Function ReadColumnString(initializer As Action, tableName As String, outputColumnName As String, inputColumnValue As (String, Long)) As String
+    Private Function ReadColumnString(initializer As Action, tableName As String, outputColumnName As String, inputColumnValue As (String, Long)) As String
         initializer()
         Return ExecuteScalar(
             Function(o) If(o Is Nothing OrElse TypeOf o Is DBNull, Nothing, CStr(o)),
@@ -134,7 +134,7 @@ Public Class Store
     Public Function ReadColumnString(tableName As String, outputColumnName As String, inputColumnValue As (String, Long)) As String
         Return ReadColumnString(AddressOf NoInitializer, tableName, outputColumnName, inputColumnValue)
     End Function
-    Public Sub WriteColumnValue(Of TWhereColumn, TSetColumn)(initializer As Action, tableName As String, setColumn As (String, TSetColumn), whereColumn As (String, TWhereColumn))
+    Private Sub WriteColumnValue(Of TWhereColumn, TSetColumn)(initializer As Action, tableName As String, setColumn As (String, TSetColumn), whereColumn As (String, TWhereColumn))
         initializer()
         ExecuteNonQuery(
             $"UPDATE 
@@ -153,7 +153,7 @@ Public Class Store
             setColumn,
             whereColumn)
     End Sub
-    Public Function ReadRecords(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
+    Private Function ReadRecords(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
@@ -168,7 +168,7 @@ Public Class Store
             tableName,
             outputColumnName)
     End Function
-    Public Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As IEnumerable(Of TOutputColumn)
+    Private Function ReadRecordsWithColumnValue(Of TInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, forColumnValue As (String, TInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
@@ -185,7 +185,7 @@ Public Class Store
     Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
         Return ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(AddressOf NoInitializer, tableName, outputColumnName, firstColumnValue, secondColumnValue)
     End Function
-    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
+    Private Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of TOutputColumn)
         initializer()
         Return ExecuteReader(
             Function(reader) CType(reader(outputColumnName), TOutputColumn),
@@ -201,7 +201,7 @@ Public Class Store
     Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(tableName As String, outputColumnNames As (String, String), firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
         Return ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(AddressOf NoInitializer, tableName, outputColumnNames, firstColumnValue, secondColumnValue)
     End Function
-    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(initializer As Action, tableName As String, outputColumnNames As (String, String), firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
+    Private Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(initializer As Action, tableName As String, outputColumnNames As (String, String), firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
         initializer()
         Return ExecuteReader(
             Function(reader) New Tuple(Of TFirstOutputColumn, TSecondOutputColumn)(CType(reader(outputColumnNames.Item1), TFirstOutputColumn), CType(reader(outputColumnNames.Item2), TSecondOutputColumn)),
@@ -215,7 +215,7 @@ Public Class Store
             MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2))
     End Function
-    Public Function ReadRecordsWithColumnValue(
+    Private Function ReadRecordsWithColumnValue(
             Of TInputColumn,
                 TFirstOutputColumn,
                 TSecondOutputColumn)(
@@ -229,7 +229,7 @@ Public Class Store
             $"SELECT [{outputColumnNames.Item1}],[{outputColumnNames.Item2}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
             MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
     End Function
-    Public Function ReadRecordsWithColumnValue(
+    Private Function ReadRecordsWithColumnValue(
             Of TInputColumn,
                 TFirstOutputColumn,
                 TSecondOutputColumn,
@@ -274,14 +274,14 @@ Public Class Store
                 outputColumnNames,
                 forColumnValue)
     End Function
-    Public Sub ClearForColumnValue(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
+    Private Sub ClearForColumnValue(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
         initializer()
         ExecuteNonQuery($"DELETE FROM [{tableName}] WHERE [{columnValue.Item1}]=@{columnValue.Item1};", MakeParameter($"@{columnValue.Item1}", columnValue.Item2))
     End Sub
     Public Sub ClearForColumnValue(Of TColumn)(tableName As String, columnValue As (String, TColumn))
         ClearForColumnValue(Of TColumn)(AddressOf NoInitializer, tableName, columnValue)
     End Sub
-    Public Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn)(
+    Private Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn)(
                                                                    initializer As Action,
                                                                    tableName As String,
                                                                    firstColumnValue As (String, TFirstColumn),
@@ -298,7 +298,7 @@ Public Class Store
                                                                    secondColumnValue As (String, TSecondColumn))
         ClearForColumnValues(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Sub
-    Public Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn, TThirdColumn)(
+    Private Sub ClearForColumnValues(Of TFirstColumn, TSecondColumn, TThirdColumn)(
                                                                    initializer As Action,
                                                                    tableName As String,
                                                                    firstColumnValue As (String, TFirstColumn),
@@ -321,7 +321,7 @@ Public Class Store
     Public Sub ReplaceRecord(Of TColumn)(tableName As String, columnValue As (String, TColumn))
         ReplaceRecord(AddressOf NoInitializer, tableName, columnValue)
     End Sub
-    Public Sub ReplaceRecord(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
+    Private Sub ReplaceRecord(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn))
         initializer()
         ExecuteNonQuery(
             $"REPLACE INTO [{tableName}]
@@ -337,7 +337,7 @@ Public Class Store
     Public Sub ReplaceRecord(Of TFirstColumn, TSecondColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn))
         ReplaceRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Sub
-    Public Sub ReplaceRecord(Of TFirstColumn, TSecondColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn))
+    Private Sub ReplaceRecord(Of TFirstColumn, TSecondColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn))
         initializer()
         ExecuteNonQuery(
             $"REPLACE INTO [{tableName}]
@@ -368,7 +368,7 @@ Public Class Store
             secondColumnValue,
             thirdColumnValue)
     End Sub
-    Public Sub ReplaceRecord(Of TFirstColumn, TSecondColumn, TThirdColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn))
+    Private Sub ReplaceRecord(Of TFirstColumn, TSecondColumn, TThirdColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn))
         initializer()
         ExecuteNonQuery(
             $"REPLACE INTO [{tableName}]
@@ -405,7 +405,7 @@ Public Class Store
             thirdColumnValue,
             fourthColumnValue)
     End Sub
-    Public Sub ReplaceRecord(Of
+    Private Sub ReplaceRecord(Of
                                  TFirstColumn,
                                  TSecondColumn,
                                  TThirdColumn,
@@ -437,7 +437,7 @@ Public Class Store
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2),
             MakeParameter($"@{fourthColumnValue.Item1}", fourthColumnValue.Item2))
     End Sub
-    Public Sub ReplaceRecord(
+    Private Sub ReplaceRecord(
                      Of TFirstColumn,
                          TSecondColumn,
                          TThirdColumn,
@@ -474,7 +474,7 @@ Public Class Store
             MakeParameter($"@{fourthColumnValue.Item1}", fourthColumnValue.Item2),
             MakeParameter($"@{fifthColumnValue.Item1}", fifthColumnValue.Item2))
     End Sub
-    Public Sub ReplaceRecord(
+    Private Sub ReplaceRecord(
                      Of TFirstColumn,
                          TSecondColumn,
                          TThirdColumn,
@@ -516,7 +516,7 @@ Public Class Store
             MakeParameter($"@{fifthColumnValue.Item1}", fifthColumnValue.Item2),
             MakeParameter($"@{sixthColumnValue.Item1}", sixthColumnValue.Item2))
     End Sub
-    Public Sub ReplaceRecord(
+    Private Sub ReplaceRecord(
                      Of TFirstColumn,
                          TSecondColumn,
                          TThirdColumn,
@@ -563,12 +563,12 @@ Public Class Store
             MakeParameter($"@{sixthColumnValue.Item1}", sixthColumnValue.Item2),
             MakeParameter($"@{seventhColumnValue.Item1}", seventhColumnValue.Item2))
     End Sub
-    Public Function CreateRecord(initializer As Action, tableName As String) As Long
+    Private Function CreateRecord(initializer As Action, tableName As String) As Long
         initializer()
         ExecuteNonQuery($"INSERT INTO [{tableName}] DEFAULT VALUES;")
         Return LastInsertRowId
     End Function
-    Public Function CreateRecord(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn)) As Long
+    Private Function CreateRecord(Of TColumn)(initializer As Action, tableName As String, columnValue As (String, TColumn)) As Long
         initializer()
         ExecuteNonQuery(
             $"INSERT INTO [{tableName}] ([{columnValue.Item1}]) VALUES(@{columnValue.Item1});",
@@ -581,7 +581,7 @@ Public Class Store
             tableName,
             columnValue)
     End Function
-    Public Function CreateRecord(Of TFirstColumn, TSecondColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn)) As Long
+    Private Function CreateRecord(Of TFirstColumn, TSecondColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn)) As Long
         initializer()
         ExecuteNonQuery(
             $"INSERT INTO [{tableName}] ([{firstColumnValue.Item1}],[{secondColumnValue.Item1}]) VALUES(@{firstColumnValue.Item1},@{secondColumnValue.Item1});",
@@ -592,7 +592,7 @@ Public Class Store
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn)) As Long
         Return CreateRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue)
     End Function
-    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn)) As Long
+    Private Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn)) As Long
         initializer()
         ExecuteNonQuery(
             $"INSERT INTO [{tableName}] ([{firstColumnValue.Item1}],[{secondColumnValue.Item1}],[{thirdColumnValue.Item1}]) VALUES(@{firstColumnValue.Item1},@{secondColumnValue.Item1},@{thirdColumnValue.Item1});",
@@ -614,7 +614,7 @@ Public Class Store
             fourthColumnValue)
     End Function
 
-    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn)) As Long
+    Private Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn)) As Long
         initializer()
         ExecuteNonQuery(
             $"INSERT INTO [{tableName}] ([{firstColumnValue.Item1}],[{secondColumnValue.Item1}],[{thirdColumnValue.Item1}],[{fourthColumnValue.Item1}]) VALUES(@{firstColumnValue.Item1},@{secondColumnValue.Item1},@{thirdColumnValue.Item1}, @{fourthColumnValue.Item1});",
@@ -627,7 +627,7 @@ Public Class Store
     Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn, TFifthColumn)(tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn), fifthColumnValue As (String, TFifthColumn)) As Long
         Return CreateRecord(AddressOf NoInitializer, tableName, firstColumnValue, secondColumnValue, thirdColumnValue, fourthColumnValue, fifthColumnValue)
     End Function
-    Public Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn, TFifthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn), fifthColumnValue As (String, TFifthColumn)) As Long
+    Private Function CreateRecord(Of TFirstColumn, TSecondColumn, TThirdColumn, TFourthColumn, TFifthColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstColumn), secondColumnValue As (String, TSecondColumn), thirdColumnValue As (String, TThirdColumn), fourthColumnValue As (String, TFourthColumn), fifthColumnValue As (String, TFifthColumn)) As Long
         initializer()
         ExecuteNonQuery(
             $"INSERT INTO [{tableName}] ([{firstColumnValue.Item1}],[{secondColumnValue.Item1}],[{thirdColumnValue.Item1}],[{fourthColumnValue.Item1}],[{fifthColumnValue.Item1}]) VALUES(@{firstColumnValue.Item1},@{secondColumnValue.Item1},@{thirdColumnValue.Item1}, @{fourthColumnValue.Item1}, @{fifthColumnValue.Item1});",
@@ -638,7 +638,7 @@ Public Class Store
             MakeParameter($"@{fifthColumnValue.Item1}", fifthColumnValue.Item2))
         Return LastInsertRowId
     End Function
-    Public Function ReadCountForColumnValue(Of TInputColumn)(initializer As Action, tableName As String, inputColumnValue As (String, TInputColumn)) As Long
+    Private Function ReadCountForColumnValue(Of TInputColumn)(initializer As Action, tableName As String, inputColumnValue As (String, TInputColumn)) As Long
         initializer()
         Return ExecuteScalar(Of Long)(
             $"SELECT 
@@ -653,7 +653,7 @@ Public Class Store
                                                             inputColumnValue As (String, TInputColumn)) As Long
         Return ReadCountForColumnValue(AddressOf NoInitializer, tableName, inputColumnValue)
     End Function
-    Public Function ReadCount(initializer As Action, tableName As String) As Long
+    Private Function ReadCount(initializer As Action, tableName As String) As Long
         initializer()
         Return ExecuteScalar(Of Long)(
             $"SELECT 
@@ -663,7 +663,7 @@ Public Class Store
     Public Function ReadCount(tableName As String) As Long
         Return ReadCount(AddressOf NoInitializer, tableName)
     End Function
-    Public Function ReadCountForColumnValues(Of TFirstInputColumn, TSecondInputColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As Long
+    Private Function ReadCountForColumnValues(Of TFirstInputColumn, TSecondInputColumn)(initializer As Action, tableName As String, firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As Long
         initializer()
         Return ExecuteScalar(Of Long)(
             $"SELECT 
