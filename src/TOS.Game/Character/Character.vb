@@ -53,7 +53,10 @@
 
     Public ReadOnly Property CanDelete As Boolean
         Get
-            Return Not OnTheTeam AndAlso Not CanJoin AndAlso Not HasInventory() AndAlso Not HasEquipment
+            Return Not OnTheTeam AndAlso
+                Not CanJoin AndAlso
+                Not HasInventory() AndAlso
+                Not HasEquipment
         End Get
     End Property
 

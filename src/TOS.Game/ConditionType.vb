@@ -31,7 +31,7 @@
 
     Public ReadOnly Property CanDelete() As Boolean
         Get
-            Return True
+            Return WorldData.CharacterTypeCondition.CountForConditionType(Id) = 0
         End Get
     End Property
 

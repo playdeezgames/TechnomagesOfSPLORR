@@ -7,6 +7,7 @@ Public Class WorldData
     Public ReadOnly CharacterEquipSlot As CharacterEquipSlotData
     Public ReadOnly CharacterStatistic As CharacterStatisticData
     Public ReadOnly CharacterType As CharacterTypeData
+    Public ReadOnly CharacterTypeCondition As CharacterTypeConditionData
     Public ReadOnly CharacterTypeEquipSlot As CharacterTypeEquipSlotData
     Public ReadOnly CharacterTypeStatistic As CharacterTypeStatisticData
     Public ReadOnly ConditionType As ConditionTypeData
@@ -47,6 +48,7 @@ Public Class WorldData
         CharacterEquipSlot = New CharacterEquipSlotData(store)
         CharacterStatistic = New CharacterStatisticData(store)
         CharacterType = New CharacterTypeData(store)
+        CharacterTypeCondition = New CharacterTypeConditionData(store)
         CharacterTypeEquipSlot = New CharacterTypeEquipSlotData(store)
         CharacterTypeStatistic = New CharacterTypeStatisticData(store)
         ConditionType = New ConditionTypeData(store)
