@@ -198,6 +198,23 @@ Public Class Store
             MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2))
     End Function
+    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(tableName As String, outputColumnNames As (String, String), firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
+        Return ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(AddressOf NoInitializer, tableName, outputColumnNames, firstColumnValue, secondColumnValue)
+    End Function
+    Public Function ReadRecordsWithColumnValues(Of TFirstInputColumn, TSecondInputColumn, TFirstOutputColumn, TSecondOutputColumn)(initializer As Action, tableName As String, outputColumnNames As (String, String), firstColumnValue As (String, TFirstInputColumn), secondColumnValue As (String, TSecondInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn))
+        initializer()
+        Return ExecuteReader(
+            Function(reader) New Tuple(Of TFirstOutputColumn, TSecondOutputColumn)(CType(reader(outputColumnNames.Item1), TFirstOutputColumn), CType(reader(outputColumnNames.Item2), TSecondOutputColumn)),
+            $"SELECT 
+                [{outputColumnNames.Item1}] ,
+                [{outputColumnNames.Item2}] 
+            FROM [{tableName}] 
+            WHERE 
+                [{firstColumnValue.Item1}]=@{firstColumnValue.Item1} 
+                AND [{secondColumnValue.Item1}]=@{secondColumnValue.Item1};",
+            MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
+            MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2))
+    End Function
     Public Function ReadRecordsWithColumnValue(
             Of TInputColumn,
                 TFirstOutputColumn,
@@ -211,6 +228,35 @@ Public Class Store
             Function(reader) New Tuple(Of TFirstOutputColumn, TSecondOutputColumn)(CType(reader(outputColumnNames.Item1), TFirstOutputColumn), CType(reader(outputColumnNames.Item2), TSecondOutputColumn)),
             $"SELECT [{outputColumnNames.Item1}],[{outputColumnNames.Item2}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
             MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
+    End Function
+    Public Function ReadRecordsWithColumnValue(
+            Of TInputColumn,
+                TFirstOutputColumn,
+                TSecondOutputColumn,
+                TThirdOutputColumn)(
+                    initializer As Action,
+                    tableName As String,
+                    outputColumnNames As (String, String, String),
+                    forColumnValue As (String, TInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn, TThirdOutputColumn))
+        initializer()
+        Return ExecuteReader(
+            Function(reader) New Tuple(Of TFirstOutputColumn, TSecondOutputColumn, TThirdOutputColumn)(CType(reader(outputColumnNames.Item1), TFirstOutputColumn), CType(reader(outputColumnNames.Item2), TSecondOutputColumn), CType(reader(outputColumnNames.Item3), TThirdOutputColumn)),
+            $"SELECT [{outputColumnNames.Item1}],[{outputColumnNames.Item2}],[{outputColumnNames.Item3}] FROM [{tableName}] WHERE [{forColumnValue.Item1}]=@{forColumnValue.Item1};",
+            MakeParameter($"@{forColumnValue.Item1}", forColumnValue.Item2))
+    End Function
+    Public Function ReadRecordsWithColumnValue(
+            Of TInputColumn,
+                TFirstOutputColumn,
+                TSecondOutputColumn,
+                TThirdOutputColumn)(
+                    tableName As String,
+                    outputColumnNames As (String, String, String),
+                    forColumnValue As (String, TInputColumn)) As IEnumerable(Of Tuple(Of TFirstOutputColumn, TSecondOutputColumn, TThirdOutputColumn))
+        Return ReadRecordsWithColumnValue(Of TInputColumn, TFirstOutputColumn, TSecondOutputColumn, TThirdOutputColumn)(
+            AddressOf NoInitializer,
+            tableName,
+            outputColumnNames,
+            forColumnValue)
     End Function
     Public Function ReadRecordsWithColumnValue(
             Of TInputColumn,
@@ -340,6 +386,24 @@ Public Class Store
             MakeParameter($"@{firstColumnValue.Item1}", firstColumnValue.Item2),
             MakeParameter($"@{secondColumnValue.Item1}", secondColumnValue.Item2),
             MakeParameter($"@{thirdColumnValue.Item1}", thirdColumnValue.Item2))
+    End Sub
+    Public Sub ReplaceRecord(Of
+                                 TFirstColumn,
+                                 TSecondColumn,
+                                 TThirdColumn,
+                                 TFourthColumn)(
+                                               tableName As String,
+                                               firstColumnValue As (String, TFirstColumn),
+                                               secondColumnValue As (String, TSecondColumn),
+                                               thirdColumnValue As (String, TThirdColumn),
+                                               fourthColumnValue As (String, TFourthColumn))
+        ReplaceRecord(
+            AddressOf NoInitializer,
+            tableName,
+            firstColumnValue,
+            secondColumnValue,
+            thirdColumnValue,
+            fourthColumnValue)
     End Sub
     Public Sub ReplaceRecord(Of
                                  TFirstColumn,

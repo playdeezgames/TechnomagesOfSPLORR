@@ -38,4 +38,30 @@
     Public Sub Destroy()
         WorldData.ConditionType.Clear(Id)
     End Sub
+
+    Public ReadOnly Property HasStatisticRange As Boolean
+        Get
+            Return WorldData.ConditionTypeStatisticRange.CountForConditionType(Id) > 0
+        End Get
+    End Property
+
+    Public ReadOnly Property StatisticRanges As IEnumerable(Of (StatisticType, (Long, Long)))
+        Get
+            Return WorldData.ConditionTypeStatisticRange.ReadForConditionType(Id).
+                Select(Function(x) (StatisticType.FromId(World, x.Item1), (x.Item2, x.Item3)))
+        End Get
+    End Property
+
+    Public Property StatisticRange(statisticType As StatisticType) As (Long, Long)?
+        Get
+            Return WorldData.ConditionTypeStatisticRange.Read(Id, statisticType.Id)
+        End Get
+        Set(value As (Long, Long)?)
+            If value.HasValue Then
+                WorldData.ConditionTypeStatisticRange.Write(Id, statisticType.Id, value.Value.Item1, value.Value.Item2)
+            Else
+                WorldData.ConditionTypeStatisticRange.Clear(Id, statisticType.Id)
+            End If
+        End Set
+    End Property
 End Class

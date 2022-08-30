@@ -1,5 +1,6 @@
 ﻿Module Constants
     Friend Const AddChangeStatisticText = "Add/Change Statistic"
+    Friend Const AddChangeStatisticRangeText = "Add/Change Statistic Range"
     Friend Const AddCharacterText = "Add Chararacter"
     Friend Const AddEntranceText = "Add Entrance"
     Friend Const AddEquipSlotText = "Add Equip Slot"
@@ -44,6 +45,7 @@
     Friend Const RemoveExitText = "Remove Exit"
     Friend Const RemoveItemText = "Remove Item"
     Friend Const RemoveStatisticText = "Remove Statistic"
+    Friend Const RemoveStatisticRangeText = "Remove Statistic Range"
     Friend Const RouteTypesText = "Route Types"
     Friend Const SaveAndQuitText = "Save and Quit"
     Friend Const SetCharacterText = "Set Character"

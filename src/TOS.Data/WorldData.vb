@@ -10,6 +10,7 @@ Public Class WorldData
     Public ReadOnly CharacterTypeEquipSlot As CharacterTypeEquipSlotData
     Public ReadOnly CharacterTypeStatistic As CharacterTypeStatisticData
     Public ReadOnly ConditionType As ConditionTypeData
+    Public ReadOnly ConditionTypeStatisticRange As ConditionTypeStatisticRangeData
     Public ReadOnly EquipSlot As EquipSlotData
     Public ReadOnly Inventory As InventoryData
     Public ReadOnly InventoryItem As InventoryItemData
@@ -49,6 +50,7 @@ Public Class WorldData
         CharacterTypeEquipSlot = New CharacterTypeEquipSlotData(store)
         CharacterTypeStatistic = New CharacterTypeStatisticData(store)
         ConditionType = New ConditionTypeData(store)
+        ConditionTypeStatisticRange = New ConditionTypeStatisticRangeData(store)
         EquipSlot = New EquipSlotData(store)
         Inventory = New InventoryData(store)
         InventoryItem = New InventoryItemData(store)
