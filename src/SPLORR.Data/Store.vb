@@ -7,16 +7,6 @@ Public Class Store
         connection = New SqliteConnection("Data Source=:memory:")
         connection.Open()
     End Sub
-    Public Function Renew() As SqliteConnection
-        Dim result = connection
-        connection = Nothing
-        Reset()
-        Return result
-    End Function
-    Public Sub Restore(oldConnection As SqliteConnection)
-        ShutDown()
-        connection = oldConnection
-    End Sub
     Public Sub ShutDown()
         If connection IsNot Nothing Then
             connection.Close()
@@ -86,12 +76,6 @@ Public Class Store
             Return CType(result, TResult?)
         End If
         Return Nothing
-    End Function
-    Private Function ReadColumnValues(Of TOutputColumn)(initializer As Action, tableName As String, outputColumnName As String) As IEnumerable(Of TOutputColumn)
-        initializer()
-        Return ExecuteReader(
-            Function(reader) CType(reader(outputColumnName), TOutputColumn),
-            $"SELECT [{outputColumnName}] FROM [{tableName}];")
     End Function
     Private Function ReadColumnValue(Of TInputColumn, TOutputColumn As Structure)(initializer As Action, tableName As String, outputColumnName As String, inputColumnValue As (String, TInputColumn)) As TOutputColumn?
         initializer()
